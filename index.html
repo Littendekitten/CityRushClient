@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10131c">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <title>CityRush Client</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0b0e15;--panel:#131927;--panel2:#192235;--line:#27334a;--text:#f4f6fb;--muted:#9ba8bd;--gold:#ffc84b;--green:#73d7a4;--red:#ff7f86}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 82% 0%,#283248 0%,transparent 42%),var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+    button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+    .hidden{display:none!important}.page{min-height:100vh;display:grid;place-items:center;padding:24px}.auth-card{width:min(440px,100%);padding:34px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,#192235,#101621);box-shadow:0 24px 80px #0008}
+    .logo{display:flex;align-items:center;gap:12px;margin-bottom:26px}.logo-mark{width:46px;height:46px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(145deg,#ffe08a,#d99020);color:#17130a;font-size:23px;font-weight:1000;box-shadow:0 0 24px #e6a62c55}.logo h1{font-size:21px;letter-spacing:.08em;margin:0}.logo small{display:block;color:var(--muted);font-size:11px;letter-spacing:.2em;font-weight:800}
+    h2{margin:0 0 8px;font-size:28px;line-height:1.15}.muted{color:var(--muted)}.auth-card p{margin:0 0 22px}.primary,.secondary,.ghost{border:0;border-radius:12px;padding:12px 16px;font-weight:800;transition:transform .15s,filter .15s}.primary{background:linear-gradient(120deg,#ffda76,#e9a62f);color:#1b1608;box-shadow:0 7px 22px #e9a62f33}.secondary{background:#26334a;color:var(--text);border:1px solid #3a4963}.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}.primary:hover,.secondary:hover,.ghost:hover{filter:brightness(1.08);transform:translateY(-1px)}.wide{width:100%}.google-icon{width:18px;height:18px;background:#fff;border-radius:50%;display:inline-grid;place-items:center;color:#4285f4;font-weight:900;margin-right:8px}.status{min-height:22px;margin-top:12px;color:var(--muted);font-size:13px}.status.error{color:var(--red)}
+    #app{max-width:1180px;margin:0 auto;padding:24px 26px 52px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:10px 0 24px;border-bottom:1px solid var(--line)}.topbar .logo{margin:0}.user-box{display:flex;align-items:center;gap:10px}.avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;background:#28334a}.user-meta{line-height:1.25}.user-meta strong{display:block;font-size:13px}.user-meta small{color:var(--muted)}.top-actions{display:flex;gap:8px;align-items:center}
+    .hero{padding:42px 0 24px;display:flex;justify-content:space-between;align-items:end;gap:18px}.eyebrow{color:var(--gold);font-size:11px;font-weight:900;letter-spacing:.2em;text-transform:uppercase}.hero h2{font-size:clamp(30px,5vw,46px);margin:7px 0}.hero p{margin:0;max-width:560px;color:var(--muted)}.build-tag{padding:8px 11px;border:1px solid #4b3b20;color:#f5ce75;background:#3a2b152e;border-radius:999px;font-size:12px;font-weight:800;white-space:nowrap}
+    .section-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:30px 0 14px}.section-heading h3{margin:0;font-size:17px}.section-heading span{color:var(--muted);font-size:12px}
+    .instance-toolbar{display:flex;align-items:center;gap:12px}.instance-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.instance-card{border:1px solid var(--line);border-radius:18px;padding:17px;background:linear-gradient(145deg,#182235,#111722);min-width:0}.instance-card.selected{border-color:#e9b64e;box-shadow:0 0 0 1px #e9b64e55,0 12px 32px #0004}.instance-card-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}.instance-icon{font-size:23px}.instance-kind{padding:4px 8px;border:1px solid #3a4963;border-radius:999px;color:#c5d0e1;font-size:10px;font-weight:900;letter-spacing:.1em}.instance-card h4{font-size:17px;margin:0 0 5px;overflow-wrap:anywhere}.instance-card p{color:var(--muted);font-size:12px;margin:0 0 15px}.instance-actions{display:flex;gap:8px}.instance-actions button{padding:8px 10px;font-size:12px}.instance-actions .select-instance{flex:1}.instance-selected-tag{color:var(--gold);font-size:10px;font-weight:900;letter-spacing:.1em}.empty-instances{grid-column:1/-1;padding:24px;border:1px dashed #3a4963;border-radius:16px;color:var(--muted);text-align:center}.instance-dialog{width:min(480px,calc(100% - 28px));border:1px solid var(--line);border-radius:20px;padding:24px;background:#141d2b;color:var(--text);box-shadow:0 24px 80px #000a}.instance-dialog::backdrop{background:#02050bcc;backdrop-filter:blur(4px)}.instance-dialog h3{margin:0 0 6px}.dialog-field{display:grid;gap:7px;margin:16px 0}.dialog-field label{font-size:12px;font-weight:800;color:#cbd5e4}.dialog-field input,.dialog-field select{width:100%;border:1px solid #35445e;border-radius:10px;background:#0d1420;color:var(--text);padding:11px;font:inherit}.dialog-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:22px}
+    .mods-panel{padding:20px;border:1px solid var(--line);border-radius:18px;background:#121927}.mods-top{display:flex;justify-content:space-between;align-items:start;gap:14px;margin-bottom:14px}.mods-top h3{margin:0 0 3px}.mod-row{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:15px 0;border-top:1px solid #253149}.mod-row h4{margin:0 0 3px;font-size:14px}.mod-row p{margin:0;color:var(--muted);font-size:12px}.switch{width:48px;height:28px;border-radius:99px;background:#39465c;padding:3px;border:0;flex:none;transition:background .16s}.switch:after{content:"";display:block;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .16s}.switch[aria-checked="true"]{background:#d99c29}.switch[aria-checked="true"]:after{transform:translateX(20px)}.disabled-note{color:var(--muted);font-size:13px;padding:9px 0}
+    .launch-row{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:20px}.launch-row .muted{font-size:12px}.launch-button{min-width:220px;padding:15px 22px;font-size:15px}.footer-note{margin-top:24px;color:#77859c;font-size:11px}
+    #game-shell{position:fixed;inset:0;background:#05070b;z-index:10;display:flex;flex-direction:column}#gamebar{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#111827;border-bottom:1px solid #30394b;flex:none}#gamebar strong{font-size:12px;letter-spacing:.13em}#gamebar span{font-size:11px;color:var(--muted)}#game-frame{width:100%;height:calc(100% - 48px);border:0;background:#151923;flex:1}
+    @media(max-width:900px){.instance-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:700px){#app{padding:18px 16px 36px}.topbar{align-items:flex-start}.user-meta{display:none}.hero{padding:32px 0 10px;display:block}.build-tag{display:inline-block;margin-top:14px}.instance-grid{grid-template-columns:1fr}.launch-row{align-items:stretch;flex-direction:column}.launch-button{width:100%;min-width:0}.top-actions .ghost{padding:9px 10px}.logo h1{font-size:17px}.section-heading{align-items:flex-start;flex-direction:column}.instance-toolbar{width:100%;justify-content:space-between}}
+
+    .mod-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .mod-card{display:flex;gap:12px;align-items:flex-start;min-width:0;padding:13px;border:1px solid #29364d;border-radius:15px;background:linear-gradient(145deg,#172235,#101722)}
+    .mod-icon{width:72px;height:72px;object-fit:contain;flex:none;border-radius:12px;background:#0b111c}
+    .mod-content{min-width:0;flex:1}.mod-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.mod-head h4{margin:0;font-size:13px}.mod-content p{margin:3px 0 0;color:var(--muted);font-size:11px;line-height:1.4}
+    .mod-options{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:9px;padding-top:8px;border-top:1px solid #28354b;font-size:11px;color:#c5d0e1}
+    .mod-options[hidden]{display:none}.mod-options input[type=range]{width:min(150px,45%);accent-color:#e9b64e}.mod-options select{background:#0d1420;border:1px solid #35445e;color:#eef3fb;border-radius:8px;padding:5px 8px;font:inherit}.mod-options button{padding:5px 9px;border-radius:8px;background:#26334a;border:1px solid #3a4963;color:#fff;font-size:11px}
+    .switch:disabled{opacity:.35;cursor:not-allowed}.mod-dependency{font-size:10px;color:#f0c46c}
+    #gamebar{gap:12px}#gamebar .bar-actions{display:flex;align-items:center;gap:8px}#gamebar .bar-actions button{white-space:nowrap;padding:7px 10px;font-size:11px}
+    #show-gamebar{position:fixed;z-index:25;top:10px;right:10px;padding:8px 11px;background:#111827eF;border:1px solid #44536d;color:#eef3fb;border-radius:10px;font-size:11px;font-weight:800;box-shadow:0 6px 22px #0008}
+    @media(max-width:760px){.mod-grid{grid-template-columns:1fr}.mod-icon{width:62px;height:62px}}
+
+  </style>
+</head>
+<body>
+  <main id="auth-view" class="page">
+    <section class="auth-card">
+      <div class="logo"><div class="logo-mark">CR</div><div><h1>CITYRUSH CLIENT</h1><small>GAME INSTANCE MANAGER</small></div></div>
+      <div class="eyebrow">WELCOME BACK</div>
+      <h2>Sign in to CityRush.</h2>
+      <p class="muted">Your client settings and game progress sync to your CityRush Firebase account. No localStorage saves.</p>
+      <button id="google-signin" class="primary wide"><span class="google-icon">G</span>Continue with Google</button>
+      <div id="auth-status" class="status" role="status">Connecting to Firebase…</div>
+    </section>
+  </main>
+
+  <main id="app" class="hidden">
+    <header class="topbar">
+      <div class="logo"><div class="logo-mark">CR</div><div><h1>CITYRUSH CLIENT</h1><small>GAME INSTANCE MANAGER</small></div></div>
+      <div class="top-actions">
+        <div class="user-box"><img id="avatar" class="avatar" alt="" src=""><div class="user-meta"><strong id="user-name">Player</strong><small id="user-email"></small></div></div>
+        <button id="signout" class="ghost">Sign out</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div><div class="eyebrow">YOUR CITY. YOUR INSTANCE.</div><h2>Ready to rush?</h2><p>Choose the clean vanilla game, or boot MangoMod and pick the mods you want in your session.</p></div>
+      <div class="build-tag">CITYRUSH v0.1 · CLIENT v0.4</div>
+    </section>
+
+    <div class="section-heading">
+      <div><h3>1. Your instances</h3><span>Each instance is saved to your Firestore account. Maximum 3.</span></div>
+      <div class="instance-toolbar"><span id="instances-count" class="muted">0 / 3 instances</span><button id="create-instance-button" class="primary">＋ New instance</button></div>
+    </div>
+    <section id="instances-list" class="instance-grid" aria-label="Saved game instances"></section>
+
+    <div class="section-heading"><h3>2. MangoMod mods</h3><span id="mods-count">0 enabled</span></div>
+    <section class="mods-panel hidden" id="mods-panel">
+      <div class="mods-top"><div><h3>Mod manager</h3><div class="muted" style="font-size:12px">Every mod toggle and option is saved separately to this MangoMod instance.</div></div><span class="build-tag">MANGOMOD</span></div>
+      <div class="mod-grid">
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-translations.png" alt="BetterTranslations icon"><div class="mod-content"><div class="mod-head"><h4>BetterTranslations</h4><button class="switch" id="mod-translations" role="switch" aria-label="Enable BetterTranslations" aria-checked="true"></button></div><p>Translates CityRush's interface and missions into English.</p></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/ctrl-shift-lock.png" alt="CtrlShiftLock icon"><div class="mod-content"><div class="mod-head"><h4>CtrlShiftLock</h4><button class="switch" id="mod-ctrl-lock" role="switch" aria-label="Enable CtrlShiftLock" aria-checked="true"></button></div><p>Press Ctrl for a Roblox-style shoulder lock. Your avatar faces the camera direction; Shift still sprints.</p></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-cursor-capture.png" alt="BetterCursorCapture icon"><div class="mod-content"><div class="mod-head"><h4>BetterCursorCapture</h4><button class="switch" id="mod-better-cursor" role="switch" aria-label="Enable BetterCursorCapture" aria-checked="true"></button></div><p>Hold the right mouse button to look around without browser context menus.</p></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/cursor-capture.png" alt="CursorCapture icon"><div class="mod-content"><div class="mod-head"><h4>CursorCapture</h4><button class="switch" id="mod-cursor-capture" role="switch" aria-label="Enable CursorCapture" aria-checked="true"></button></div><p>Captures the cursor when you click the game. Click again to recapture after ESC.</p></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-esc.png" alt="BetterESC icon"><div class="mod-content"><div class="mod-head"><h4>BetterESC</h4><button class="switch" id="mod-better-esc" role="switch" aria-label="Enable BetterESC" aria-checked="true"></button></div><p>Lets ESC release the cursor, but only when CursorCapture is enabled.<br><span id="better-esc-dependency" class="mod-dependency">Requires CursorCapture.</span></p></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/unquieted.png" alt="Unquieted icon"><div class="mod-content"><div class="mod-head"><h4>Unquieted</h4><button class="switch" id="mod-unquieted" role="switch" aria-label="Enable Unquieted" aria-checked="true"></button></div><p>Original ambient background music with your own volume and toggle key.</p><div class="mod-options" id="unquieted-options"><label for="unquieted-volume">Volume <strong id="unquieted-volume-label">25%</strong></label><input id="unquieted-volume" type="range" min="0" max="100" step="1" value="25"><span>Music key</span><button id="unquieted-keybind" type="button">M</button></div></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-graphics.png" alt="BetterGraphics icon"><div class="mod-content"><div class="mod-head"><h4>BetterGraphics</h4><button class="switch" id="mod-better-graphics" role="switch" aria-label="Enable BetterGraphics" aria-checked="true"></button></div><p>Raises shadow-map detail and renderer quality for a sharper image.</p></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/world-slicer.png" alt="WorldSlicer icon"><div class="mod-content"><div class="mod-head"><h4>WorldSlicer</h4><button class="switch" id="mod-world-slicer" role="switch" aria-label="Enable WorldSlicer" aria-checked="true"></button></div><p>Controls how many procedural world cells are kept around your player.</p><div class="mod-options" id="world-slicer-options"><label for="world-slicer-radius">Loaded radius</label><select id="world-slicer-radius"><option value="1">1 cell · Fast</option><option value="2">2 cells · Balanced</option><option value="3">3 cells · Far</option></select></div></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-slices.png" alt="BetterSlices icon"><div class="mod-content"><div class="mod-head"><h4>BetterSlices</h4><button class="switch" id="mod-better-slices" role="switch" aria-label="Enable BetterSlices" aria-checked="true"></button></div><p>Uses camera-frustum culling to skip drawing distant world cells outside your view.</p></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/frames-unlocker.png" alt="FramesUnlocker icon"><div class="mod-content"><div class="mod-head"><h4>FramesUnlocker</h4><button class="switch" id="mod-frames-unlocker" role="switch" aria-label="Enable FramesUnlocker" aria-checked="true"></button></div><p>Choose a frame-update cap. Unlimited uses the browser's native display refresh rate.</p><div class="mod-options" id="frames-options"><label for="frames-cap">Frame cap</label><select id="frames-cap"><option value="30">30 FPS</option><option value="45">45 FPS</option><option value="60">60 FPS</option><option value="75">75 FPS</option><option value="90">90 FPS</option><option value="120">120 FPS</option><option value="144">144 FPS</option><option value="165">165 FPS</option><option value="240">240 FPS</option><option value="0">Unlimited</option></select></div></div></article>
+      </div>
+    </section>
+    <div id="vanilla-note" class="disabled-note hidden">This is a Vanilla instance. MangoMod mods and mod settings are not loaded in it.</div>
+
+    <dialog id="create-instance-dialog" class="instance-dialog">
+      <form id="create-instance-form">
+        <h3>Create a new instance</h3>
+        <p class="muted" style="font-size:13px;margin:0">Choose a name, instance type, and game version.</p>
+        <div class="dialog-field"><label for="new-instance-name">Instance name</label><input id="new-instance-name" name="name" maxlength="32" placeholder="My CityRush Instance" required></div>
+        <div class="dialog-field"><label for="new-instance-type">Instance type</label><select id="new-instance-type" name="type"><option value="vanilla">Vanilla</option><option value="mangomod">MangoMod</option></select></div>
+        <div class="dialog-field"><label for="new-instance-version">Game version</label><select id="new-instance-version" name="version"><option value="0.1">CityRush v0.1</option></select></div>
+        <div class="dialog-actions"><button type="button" id="cancel-create-instance" class="ghost">Cancel</button><button type="submit" id="confirm-create-instance" class="primary">Create instance</button></div>
+      </form>
+    </dialog>
+    <div class="launch-row"><div class="muted" id="launch-description">Vanilla CityRush will launch without mods.</div><button id="launch" class="primary launch-button">Launch CityRush</button></div>
+    <div id="app-status" class="status" role="status"></div>
+    <div class="footer-note">Client settings and game saves are stored in Cloud Firestore under your signed-in user account. Authentication uses browser IndexedDB persistence.</div>
+  </main>
+
+  <section id="game-shell" class="hidden" aria-label="CityRush game">
+    <header id="gamebar"><strong>CITYRUSH CLIENT</strong><span id="game-instance-label">VANILLA INSTANCE</span><div class="bar-actions"><button class="ghost" id="hide-gamebar" type="button">Hide this bar</button><button class="ghost" id="back-to-launcher">← Back to launcher</button></div></header>
+    <button id="show-gamebar" class="hidden" type="button">Show client bar</button>
+    <iframe id="game-frame" title="CityRush game" allow="fullscreen; gamepad" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  </section>
+
+  <script type="module">
+    import {
+      auth, db, googleProvider, signInWithPopup, signOut, onAuthStateChanged,
+      doc, getDoc, setDoc, serverTimestamp, collection, getDocs, runTransaction
+    } from "./firebase.js";
+
+    const $ = (id) => document.getElementById(id);
+    const authView = $("auth-view");
+    const appView = $("app");
+    const gameShell = $("game-shell");
+    const MAX_INSTANCES = 3;
+    const GAME_VERSION = "0.1";
+    const MOD_DEFAULTS = {
+      betterTranslations: true,
+      ctrlShiftLock: true,
+      betterCursorCapture: true,
+      cursorCapture: true,
+      betterESC: true,
+      unquieted: true,
+      unquietedVolume: 25,
+      unquietedKeybind: "KeyM",
+      betterGraphics: true,
+      worldSlicer: true,
+      worldSlicerRadius: 2,
+      betterSlices: true,
+      framesUnlocker: true,
+      frameCap: 0
+    };
+    const MOD_TOGGLE_KEYS = ["betterTranslations", "ctrlShiftLock", "betterCursorCapture", "cursorCapture", "betterESC", "unquieted", "betterGraphics", "worldSlicer", "betterSlices", "framesUnlocker"];
+    const FRAME_CAPS = [0, 30, 45, 60, 75, 90, 120, 144, 165, 240];
+    function normalizeMods(value = {}) {
+      const source = value && typeof value === "object" ? value : {};
+      const oldCtrl = typeof source.ctrlShiftLock === "boolean" ? source.ctrlShiftLock : source.ctrlShitLock;
+      const volume = Number(source.unquietedVolume);
+      const radius = Number(source.worldSlicerRadius);
+      const cap = Number(source.frameCap);
+      return {
+        betterTranslations: typeof source.betterTranslations === "boolean" ? source.betterTranslations : MOD_DEFAULTS.betterTranslations,
+        ctrlShiftLock: typeof oldCtrl === "boolean" ? oldCtrl : MOD_DEFAULTS.ctrlShiftLock,
+        betterCursorCapture: typeof source.betterCursorCapture === "boolean" ? source.betterCursorCapture : MOD_DEFAULTS.betterCursorCapture,
+        cursorCapture: typeof source.cursorCapture === "boolean" ? source.cursorCapture : MOD_DEFAULTS.cursorCapture,
+        betterESC: typeof source.betterESC === "boolean" ? (source.betterESC && source.cursorCapture !== false) : (source.cursorCapture === false ? false : MOD_DEFAULTS.betterESC),
+        unquieted: typeof source.unquieted === "boolean" ? source.unquieted : MOD_DEFAULTS.unquieted,
+        unquietedVolume: Number.isFinite(volume) ? Math.max(0, Math.min(100, Math.round(volume))) : MOD_DEFAULTS.unquietedVolume,
+        unquietedKeybind: typeof source.unquietedKeybind === "string" && /^(Key[A-Z]|Digit[0-9]|F([1-9]|1[0-2]))$/.test(source.unquietedKeybind) ? source.unquietedKeybind : MOD_DEFAULTS.unquietedKeybind,
+        betterGraphics: typeof source.betterGraphics === "boolean" ? source.betterGraphics : MOD_DEFAULTS.betterGraphics,
+        worldSlicer: typeof source.worldSlicer === "boolean" ? source.worldSlicer : MOD_DEFAULTS.worldSlicer,
+        worldSlicerRadius: Number.isFinite(radius) ? Math.max(1, Math.min(3, Math.round(radius))) : MOD_DEFAULTS.worldSlicerRadius,
+        betterSlices: typeof source.betterSlices === "boolean" ? source.betterSlices : MOD_DEFAULTS.betterSlices,
+        framesUnlocker: typeof source.framesUnlocker === "boolean" ? source.framesUnlocker : MOD_DEFAULTS.framesUnlocker,
+        frameCap: FRAME_CAPS.includes(cap) ? cap : MOD_DEFAULTS.frameCap
+      };
+    }
+    function keyLabel(code) {
+      return ({ KeyM: "M", KeyN: "N", KeyF: "F", KeyG: "G", KeyP: "P", KeyT: "T", Space: "Space" })[code] || String(code || "KeyM").replace(/^Key/, "").replace(/^Digit/, "");
+    }
+    let currentUser = null;
+    let profileRef = null;
+    let instances = [];
+    let selectedInstanceId = null;
+    let busy = false;
+    const instanceWriteQueues = new Map();
+
+    function setStatus(id, message, isError = false) {
+      const node = $(id);
+      node.textContent = message || "";
+      node.classList.toggle("error", Boolean(isError));
+    }
+
+    function showAuth(message = "") {
+      gameShell.classList.add("hidden");
+      appView.classList.add("hidden");
+      authView.classList.remove("hidden");
+      if (message) setStatus("auth-status", message, true);
+    }
+
+    function showApp() {
+      authView.classList.add("hidden");
+      gameShell.classList.add("hidden");
+      appView.classList.remove("hidden");
+    }
+
+    function instanceCollection() {
+      return collection(db, "users", currentUser.uid, "instances");
+    }
+
+    function instanceRef(id) {
+      return doc(db, "users", currentUser.uid, "instances", id);
+    }
+
+    function selectedInstance() {
+      return instances.find((instance) => instance.id === selectedInstanceId) || null;
+    }
+
+    function safeText(value) {
+      return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;"
+      })[char]);
+    }
+
+    function timeValue(value) {
+      if (value && typeof value.toMillis === "function") return value.toMillis();
+      if (typeof value === "number") return value;
+      return 0;
+    }
+
+    function renderInstances() {
+      const container = $("instances-list");
+      const activeId = selectedInstanceId;
+      const sorted = [...instances].sort((a, b) => timeValue(a.createdAt) - timeValue(b.createdAt));
+      if (!sorted.length) {
+        container.innerHTML = '<div class="empty-instances">No instances yet. Create your first Vanilla or MangoMod instance.</div>';
+      } else {
+        container.innerHTML = sorted.map((instance) => {
+          const isSelected = instance.id === activeId;
+          const isMango = instance.type === "mangomod";
+          return `<article class="instance-card${isSelected ? " selected" : ""}">
+            <div class="instance-card-top"><span class="instance-icon">${isMango ? "🥭" : "🏙️"}</span><span class="instance-kind">${isMango ? "MANGOMOD" : "VANILLA"}</span></div>
+            <h4>${safeText(instance.name)}</h4>
+            <p>CityRush v${safeText(instance.version || GAME_VERSION)} · ${isMango ? "Modded instance" : "Unmodified game"}</p>
+            <div class="instance-actions">
+              <button class="${isSelected ? "secondary" : "primary"} select-instance" data-action="select" data-id="${safeText(instance.id)}">${isSelected ? "Selected" : "Select instance"}</button>
+              <button class="ghost" data-action="delete" data-id="${safeText(instance.id)}" aria-label="Delete ${safeText(instance.name)}">Delete</button>
+            </div>
+          </article>`;
+        }).join("");
+      }
+      $("instances-count").textContent = `${instances.length} / ${MAX_INSTANCES} instances`;
+      $("create-instance-button").disabled = instances.length >= MAX_INSTANCES;
+      $("create-instance-button").title = instances.length >= MAX_INSTANCES ? "Delete an instance to make room" : "Create a new instance";
+    }
+
+    function render() {
+      $("user-name").textContent = currentUser?.displayName || "CityRush Player";
+      $("user-email").textContent = currentUser?.email || "";
+      const avatar = $("avatar");
+      if (currentUser?.photoURL) { avatar.src = currentUser.photoURL; avatar.classList.remove("hidden"); }
+      else { avatar.src = ""; avatar.classList.add("hidden"); }
+
+      const active = selectedInstance();
+      renderInstances();
+      const isMango = active?.type === "mangomod";
+      $("mods-panel").classList.toggle("hidden", !isMango);
+      $("vanilla-note").classList.toggle("hidden", !active || isMango);
+      const mods = normalizeMods(active?.mods);
+      if (active) active.mods = mods;
+      const switches = {
+        "mod-translations": "betterTranslations", "mod-ctrl-lock": "ctrlShiftLock",
+        "mod-better-cursor": "betterCursorCapture", "mod-cursor-capture": "cursorCapture",
+        "mod-better-esc": "betterESC", "mod-unquieted": "unquieted",
+        "mod-better-graphics": "betterGraphics", "mod-world-slicer": "worldSlicer",
+        "mod-better-slices": "betterSlices", "mod-frames-unlocker": "framesUnlocker"
+      };
+      for (const [elementId, key] of Object.entries(switches)) {
+        const control = $(elementId);
+        control.setAttribute("aria-checked", String(Boolean(mods[key])));
+      }
+      $("mod-better-esc").disabled = !mods.cursorCapture;
+      $("better-esc-dependency").textContent = mods.cursorCapture ? "Requires CursorCapture." : "Enable CursorCapture first.";
+      $("unquieted-volume").value = String(mods.unquietedVolume);
+      $("unquieted-volume-label").textContent = `${mods.unquietedVolume}%`;
+      $("unquieted-keybind").textContent = keyLabel(mods.unquietedKeybind);
+      $("unquieted-options").hidden = !mods.unquieted;
+      $("world-slicer-radius").value = String(mods.worldSlicerRadius);
+      $("world-slicer-options").hidden = !mods.worldSlicer;
+      $("frames-cap").value = String(mods.frameCap);
+      $("frames-options").hidden = !mods.framesUnlocker;
+      const count = MOD_TOGGLE_KEYS.filter((key) => Boolean(mods[key])).length;
+      $("mods-count").textContent = `${count} enabled`;
+      $("launch").disabled = !active || busy;
+      $("launch-description").textContent = !active
+        ? "Create an instance to start playing."
+        : `${active.name} · CityRush v${active.version || GAME_VERSION} · ${isMango ? `${count} MangoMod mod(s) enabled` : "Vanilla instance"}.`;
+    }
+
+    async function addInstanceRecord(name, type, version = GAME_VERSION, mods = MOD_DEFAULTS) {
+      if (!currentUser || !profileRef) throw new Error("You must be signed in to create an instance.");
+      if (instances.length >= MAX_INSTANCES) throw new Error("You can have a maximum of 3 instances. Delete one first.");
+      if (!["vanilla", "mangomod"].includes(type)) throw new Error("Unknown instance type.");
+      if (version !== GAME_VERSION) throw new Error("That game version is not available yet.");
+
+      const ref = doc(instanceCollection());
+      const cleanName = String(name || "").trim().slice(0, 32);
+      if (!cleanName) throw new Error("Enter an instance name.");
+      const safeMods = normalizeMods(mods);
+
+      await runTransaction(db, async (transaction) => {
+        const profileSnap = await transaction.get(profileRef);
+        const profile = profileSnap.exists() ? profileSnap.data() : {};
+        const ids = Array.isArray(profile.instanceIds) ? profile.instanceIds : [];
+        if (ids.length >= MAX_INSTANCES) throw new Error("You can have a maximum of 3 instances. Delete one first.");
+        transaction.set(ref, {
+          name: cleanName,
+          type,
+          version: GAME_VERSION,
+          mods: safeMods,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
+        transaction.set(profileRef, {
+          instanceIds: [...ids, ref.id],
+          selectedInstanceId: ref.id,
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+      });
+
+      instances.push({ id: ref.id, name: cleanName, type, version: GAME_VERSION, mods: safeMods, createdAt: Date.now() });
+      selectedInstanceId = ref.id;
+      render();
+      setStatus("app-status", `Created ${cleanName} and saved it to Firestore.`);
+    }
+
+    async function selectInstance(id) {
+      const match = instances.find((instance) => instance.id === id);
+      if (!match || id === selectedInstanceId) return;
+      const previousId = selectedInstanceId;
+      selectedInstanceId = id;
+      render();
+      try {
+        await setDoc(profileRef, { selectedInstanceId: id, updatedAt: serverTimestamp() }, { merge: true });
+        setStatus("app-status", `${match.name} selected and synced to Firestore.`);
+      } catch (error) {
+        console.error(error);
+        selectedInstanceId = previousId;
+        render();
+        setStatus("app-status", `Could not save selected instance: ${error.message}`, true);
+      }
+    }
+
+    async function saveModSettings(patch) {
+      const active = selectedInstance();
+      if (!active || active.type !== "mangomod") return;
+      const previous = normalizeMods(active.mods);
+      const nextMods = normalizeMods({ ...previous, ...patch });
+      if (!nextMods.cursorCapture) nextMods.betterESC = false;
+      active.mods = nextMods;
+      render();
+      const instanceId = active.id;
+      const write = (instanceWriteQueues.get(instanceId) || Promise.resolve())
+        .catch(() => {})
+        .then(() => setDoc(instanceRef(instanceId), { mods: nextMods, updatedAt: serverTimestamp() }, { merge: true }));
+      instanceWriteQueues.set(instanceId, write);
+      try {
+        await write;
+        if (selectedInstanceId === instanceId) setStatus("app-status", `${active.name} mod settings saved to Firestore.`);
+      } catch (error) {
+        console.error(error);
+        // Revert only if no newer local settings have superseded this failed save.
+        if (JSON.stringify(active.mods) === JSON.stringify(nextMods)) {
+          active.mods = previous;
+          render();
+        }
+        setStatus("app-status", `Could not save mod settings: ${error.message}`, true);
+      } finally {
+        if (instanceWriteQueues.get(instanceId) === write) instanceWriteQueues.delete(instanceId);
+      }
+    }
+
+    async function toggleMod(key) {
+      const active = selectedInstance();
+      if (!active || active.type !== "mangomod") return;
+      const current = normalizeMods(active.mods);
+      if (key === "betterESC" && !current.cursorCapture) {
+        setStatus("app-status", "BetterESC requires CursorCapture to be enabled.", true);
+        return;
+      }
+      const patch = { [key]: !current[key] };
+      if (key === "cursorCapture" && current.cursorCapture) patch.betterESC = false;
+      await saveModSettings(patch);
+    }
+
+    async function deleteInstance(id) {
+      const target = instances.find((instance) => instance.id === id);
+      if (!target || !window.confirm(`Delete the instance “${target.name}”? This removes its instance settings from Firestore.`)) return;
+      try {
+        const nextLocal = instances.filter((instance) => instance.id !== id);
+        const nextSelected = selectedInstanceId === id ? (nextLocal[0]?.id || null) : selectedInstanceId;
+        await runTransaction(db, async (transaction) => {
+          const profileSnap = await transaction.get(profileRef);
+          const profile = profileSnap.exists() ? profileSnap.data() : {};
+          const ids = Array.isArray(profile.instanceIds) ? profile.instanceIds : [];
+          if (!ids.includes(id)) throw new Error("This instance is no longer in your Firestore instance list.");
+          transaction.delete(instanceRef(id));
+          transaction.set(profileRef, {
+            instanceIds: ids.filter((instanceId) => instanceId !== id),
+            selectedInstanceId: nextSelected,
+            updatedAt: serverTimestamp()
+          }, { merge: true });
+        });
+        instances = nextLocal;
+        selectedInstanceId = nextSelected;
+        render();
+        setStatus("app-status", `${target.name} deleted from Firestore.`);
+      } catch (error) {
+        console.error(error);
+        setStatus("app-status", `Could not delete instance: ${error.message}`, true);
+      }
+    }
+
+    async function launchGame() {
+      const active = selectedInstance();
+      if (!currentUser || !active || busy) return;
+      busy = true;
+      $("launch").disabled = true;
+      setStatus("app-status", "Preparing your saved instance…");
+      try {
+        await setDoc(profileRef, { selectedInstanceId: active.id, updatedAt: serverTimestamp() }, { merge: true });
+        const enabledMods = [];
+        const modSettings = normalizeMods(active.mods);
+        if (active.type === "mangomod") {
+          const mapping = [
+            ["betterTranslations", "better-translations"], ["ctrlShiftLock", "ctrl-shift-lock"],
+            ["betterCursorCapture", "better-cursor-capture"], ["cursorCapture", "cursor-capture"],
+            ["betterESC", "better-esc"], ["unquieted", "unquieted"],
+            ["betterGraphics", "better-graphics"], ["worldSlicer", "world-slicer"],
+            ["betterSlices", "better-slices"], ["framesUnlocker", "frames-unlocker"]
+          ];
+          for (const [setting, modId] of mapping) if (modSettings[setting]) enabledMods.push(modId);
+        }
+        const params = new URLSearchParams({
+          instance: active.type,
+          instanceId: active.id,
+          version: active.version || GAME_VERSION
+        });
+        if (enabledMods.length) params.set("mods", enabledMods.join(","));
+        if (active.type === "mangomod") {
+          params.set("modConfig", JSON.stringify({
+            unquietedVolume: modSettings.unquietedVolume,
+            unquietedKeybind: modSettings.unquietedKeybind,
+            worldSlicerRadius: modSettings.worldSlicerRadius,
+            frameCap: modSettings.frameCap
+          }));
+        }
+        const gamePath = `game-versions/CityRush-v0.1/CityRush-v0.01.html?${params.toString()}`;
+        $("game-instance-label").textContent = `${active.name} · ${active.type === "mangomod" ? "MANGOMOD" : "VANILLA"} · v${active.version || GAME_VERSION}`;
+        $("gamebar").classList.remove("hidden");
+        $("show-gamebar").classList.add("hidden");
+        $("game-frame").src = gamePath;
+        appView.classList.add("hidden");
+        gameShell.classList.remove("hidden");
+      } catch (error) {
+        console.error(error);
+        setStatus("app-status", `Could not launch: ${error.message}`, true);
+      } finally {
+        busy = false;
+        $("launch").disabled = !selectedInstance();
+      }
+    }
+
+    async function loadProfile(user) {
+      currentUser = user;
+      profileRef = doc(db, "users", user.uid);
+      try {
+        let profileSnap = await getDoc(profileRef);
+        if (!profileSnap.exists()) {
+          await setDoc(profileRef, {
+            displayName: user.displayName || "CityRush Player",
+            email: user.email || "",
+            photoURL: user.photoURL || "",
+            instanceIds: [],
+            selectedInstanceId: null,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp()
+          });
+          profileSnap = await getDoc(profileRef);
+        }
+        const profileData = profileSnap.exists() ? profileSnap.data() : {};
+        const instanceSnap = await getDocs(instanceCollection());
+        if (instanceSnap.size > MAX_INSTANCES) throw new Error("Your account has more than 3 instances. Delete extras before continuing.");
+        const actualIds = instanceSnap.docs.map((item) => item.id);
+        const normalizedSelectedId = actualIds.includes(profileData.selectedInstanceId) ? profileData.selectedInstanceId : (actualIds[0] || null);
+        // Repair the parent index before writing child documents; the rules require each instance ID in it.
+        if (JSON.stringify(profileData.instanceIds || []) !== JSON.stringify(actualIds)
+          || profileData.selectedInstanceId !== normalizedSelectedId) {
+          await setDoc(profileRef, {
+            instanceIds: actualIds,
+            selectedInstanceId: normalizedSelectedId,
+            updatedAt: serverTimestamp()
+          }, { merge: true });
+        }
+        instances = instanceSnap.docs.map((item) => {
+          const data = item.data();
+          return { id: item.id, ...data, mods: normalizeMods(data.mods) };
+        });
+        // Persist new defaults and migrate the old ctrlShitLock typo without recreating instances.
+        for (const item of instanceSnap.docs) {
+          const normalized = normalizeMods(item.data().mods);
+          if (JSON.stringify(item.data().mods || {}) !== JSON.stringify(normalized)) {
+            await setDoc(instanceRef(item.id), { mods: normalized, updatedAt: serverTimestamp() }, { merge: true });
+          }
+        }
+
+        if (!instances.length) {
+          // Migrate the previous single-instance preference to one Firestore instance.
+          const legacyType = profileData.selectedInstance === "mangomod" ? "mangomod" : "vanilla";
+          const legacyMods = normalizeMods(profileData.mods);
+          await setDoc(profileRef, {
+            displayName: user.displayName || "CityRush Player",
+            email: user.email || "",
+            photoURL: user.photoURL || "",
+            instanceIds: [],
+            selectedInstanceId: null,
+            updatedAt: serverTimestamp()
+          }, { merge: true });
+          await addInstanceRecord(legacyType === "mangomod" ? "My MangoMod" : "My Vanilla", legacyType, GAME_VERSION, legacyMods);
+        } else {
+          const actualIds = instances.map((instance) => instance.id);
+          selectedInstanceId = actualIds.includes(profileData.selectedInstanceId) ? profileData.selectedInstanceId : actualIds[0];
+          await setDoc(profileRef, {
+            displayName: user.displayName || "CityRush Player",
+            email: user.email || "",
+            photoURL: user.photoURL || "",
+            instanceIds: actualIds,
+            selectedInstanceId,
+            updatedAt: serverTimestamp()
+          }, { merge: true });
+        }
+        showApp();
+        render();
+        setStatus("app-status", "Connected. Your instances and settings are synced with Firestore.");
+      } catch (error) {
+        console.error(error);
+        showAuth(`Firebase could not load your instances: ${error.message}. Check Firestore setup and rules.`);
+      }
+    }
+
+    $("google-signin").addEventListener("click", async () => {
+      setStatus("auth-status", "Opening Google sign-in…");
+      try {
+        googleProvider.setCustomParameters({ prompt: "select_account" });
+        await signInWithPopup(auth, googleProvider);
+      } catch (error) {
+        console.error(error);
+        const friendly = error.code === "auth/unauthorized-domain"
+          ? "This website domain is not authorized in Firebase Authentication. Add it under Authentication → Settings → Authorized domains."
+          : error.code === "auth/api-key-not-valid" || error.code === "auth/invalid-api-key"
+            ? "Google rejected the Firebase Web API key. Check that firebase.js contains the current Browser key from the cityrushclient project and that Identity Toolkit API and Token Service API are allowed."
+            : error.code === "auth/popup-closed-by-user" ? "The sign-in window was closed before finishing." : `${error.code || "Firebase error"}: ${error.message}`;
+        setStatus("auth-status", friendly, true);
+      }
+    });
+
+    $("instances-list").addEventListener("click", async (event) => {
+      const button = event.target.closest("button[data-action]");
+      if (!button) return;
+      const { action, id } = button.dataset;
+      if (action === "select") await selectInstance(id);
+      if (action === "delete") await deleteInstance(id);
+    });
+
+    $("create-instance-button").addEventListener("click", () => {
+      if (instances.length >= MAX_INSTANCES) return;
+      $("new-instance-name").value = instances.length === 0 ? "My CityRush" : `CityRush ${instances.length + 1}`;
+      $("create-instance-dialog").showModal();
+      $("new-instance-name").focus();
+    });
+    $("cancel-create-instance").addEventListener("click", () => $("create-instance-dialog").close());
+    $("create-instance-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const submit = $("confirm-create-instance");
+      submit.disabled = true;
+      try {
+        await addInstanceRecord($("new-instance-name").value, $("new-instance-type").value, $("new-instance-version").value, MOD_DEFAULTS);
+        $("create-instance-dialog").close();
+        $("create-instance-form").reset();
+      } catch (error) {
+        console.error(error);
+        setStatus("app-status", error.message, true);
+      } finally {
+        submit.disabled = false;
+      }
+    });
+
+    const modSwitchEvents = {
+      "mod-translations": "betterTranslations", "mod-ctrl-lock": "ctrlShiftLock",
+      "mod-better-cursor": "betterCursorCapture", "mod-cursor-capture": "cursorCapture",
+      "mod-better-esc": "betterESC", "mod-unquieted": "unquieted",
+      "mod-better-graphics": "betterGraphics", "mod-world-slicer": "worldSlicer",
+      "mod-better-slices": "betterSlices", "mod-frames-unlocker": "framesUnlocker"
+    };
+    for (const [elementId, key] of Object.entries(modSwitchEvents)) {
+      $(elementId).addEventListener("click", () => toggleMod(key));
+    }
+    $("unquieted-volume").addEventListener("change", event => saveModSettings({ unquietedVolume: Number(event.target.value) }));
+    $("world-slicer-radius").addEventListener("change", event => saveModSettings({ worldSlicerRadius: Number(event.target.value) }));
+    $("frames-cap").addEventListener("change", event => saveModSettings({ frameCap: Number(event.target.value) }));
+    let waitingForMusicKey = false;
+    $("unquieted-keybind").addEventListener("click", () => {
+      waitingForMusicKey = true;
+      $("unquieted-keybind").textContent = "Press a key…";
+      setStatus("app-status", "Press a key to use for toggling Unquieted music. Escape, Ctrl, Alt and Shift are reserved.");
+    });
+    window.addEventListener("keydown", async event => {
+      if (!waitingForMusicKey) return;
+      if (["Escape", "ControlLeft", "ControlRight", "AltLeft", "AltRight", "ShiftLeft", "ShiftRight", "MetaLeft", "MetaRight", "Tab"].includes(event.code)) return;
+      if (!/^(Key[A-Z]|Digit[0-9]|F([1-9]|1[0-2]))$/.test(event.code)) return;
+      event.preventDefault();
+      waitingForMusicKey = false;
+      await saveModSettings({ unquietedKeybind: event.code });
+    }, true);
+    $("hide-gamebar").addEventListener("click", () => {
+      $("gamebar").classList.add("hidden");
+      $("show-gamebar").classList.remove("hidden");
+    });
+    $("show-gamebar").addEventListener("click", () => {
+      $("gamebar").classList.remove("hidden");
+      $("show-gamebar").classList.add("hidden");
+    });
+    $("launch").addEventListener("click", launchGame);
+    $("signout").addEventListener("click", async () => {
+      try { $("game-frame").src = "about:blank"; await signOut(auth); showAuth(); }
+      catch (error) { setStatus("app-status", error.message, true); }
+    });
+    $("back-to-launcher").addEventListener("click", () => {
+      $("game-frame").src = "about:blank";
+      $("gamebar").classList.remove("hidden");
+      $("show-gamebar").classList.add("hidden");
+      gameShell.classList.add("hidden");
+      appView.classList.remove("hidden");
+    });
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) await loadProfile(user);
+      else {
+        currentUser = null;
+        profileRef = null;
+        instances = [];
+        selectedInstanceId = null;
+        showAuth("Sign in with Google to load your cloud instances.");
+      }
+    });
+  </script>
+</body>
+</html>
