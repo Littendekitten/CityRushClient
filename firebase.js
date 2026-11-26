@@ -20,7 +20,7 @@ import {
 // Firebase web config is intended to be present in client-side web apps.
 // Protect your data with Firestore Security Rules (see firestore.rules).
 export const firebaseConfig = {
-  apiKey: "AIzaSyCj681uAvSBtTzYLwbqmrnOifx9T-5ZoBc",
+  apiKey: "AIzaSyCV6O3G2vVb6ohHTyJNWfIh5S8noj9r_vQ",
   authDomain: "cityrushclient.firebaseapp.com",
   projectId: "cityrushclient",
   storageBucket: "cityrushclient.firebasestorage.app",
