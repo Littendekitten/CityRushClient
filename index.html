@@ -233,7 +233,9 @@
         console.error(error);
         const friendly = error.code === "auth/unauthorized-domain"
           ? "This website domain is not authorized in Firebase Authentication. Add it under Authentication → Settings → Authorized domains."
-          : error.code === "auth/popup-closed-by-user" ? "The sign-in window was closed before finishing." : error.message;
+          : error.code === "auth/api-key-not-valid" || error.code === "auth/invalid-api-key"
+            ? "Firebase is rejecting the exact Web API key configured in this client. This is not a paid-plan issue, and changing the game code cannot override it. In Firebase Console → Project settings → General → Your apps, select your CityRush Web app and check its current apiKey. If it is different, replace apiKey in firebase.js with that current value. If it is the same, check Google Cloud → APIs & Services → Credentials: the key must still exist, belong to project cityrushclient, and allow the Firebase Authentication API. Firebase's official troubleshooting guide is linked in README.md."
+            : error.code === "auth/popup-closed-by-user" ? "The sign-in window was closed before finishing." : `${error.code || "Firebase error"}: ${error.message}`;
         setStatus("auth-status", friendly, true);
       }
     });
