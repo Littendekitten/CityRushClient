@@ -47,7 +47,7 @@
 
     <section class="hero">
       <div><div class="eyebrow">YOUR CITY. YOUR INSTANCE.</div><h2>Ready to rush?</h2><p>Choose the clean vanilla game, or boot MangoMod and pick the mods you want in your session.</p></div>
-      <div class="build-tag">CITYRUSH v0.1 · CLIENT v0.1</div>
+      <div class="build-tag">CITYRUSH v0.1 · CLIENT v0.2.1</div>
     </section>
 
     <div class="section-heading">
@@ -60,7 +60,7 @@
     <section class="mods-panel hidden" id="mods-panel">
       <div class="mods-top"><div><h3>Mod manager</h3><div class="muted" style="font-size:12px">These toggles are saved separately for this MangoMod instance.</div></div><span class="build-tag">MANGOMOD</span></div>
       <div class="mod-row"><div><h4>BetterTranslations</h4><p>Changes the game's Dutch UI and mission text to English.</p></div><button class="switch" id="mod-translations" role="switch" aria-label="Enable BetterTranslations" aria-checked="true"></button></div>
-      <div class="mod-row"><div><h4>CtrlShitLock</h4><p>Ctrl toggles a shoulder camera lock. Your character keeps its normal movement-based facing.</p></div><button class="switch" id="mod-ctrl-lock" role="switch" aria-label="Enable CtrlShitLock" aria-checked="true"></button></div>
+      <div class="mod-row"><div><h4>CtrlShiftLock</h4><p>Ctrl toggles pointer-locked shoulder camera look. It never turns your avatar toward the camera; Shift still sprints.</p></div><button class="switch" id="mod-ctrl-lock" role="switch" aria-label="Enable CtrlShiftLock" aria-checked="true"></button></div>
       <div class="mod-row"><div><h4>BetterCursorCapture</h4><p>Hold the right mouse button to look around. Suppresses the game's browser context menu while playing.</p></div><button class="switch" id="mod-cursor-capture" role="switch" aria-label="Enable BetterCursorCapture" aria-checked="true"></button></div>
     </section>
     <div id="vanilla-note" class="disabled-note hidden">This is a Vanilla instance. MangoMod mods are not loaded in it.</div>
@@ -97,7 +97,18 @@
     const gameShell = $("game-shell");
     const MAX_INSTANCES = 3;
     const GAME_VERSION = "0.1";
-    const MOD_DEFAULTS = { betterTranslations: true, ctrlShitLock: true, betterCursorCapture: true };
+    const MOD_DEFAULTS = { betterTranslations: true, ctrlShiftLock: true, betterCursorCapture: true };
+    function normalizeMods(value = {}) {
+      const source = value && typeof value === "object" ? value : {};
+      return {
+        betterTranslations: typeof source.betterTranslations === "boolean" ? source.betterTranslations : MOD_DEFAULTS.betterTranslations,
+        // Migrate the typo used by v0.2 without losing the user's saved toggle.
+        ctrlShiftLock: typeof source.ctrlShiftLock === "boolean"
+          ? source.ctrlShiftLock
+          : (typeof source.ctrlShitLock === "boolean" ? source.ctrlShitLock : MOD_DEFAULTS.ctrlShiftLock),
+        betterCursorCapture: typeof source.betterCursorCapture === "boolean" ? source.betterCursorCapture : MOD_DEFAULTS.betterCursorCapture
+      };
+    }
     let currentUser = null;
     let profileRef = null;
     let instances = [];
@@ -185,9 +196,10 @@
       const isMango = active?.type === "mangomod";
       $("mods-panel").classList.toggle("hidden", !isMango);
       $("vanilla-note").classList.toggle("hidden", !active || isMango);
-      const mods = active?.mods || MOD_DEFAULTS;
+      const mods = normalizeMods(active?.mods);
+      if (active) active.mods = mods;
       $("mod-translations").setAttribute("aria-checked", String(Boolean(mods.betterTranslations)));
-      $("mod-ctrl-lock").setAttribute("aria-checked", String(Boolean(mods.ctrlShitLock)));
+      $("mod-ctrl-lock").setAttribute("aria-checked", String(Boolean(mods.ctrlShiftLock)));
       $("mod-cursor-capture").setAttribute("aria-checked", String(Boolean(mods.betterCursorCapture)));
       const count = Object.values(mods).filter(Boolean).length;
       $("mods-count").textContent = `${count} enabled`;
@@ -206,7 +218,7 @@
       const ref = doc(instanceCollection());
       const cleanName = String(name || "").trim().slice(0, 32);
       if (!cleanName) throw new Error("Enter an instance name.");
-      const safeMods = { ...MOD_DEFAULTS, ...(mods || {}) };
+      const safeMods = normalizeMods(mods);
 
       await runTransaction(db, async (transaction) => {
         const profileSnap = await transaction.get(profileRef);
@@ -306,7 +318,7 @@
         const enabledMods = [];
         if (active.type === "mangomod") {
           if (active.mods?.betterTranslations) enabledMods.push("better-translations");
-          if (active.mods?.ctrlShitLock) enabledMods.push("ctrl-shit-lock");
+          if (normalizeMods(active.mods).ctrlShiftLock) enabledMods.push("ctrl-shit-lock");
           if (active.mods?.betterCursorCapture) enabledMods.push("better-cursor-capture");
         }
         const params = new URLSearchParams({
@@ -348,13 +360,16 @@
         }
         const profileData = profileSnap.exists() ? profileSnap.data() : {};
         const instanceSnap = await getDocs(instanceCollection());
-        instances = instanceSnap.docs.map((item) => ({ id: item.id, ...item.data() }));
+        instances = instanceSnap.docs.map((item) => {
+          const data = item.data();
+          return { id: item.id, ...data, mods: normalizeMods(data.mods) };
+        });
         if (instances.length > MAX_INSTANCES) throw new Error("Your account has more than 3 instances. Delete extras before continuing.");
 
         if (!instances.length) {
           // Migrate the previous single-instance preference to one Firestore instance.
           const legacyType = profileData.selectedInstance === "mangomod" ? "mangomod" : "vanilla";
-          const legacyMods = { ...MOD_DEFAULTS, ...(profileData.mods || {}) };
+          const legacyMods = normalizeMods(profileData.mods);
           await setDoc(profileRef, {
             displayName: user.displayName || "CityRush Player",
             email: user.email || "",
@@ -433,7 +448,7 @@
     });
 
     $("mod-translations").addEventListener("click", () => toggleMod("betterTranslations"));
-    $("mod-ctrl-lock").addEventListener("click", () => toggleMod("ctrlShitLock"));
+    $("mod-ctrl-lock").addEventListener("click", () => toggleMod("ctrlShiftLock"));
     $("mod-cursor-capture").addEventListener("click", () => toggleMod("betterCursorCapture"));
     $("launch").addEventListener("click", launchGame);
     $("signout").addEventListener("click", async () => {

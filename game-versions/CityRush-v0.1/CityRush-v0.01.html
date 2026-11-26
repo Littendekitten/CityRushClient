@@ -227,9 +227,37 @@ window.CityRushAPI={
  unloaders:[],
  onModUnload(fn){if(typeof fn==='function')this.unloaders.push(fn)},
  unloadMods(){for(const fn of this.unloaders.splice(0)){try{fn()}catch(e){console.warn(e)}}},
- setShiftLock(enabled){this.shiftLockEnabled=Boolean(enabled)}
+ setShiftLock(enabled){
+  this.shiftLockEnabled=Boolean(enabled);
+  if(this.shiftLockEnabled){
+   if(document.pointerLockElement===cv)return Promise.resolve();
+   try{
+    const result=cv.requestPointerLock?.();
+    if(result&&typeof result.catch==='function')return result.catch(error=>{
+     this.shiftLockEnabled=false;
+     console.warn('[CtrlShiftLock] Pointer lock unavailable',error);
+     throw error;
+    });
+    return Promise.resolve();
+   }catch(error){
+    this.shiftLockEnabled=false;
+    console.warn('[CtrlShiftLock] Pointer lock unavailable',error);
+    return Promise.reject(error);
+   }
+  }
+  if(!this.rightMouseLookActive&&document.pointerLockElement===cv){
+   try{document.exitPointerLock?.()}catch(error){console.warn('[CtrlShiftLock] Could not release pointer lock',error)}
+  }
+  return Promise.resolve();
+ }
 };
-document.addEventListener('mousemove',e=>{if(window.CityRushAPI?.rightMouseLookActive&&document.pointerLockElement===cv){yaw-=e.movementX*.006;pitch=Math.max(.1,Math.min(1.2,pitch+e.movementY*.004))}});
+document.addEventListener('mousemove',e=>{
+ const api=window.CityRushAPI;
+ if((api?.shiftLockEnabled||api?.rightMouseLookActive)&&document.pointerLockElement===cv){
+  yaw-=e.movementX*.006;
+  pitch=Math.max(.1,Math.min(1.2,pitch+e.movementY*.004));
+ }
+});
 let last=performance.now(),mt=0;
 function loop(t){requestAnimationFrame(loop);const dt=Math.min((t-last)/1000,.05);last=t;now=t/1000;const play=st==='play';
  if(st==='idle')yaw+=dt*.12;

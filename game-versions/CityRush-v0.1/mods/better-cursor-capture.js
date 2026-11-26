@@ -30,7 +30,7 @@ export default {
     const endRightLook = event => {
       if (event && typeof event.button === "number" && event.button !== 2) return;
       api.rightMouseLookActive = false;
-      if (document.pointerLockElement === canvas) document.exitPointerLock?.();
+      if (!api.shiftLockEnabled && document.pointerLockElement === canvas) document.exitPointerLock?.();
     };
     const onContextMenu = event => preventGameContextMenu(event);
     const onPointerLockChange = () => {
