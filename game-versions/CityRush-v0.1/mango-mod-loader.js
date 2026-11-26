@@ -1,5 +1,6 @@
 const knownMods = {
   "better-translations": "./mods/better-translations.js",
+  "better-view": "./mods/better-view.js",
   "ctrl-shift-lock": "./mods/ctrl-shift-lock.js",
   "better-cursor-capture": "./mods/better-cursor-capture.js",
   "cursor-capture": "./mods/cursor-capture.js",
@@ -40,7 +41,7 @@ export async function loadMangoMods(api, requestedMods = []) {
   // Topologically order the small fixed dependency graph so parents always initialise first.
   const order = [
     "better-graphics", "world-slicer", "cursor-capture",
-    "better-translations", "ctrl-shift-lock", "better-cursor-capture", "better-esc",
+    "better-translations", "better-view", "ctrl-shift-lock", "better-cursor-capture", "better-esc",
     "unquieted", "detailed-graphics-addon", "better-animations", "more-cut-scenes", "more-sfx",
     "better-slices", "frames-unlocker"
   ];

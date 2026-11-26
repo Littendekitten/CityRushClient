@@ -59,7 +59,7 @@
 
     <section class="hero">
       <div><div class="eyebrow">YOUR CITY. YOUR INSTANCE.</div><h2>Ready to rush?</h2><p>Choose the clean vanilla game, or boot MangoMod and pick the mods you want in your session.</p></div>
-      <div class="build-tag">CITYRUSH v0.1 · CLIENT v0.5</div>
+      <div class="build-tag">CITYRUSH v0.1 · CLIENT v0.6</div>
     </section>
 
     <div class="section-heading">
@@ -72,8 +72,9 @@
     <section class="mods-panel hidden" id="mods-panel">
       <div class="mods-top"><div><h3>Mod manager</h3><div class="muted" style="font-size:12px">Every mod toggle and option is saved separately to this MangoMod instance.</div></div><span class="build-tag">MANGOMOD</span></div>
       <div class="mod-grid">
-        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-translations.png" alt="BetterTranslations icon"><div class="mod-content"><div class="mod-head"><h4>BetterTranslations</h4><button class="switch" id="mod-translations" role="switch" aria-label="Enable BetterTranslations" aria-checked="true"></button></div><p>Translates CityRush's interface and missions into English.</p></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-translations.png" alt="BetterTranslations icon"><div class="mod-content"><div class="mod-head"><h4>BetterTranslations</h4><button class="switch" id="mod-translations" role="switch" aria-label="Enable BetterTranslations" aria-checked="true"></button></div><p>Keeps the game in English from its very first frame; the base game text is English too.</p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/ctrl-shift-lock.png" alt="CtrlShiftLock icon"><div class="mod-content"><div class="mod-head"><h4>CtrlShiftLock</h4><button class="switch" id="mod-ctrl-lock" role="switch" aria-label="Enable CtrlShiftLock" aria-checked="true"></button></div><p>Press Ctrl for a Roblox-style shoulder lock. Your avatar faces the camera direction; Shift still sprints.</p></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-view.png" alt="BetterView icon"><div class="mod-content"><div class="mod-head"><h4>BetterView</h4><button class="switch" id="mod-better-view" role="switch" aria-label="Enable BetterView" aria-checked="true"></button></div><p>Scroll to zoom out up to 18 units or zoom all the way into first-person. Look vertically up and down like Minecraft.</p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-cursor-capture.png" alt="BetterCursorCapture icon"><div class="mod-content"><div class="mod-head"><h4>BetterCursorCapture</h4><button class="switch" id="mod-better-cursor" role="switch" aria-label="Enable BetterCursorCapture" aria-checked="true"></button></div><p>Hold the right mouse button to look around without browser context menus.</p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/cursor-capture.png" alt="CursorCapture icon"><div class="mod-content"><div class="mod-head"><h4>CursorCapture</h4><button class="switch" id="mod-cursor-capture" role="switch" aria-label="Enable CursorCapture" aria-checked="true"></button></div><p>Captures the cursor when you click the game. Click again to recapture after ESC.</p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-esc.png" alt="BetterESC icon"><div class="mod-content"><div class="mod-head"><h4>BetterESC</h4><button class="switch" id="mod-better-esc" role="switch" aria-label="Enable BetterESC" aria-checked="true"></button></div><p>Lets ESC release the cursor, but only when CursorCapture is enabled.<br><span id="better-esc-dependency" class="mod-dependency">Requires CursorCapture.</span></p></div></article>
@@ -81,7 +82,7 @@
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-graphics.png" alt="BetterGraphics icon"><div class="mod-content"><div class="mod-head"><h4>BetterGraphics</h4><button class="switch" id="mod-better-graphics" role="switch" aria-label="Enable BetterGraphics" aria-checked="true"></button></div><p>Raises shadow-map detail and renderer quality for a sharper image.</p></div></article>
         <article class="mod-card submod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/detailed-graphics-addon.png" alt="Detailed Graphics Addon icon"><div class="mod-content"><div class="mod-head"><h4>↳ Detailed Graphics Addon</h4><button class="switch" id="mod-detailed-graphics-addon" role="switch" aria-label="Enable Detailed Graphics Addon" aria-checked="true"></button></div><p>Adds visible facial details to the player, pedestrians, mission givers and boss. Requires BetterGraphics.<br><span id="detailed-graphics-dependency" class="mod-dependency">Requires BetterGraphics.</span></p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-animations.png" alt="BetterAnimations icon"><div class="mod-content"><div class="mod-head"><h4>BetterAnimations</h4><button class="switch" id="mod-better-animations" role="switch" aria-label="Enable BetterAnimations" aria-checked="true"></button></div><p>Improves player movement, idle breathing, jumps, pedestrians and interaction motion.</p></div></article>
-        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/more-cut-scenes.png" alt="MoreCutScenes icon"><div class="mod-content"><div class="mod-head"><h4>MoreCutScenes</h4><button class="switch" id="mod-more-cut-scenes" role="switch" aria-label="Enable MoreCutScenes" aria-checked="false"></button></div><p>Plays an unskippable, coordinate-personalized cinematic sequence when entering each building.</p></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/more-cut-scenes.png" alt="MoreCutScenes icon"><div class="mod-content"><div class="mod-head"><h4>MoreCutScenes</h4><button class="switch" id="mod-more-cut-scenes" role="switch" aria-label="Enable MoreCutScenes" aria-checked="true"></button></div><p>Plays an unskippable door-opening and walk-through cinematic when entering each building.</p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/more-sfx.png" alt="MoreSFX icon"><div class="mod-content"><div class="mod-head"><h4>MoreSFX</h4><button class="switch" id="mod-more-sfx" role="switch" aria-label="Enable MoreSFX" aria-checked="true"></button></div><p>Adds layered sound effects for footsteps, jumps, pickups, interactions, collisions, missions and building entries.</p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/world-slicer.png" alt="WorldSlicer icon"><div class="mod-content"><div class="mod-head"><h4>WorldSlicer</h4><button class="switch" id="mod-world-slicer" role="switch" aria-label="Enable WorldSlicer" aria-checked="true"></button></div><p>Controls how many procedural world cells are kept around your player.</p><div class="mod-options" id="world-slicer-options"><label for="world-slicer-radius">Loaded radius</label><select id="world-slicer-radius"><option value="1">1 cell · Fast</option><option value="2">2 cells · Balanced</option><option value="3">3 cells · Far</option></select></div></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-slices.png" alt="BetterSlices icon"><div class="mod-content"><div class="mod-head"><h4>BetterSlices</h4><button class="switch" id="mod-better-slices" role="switch" aria-label="Enable BetterSlices" aria-checked="true"></button></div><p>Uses camera-frustum culling to skip drawing streamed cells outside your view.<br><span id="better-slices-dependency" class="mod-dependency">Requires WorldSlicer.</span></p></div></article>
@@ -124,6 +125,7 @@
     const GAME_VERSION = "0.1";
     const MOD_DEFAULTS = {
       betterTranslations: true,
+      betterView: true,
       ctrlShiftLock: true,
       betterCursorCapture: true,
       cursorCapture: true,
@@ -134,7 +136,7 @@
       betterGraphics: true,
       detailedGraphicsAddon: true,
       betterAnimations: true,
-      moreCutScenes: false,
+      moreCutScenes: true,
       moreSFX: true,
       worldSlicer: true,
       worldSlicerRadius: 2,
@@ -142,7 +144,7 @@
       framesUnlocker: true,
       frameCap: 0
     };
-    const MOD_TOGGLE_KEYS = ["betterTranslations", "ctrlShiftLock", "betterCursorCapture", "cursorCapture", "betterESC", "unquieted", "betterGraphics", "detailedGraphicsAddon", "betterAnimations", "moreCutScenes", "moreSFX", "worldSlicer", "betterSlices", "framesUnlocker"];
+    const MOD_TOGGLE_KEYS = ["betterTranslations", "betterView", "ctrlShiftLock", "betterCursorCapture", "cursorCapture", "betterESC", "unquieted", "betterGraphics", "detailedGraphicsAddon", "betterAnimations", "moreCutScenes", "moreSFX", "worldSlicer", "betterSlices", "framesUnlocker"];
     const FRAME_CAPS = [0, 30, 45, 60, 75, 90, 120, 144, 165, 240];
     function normalizeMods(value = {}) {
       const source = value && typeof value === "object" ? value : {};
@@ -153,8 +155,10 @@
       const betterGraphics = typeof source.betterGraphics === "boolean" ? source.betterGraphics : MOD_DEFAULTS.betterGraphics;
       const worldSlicer = typeof source.worldSlicer === "boolean" ? source.worldSlicer : MOD_DEFAULTS.worldSlicer;
       const cursorCapture = typeof source.cursorCapture === "boolean" ? source.cursorCapture : MOD_DEFAULTS.cursorCapture;
+      const defaultsVersion = Number(source.modDefaultsVersion) || 0;
       return {
         betterTranslations: typeof source.betterTranslations === "boolean" ? source.betterTranslations : MOD_DEFAULTS.betterTranslations,
+        betterView: typeof source.betterView === "boolean" ? source.betterView : MOD_DEFAULTS.betterView,
         ctrlShiftLock: typeof oldCtrl === "boolean" ? oldCtrl : MOD_DEFAULTS.ctrlShiftLock,
         betterCursorCapture: typeof source.betterCursorCapture === "boolean" ? source.betterCursorCapture : MOD_DEFAULTS.betterCursorCapture,
         cursorCapture,
@@ -165,7 +169,8 @@
         betterGraphics,
         detailedGraphicsAddon: (typeof source.detailedGraphicsAddon === "boolean" ? source.detailedGraphicsAddon : MOD_DEFAULTS.detailedGraphicsAddon) && betterGraphics,
         betterAnimations: typeof source.betterAnimations === "boolean" ? source.betterAnimations : MOD_DEFAULTS.betterAnimations,
-        moreCutScenes: typeof source.moreCutScenes === "boolean" ? source.moreCutScenes : MOD_DEFAULTS.moreCutScenes,
+        moreCutScenes: defaultsVersion < 1 ? true : (typeof source.moreCutScenes === "boolean" ? source.moreCutScenes : MOD_DEFAULTS.moreCutScenes),
+        modDefaultsVersion: 1,
         moreSFX: typeof source.moreSFX === "boolean" ? source.moreSFX : MOD_DEFAULTS.moreSFX,
         worldSlicer,
         worldSlicerRadius: Number.isFinite(radius) ? Math.max(1, Math.min(3, Math.round(radius))) : MOD_DEFAULTS.worldSlicerRadius,
@@ -268,7 +273,7 @@
       const mods = normalizeMods(active?.mods);
       if (active) active.mods = mods;
       const switches = {
-        "mod-translations": "betterTranslations", "mod-ctrl-lock": "ctrlShiftLock",
+        "mod-translations": "betterTranslations", "mod-better-view": "betterView", "mod-ctrl-lock": "ctrlShiftLock",
         "mod-better-cursor": "betterCursorCapture", "mod-cursor-capture": "cursorCapture",
         "mod-better-esc": "betterESC", "mod-unquieted": "unquieted",
         "mod-better-graphics": "betterGraphics", "mod-detailed-graphics-addon": "detailedGraphicsAddon",
@@ -446,7 +451,7 @@
         const modSettings = normalizeMods(active.mods);
         if (active.type === "mangomod") {
           const mapping = [
-            ["betterTranslations", "better-translations"], ["ctrlShiftLock", "ctrl-shift-lock"],
+            ["betterTranslations", "better-translations"], ["betterView", "better-view"], ["ctrlShiftLock", "ctrl-shift-lock"],
             ["betterCursorCapture", "better-cursor-capture"], ["cursorCapture", "cursor-capture"],
             ["betterESC", "better-esc"], ["unquieted", "unquieted"],
             ["betterGraphics", "better-graphics"], ["detailedGraphicsAddon", "detailed-graphics-addon"],
@@ -610,7 +615,7 @@
     });
 
     const modSwitchEvents = {
-      "mod-translations": "betterTranslations", "mod-ctrl-lock": "ctrlShiftLock",
+      "mod-translations": "betterTranslations", "mod-better-view": "betterView", "mod-ctrl-lock": "ctrlShiftLock",
       "mod-better-cursor": "betterCursorCapture", "mod-cursor-capture": "cursorCapture",
       "mod-better-esc": "betterESC", "mod-unquieted": "unquieted",
       "mod-better-graphics": "betterGraphics", "mod-detailed-graphics-addon": "detailedGraphicsAddon",
@@ -645,35 +650,37 @@
       $("gamebar").classList.remove("hidden");
       gameShell.classList.remove("bar-hidden");
     }
-    let escRestoreTimer = null;
-    let escRestoreFired = false;
-    function beginEscRestoreHold() {
+    let barRestoreTimer = null;
+    let barRestoreFired = false;
+    function beginBarRestoreHold() {
       if (!gameShell.classList.contains("bar-hidden")) return;
-      if (escRestoreTimer) clearTimeout(escRestoreTimer);
-      escRestoreFired = false;
-      escRestoreTimer = setTimeout(() => {
-        escRestoreFired = true;
+      if (barRestoreTimer) clearTimeout(barRestoreTimer);
+      barRestoreFired = false;
+      barRestoreTimer = setTimeout(() => {
+        barRestoreFired = true;
         restoreGamebar();
-        setStatus("app-status", "Client bar restored. Hold ESC for 2.2 seconds to bring it back whenever it is hidden.");
+        setStatus("app-status", "Client bar restored. Hold the backtick (~) key for 2.2 seconds to bring it back whenever it is hidden.");
       }, 2200);
     }
-    function endEscRestoreHold() {
-      if (escRestoreTimer && !escRestoreFired) clearTimeout(escRestoreTimer);
-      escRestoreTimer = null;
+    function endBarRestoreHold() {
+      if (barRestoreTimer && !barRestoreFired) clearTimeout(barRestoreTimer);
+      barRestoreTimer = null;
     }
-    // Also listen in the parent document: after clicking Hide this bar, focus may still be here.
+    // Backquote restores the client bar; Escape stays reserved for browser pointer-lock/fullscreen behavior.
     document.addEventListener("keydown", event => {
-      if (event.code === "Escape" && !event.repeat) beginEscRestoreHold();
+      if (event.code === "Backquote" && !event.repeat) beginBarRestoreHold();
     }, true);
     document.addEventListener("keyup", event => {
-      if (event.code === "Escape") endEscRestoreHold();
+      if (event.code === "Backquote") endBarRestoreHold();
     }, true);
+    window.addEventListener("blur", endBarRestoreHold);
+    document.addEventListener("visibilitychange", () => { if (document.hidden) endBarRestoreHold(); });
     window.addEventListener("message", (event) => {
       const frame = $("game-frame");
       if (event.source !== frame.contentWindow || event.origin !== window.location.origin) return;
-      if (event.data?.type !== "cityrush:clientbar-escape") return;
-      if (event.data.action === "down") beginEscRestoreHold();
-      else if (event.data.action === "up") endEscRestoreHold();
+      if (event.data?.type !== "cityrush:clientbar-restore") return;
+      if (event.data.action === "down") beginBarRestoreHold();
+      else if (event.data.action === "up") endBarRestoreHold();
     });
     $("hide-gamebar").addEventListener("click", hideGamebar);
     $("launch").addEventListener("click", launchGame);
