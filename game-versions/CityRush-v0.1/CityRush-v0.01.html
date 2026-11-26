@@ -341,7 +341,8 @@ function tone(a,b,d,t='sine',v=.15){if(!AC)return;const T=AC.currentTime,o=AC.cr
 function runtimeSFXEnabled(){return Boolean(window.CityRushAPI?.moreSFXEnabled)}
 function flash(t){const f=$('fl');f.textContent=t;f.classList.remove('on');void f.offsetWidth;f.classList.add('on')}
 // state
-let st='idle',yaw=.6,pitch=.4,cameraDistance=7.5,lives=3,inv=0,shake=0,sc=0,cn=0,best=0,face=0,ph=0,now=0,cloudProgress=null,cloudSaveClock=0,playerMoveIntensity=0,footstepClock=0;
+let st='idle',yaw=.6,pitch=.4,cameraDistance=7.5,lives=3,inv=0,shake=0,sc=0,cn=0,best=0,face=0,ph=0,now=0,cloudProgress=null,cloudSaveClock=0,playerMoveIntensity=0,footstepClock=0,
+ jumpHeld=false,jumpBuffer=0,bhopSpeedUntil=0,lastLandingAt=-Infinity;
 function clampCameraPitch(value){const api=window.CityRushAPI;return Math.max(api?.betterViewEnabled?-1.553:.1,Math.min(api?.betterViewEnabled?1.553:1.2,value))}
 $('bs').textContent='';
 function saveCloudProgress(){
@@ -349,6 +350,7 @@ function saveCloudProgress(){
  window.CityRushCloud.save({bestScore:best,money,missionIndex:mi,playerX:px,playerZ:pz,completed:false,version:'cityrush-v0.1'}).catch(e=>console.warn('[CityRush] Cloud save failed',e));
 }
 function start(){inside=false;intG.visible=false;dm.visible=false;$('mm').style.display='block';
+ jumpHeld=false;jumpBuffer=0;bhopSpeedUntil=0;lastLandingAt=-Infinity;
  const resume=cloudProgress;px=resume&&Number.isFinite(resume.playerX)?resume.playerX:11;pz=resume&&Number.isFinite(resume.playerZ)?resume.playerZ:11;py=vy=0;lives=3;inv=0;sc=0;cn=0;
  money=resume?Math.max(0,Math.min(100,Number(resume.money)||0)):0;mi=resume?Math.max(0,Math.min(10,Number(resume.missionIndex)||0)):0;am=null;cloudProgress=null;
  coins.forEach(c=>c.visible=false);tgt.visible=false;rk.g.visible=false;rk.t=0;rk.done=0;st='play';givers.forEach(placeGiver);window.dispatchEvent(new CustomEvent('cityrush:sfx',{detail:{type:'start'}}));window.dispatchEvent(new Event('cityrush:start'));
