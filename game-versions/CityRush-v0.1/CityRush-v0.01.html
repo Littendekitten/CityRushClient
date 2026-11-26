@@ -94,9 +94,12 @@ function buildCell(cx,cz){const rnd=rngf(hash(cx,cz)+7),g=new THREE.Group(),boxe
  for(let k=0;k<2;k++){const ax=k==1,s=rnd()<.5?1:-1,al=12+rnd()*50,x=ax?cx*C+al:cx*C+s*6.6,z=ax?cz*C+s*6.6:cz*C+al,car=new THREE.Group(),b=new THREE.Mesh(carBodyG,pkM[(rnd()*6)|0]),gl=new THREE.Mesh(carGlassG,glassM),w1=new THREE.Mesh(axG,tireM),w2=new THREE.Mesh(axG,tireM);w1.position.set(0,.42,-1.5);w2.position.set(0,.42,1.5);b.castShadow=true;car.add(b,gl,w1,w2);car.position.set(x,0,z);car.rotation.y=ax?(s>0?Math.PI/2:-Math.PI/2):(s>0?0:Math.PI);g.add(car);pk.push(ax?[x-2.3,z-1,x+2.3,z+1]:[x-1,z-2.3,x+1,z+2.3])}
  return{g,boxes,doors,pk,cx,cz}}
 let px=11,pz=11,py=0,vy=0;
-function updateCells(){const cx=Math.floor(px/C),cz=Math.floor(pz/C);
- for(let i=-2;i<=2;i++)for(let j=-2;j<=2;j++){const k=(cx+i)+','+(cz+j);if(!cells.has(k)){const c=buildCell(cx+i,cz+j);S.add(c.g);cells.set(k,c)}}
- for(const[k,c]of cells)if(Math.abs(c.cx-cx)>3||Math.abs(c.cz-cz)>3){S.remove(c.g);c.g.traverse(o=>{if(o.userData.dg)o.geometry.dispose()});cells.delete(k)}}
+function updateCells(){const cx=Math.floor(px/C),cz=Math.floor(pz/C),api=window.CityRushAPI,radius=Math.max(1,Math.min(3,Math.round(Number(api?.worldCellRadius)||2)));
+ for(let i=-radius;i<=radius;i++)for(let j=-radius;j<=radius;j++){const k=(cx+i)+','+(cz+j);if(!cells.has(k)){const c=buildCell(cx+i,cz+j);S.add(c.g);cells.set(k,c)}}
+ for(const[k,c]of cells)if(Math.abs(c.cx-cx)>radius||Math.abs(c.cz-cz)>radius){S.remove(c.g);c.g.traverse(o=>{if(o.userData.dg)o.geometry.dispose()});cells.delete(k)}}
+function updateCellVisibility(){const api=window.CityRushAPI;if(!api?.betterSlicesEnabled){for(const c of cells.values())c.g.visible=true;return}
+ cam.updateMatrixWorld();const viewProjection=new THREE.Matrix4().multiplyMatrices(cam.projectionMatrix,cam.matrixWorldInverse),frustum=new THREE.Frustum().setFromProjectionMatrix(viewProjection),pxCell=Math.floor(px/C),pzCell=Math.floor(pz/C);
+ for(const c of cells.values()){const near=c.cx===pxCell&&c.cz===pzCell;const sphere=new THREE.Sphere(new THREE.Vector3(c.cx*C+C/2,28,c.cz*C+C/2),75);c.g.visible=near||frustum.intersectsSphere(sphere)}}
 function nearBoxes(x,z){const cx=Math.floor(x/C),cz=Math.floor(z/C),r=[];for(let i=-1;i<=1;i++)for(let j=-1;j<=1;j++){const c=cells.get((cx+i)+','+(cz+j));if(c)r.push(...c.boxes,...c.pk)}return r}
 const inBox=(x,z)=>nearBoxes(x,z).some(b=>x>b[0]&&x<b[2]&&z>b[1]&&z<b[3]);
 function collide(){if(inside){px=Math.max(INX-6.3,Math.min(INX+6.3,px));pz=Math.max(INZ-6.3,Math.min(INZ+6.3,pz))}for(const b of inside?INB:nearBoxes(px,pz)){const qx=Math.max(b[0],Math.min(px,b[2])),qz=Math.max(b[1],Math.min(pz,b[3])),dx=px-qx,dz=pz-qz,d=Math.hypot(dx,dz);if(d<.5){if(d>.001){px+=dx/d*(.5-d);pz+=dz/d*(.5-d)}else px=b[0]-.5}}}
@@ -193,7 +196,7 @@ function saveCloudProgress(){
 function start(){inside=false;intG.visible=false;dm.visible=false;$('mm').style.display='block';
  const resume=cloudProgress;px=resume&&Number.isFinite(resume.playerX)?resume.playerX:11;pz=resume&&Number.isFinite(resume.playerZ)?resume.playerZ:11;py=vy=0;lives=3;inv=0;sc=0;cn=0;
  money=resume?Math.max(0,Math.min(100,Number(resume.money)||0)):0;mi=resume?Math.max(0,Math.min(10,Number(resume.missionIndex)||0)):0;am=null;cloudProgress=null;
- coins.forEach(c=>c.visible=false);tgt.visible=false;rk.g.visible=false;rk.t=0;rk.done=0;st='play';givers.forEach(placeGiver);
+ coins.forEach(c=>c.visible=false);tgt.visible=false;rk.g.visible=false;rk.t=0;rk.done=0;st='play';givers.forEach(placeGiver);window.dispatchEvent(new Event('cityrush:start'));
  if(money>0||mi>0)flash('CLOUD SAVE LOADED');saveCloudProgress();if(money>=100)win()}
 function jump(){if(st==='play'&&py<=.01){vy=8.5;tone(300,650,.2,'square',.07)}}
 function hurt(c){if(inv>0)return;lives--;inv=2.2;shake=1;if(am&&am.d.t==='s')failM('Aangereden! Missie mislukt.');tone(150,30,.5,'sawtooth',.25);const dx=px-c.g.position.x,dz=pz-c.g.position.z,d=Math.hypot(dx,dz)||1;px+=dx/d*3;pz+=dz/d*3;collide();
@@ -221,45 +224,48 @@ function drawMap(){const s=.55,W=260,cs=Math.cos(yaw),sn=Math.sin(yaw);const P=(
  mm.fillStyle='#ff5050';cars.forEach(c=>{const p=P(c.g.position.x,c.g.position.z);mm.fillRect(p[0]-3,p[1]-3,6,6)});mm.fillStyle='#4dd2ff';if(!am)givers.forEach(g=>{if(!g.visible)return;const p=P(g.position.x,g.position.z);mm.beginPath();mm.arc(p[0],p[1],6,0,6.283);mm.fill()});mm.fillStyle='#ffd34d';coins.forEach(c=>{if(!c.visible)return;const p=P(c.position.x,c.position.z);mm.beginPath();mm.arc(p[0],p[1],4,0,6.283);mm.fill()});if(tgt.visible){let p=P(tgx,tgz);const dx=p[0]-130,dy=p[1]-130,dd=Math.hypot(dx,dy);if(dd>112)p=[130+dx/dd*112,130+dy/dd*112];mm.save();mm.translate(p[0],p[1]);mm.rotate(.785);mm.fillRect(-6,-6,12,12);mm.restore()}
  mm.fillStyle='#fff';mm.beginPath();mm.moveTo(130,118);mm.lineTo(138,138);mm.lineTo(122,138);mm.fill();mm.restore()}
 updateCells();cars.forEach(c=>placeCar(c,true));
+const GAME_PARAMS = new URLSearchParams(window.location.search);
+let parsedModConfig = {};
+try { parsedModConfig = JSON.parse(GAME_PARAMS.get('modConfig') || '{}') || {}; } catch (error) { console.warn('[MangoMod] Ignoring invalid mod config', error); }
 window.CityRushAPI={
  instance:'vanilla',loadedMods:[],modErrors:[],shiftLockEnabled:false,translationsEnabled:false,ctrlShiftLockEnabled:false,
- rightMouseLookEnabled:false,rightMouseLookActive:false,
- unloaders:[],
+ rightMouseLookEnabled:false,rightMouseLookActive:false,cursorCaptureEnabled:false,cursorCaptureSuspended:false,
+ betterEscEnabled:false,escapeUnlockPending:false,betterSlicesEnabled:false,worldCellRadius:2,frameCap:0,
+ modConfig:parsedModConfig,unloaders:[],
  onModUnload(fn){if(typeof fn==='function')this.unloaders.push(fn)},
  unloadMods(){for(const fn of this.unloaders.splice(0)){try{fn()}catch(e){console.warn(e)}}},
+ isPlaying(){return st==='play'},
+ getAudioContext(){au();return AC||null},
+ requestCursorLock(){
+  if(document.pointerLockElement===cv)return Promise.resolve();
+  try{const result=cv.requestPointerLock?.();return result&&typeof result.then==='function'?result:Promise.resolve()}catch(error){return Promise.reject(error)}
+ },
+ releaseCursorLock(){if(document.pointerLockElement===cv){try{document.exitPointerLock?.()}catch(error){console.warn('[MangoMod] Could not release cursor',error)}}},
+ setFrameCap(value){const n=Number(value)||0;this.frameCap=[0,30,45,60,75,90,120,144,165,240].includes(n)?n:0},
+ setWorldCellRadius(value){this.worldCellRadius=Math.max(1,Math.min(3,Math.round(Number(value)||2)));updateCells()},
+ setBetterSlices(enabled){this.betterSlicesEnabled=Boolean(enabled);updateCellVisibility()},
+ setBetterGraphics(enabled){
+  const high=Boolean(enabled),ratio=Math.min(window.devicePixelRatio||1,high?2.5:2);
+  R.setPixelRatio(ratio);R.setSize(innerWidth,innerHeight,false);R.shadowMap.enabled=true;const shadowSize=Math.min(high?4096:2048,R.capabilities.maxTextureSize||4096);sun.shadow.mapSize.set(shadowSize,shadowSize);sun.shadow.needsUpdate=true;
+  for(const material of mats){if(material.map)material.map.anisotropy=high?Math.min(8,R.capabilities.getMaxAnisotropy()):Math.min(4,R.capabilities.getMaxAnisotropy());if(material.map)material.map.needsUpdate=true}
+  this.betterGraphicsEnabled=high;
+ },
  setShiftLock(enabled){
   this.shiftLockEnabled=Boolean(enabled);
-  if(this.shiftLockEnabled){
-   if(document.pointerLockElement===cv)return Promise.resolve();
-   try{
-    const result=cv.requestPointerLock?.();
-    if(result&&typeof result.catch==='function')return result.catch(error=>{
-     this.shiftLockEnabled=false;
-     console.warn('[CtrlShiftLock] Pointer lock unavailable',error);
-     throw error;
-    });
-    return Promise.resolve();
-   }catch(error){
-    this.shiftLockEnabled=false;
-    console.warn('[CtrlShiftLock] Pointer lock unavailable',error);
-    return Promise.reject(error);
-   }
-  }
-  if(!this.rightMouseLookActive&&document.pointerLockElement===cv){
-   try{document.exitPointerLock?.()}catch(error){console.warn('[CtrlShiftLock] Could not release pointer lock',error)}
-  }
+  if(this.shiftLockEnabled){this.cursorCaptureSuspended=false;return this.requestCursorLock().catch(error=>{this.shiftLockEnabled=false;throw error})}
+  if(!this.rightMouseLookActive&&!(this.cursorCaptureEnabled&&!this.cursorCaptureSuspended))this.releaseCursorLock();
   return Promise.resolve();
  }
 };
 document.addEventListener('mousemove',e=>{
  const api=window.CityRushAPI;
- if((api?.shiftLockEnabled||api?.rightMouseLookActive)&&document.pointerLockElement===cv){
+ if((api?.shiftLockEnabled||api?.rightMouseLookActive||(api?.cursorCaptureEnabled&&!api?.cursorCaptureSuspended))&&document.pointerLockElement===cv){
   yaw-=e.movementX*.006;
   pitch=Math.max(.1,Math.min(1.2,pitch+e.movementY*.004));
  }
 });
-let last=performance.now(),mt=0;
-function loop(t){requestAnimationFrame(loop);const dt=Math.min((t-last)/1000,.05);last=t;now=t/1000;const play=st==='play';
+let last=performance.now(),mt=0,lastVisibilityCheck=0,lastCappedFrame=0;
+function loop(t){requestAnimationFrame(loop);const cap=window.CityRushAPI?.frameCap||0;if(cap>0){const interval=1000/cap;if(t-lastCappedFrame<interval)return;lastCappedFrame=t-((t-lastCappedFrame)%interval)}const dt=Math.min((t-last)/1000,.05);last=t;now=t/1000;const play=st==='play';
  if(st==='idle')yaw+=dt*.12;
  if(play){
   cloudSaveClock+=dt;if(cloudSaveClock>=20){cloudSaveClock=0;saveCloudProgress()}
@@ -278,7 +284,7 @@ function loop(t){requestAnimationFrame(loop);const dt=Math.min((t-last)/1000,.05
   if(Math.hypot(c.g.position.x-px,c.g.position.z-pz)>190)placeCar(c,false);
   else if(play&&Math.abs(c.g.position.x-px)<c.hx+.4&&Math.abs(c.g.position.z-pz)<c.hz+.4&&py<1.6)hurt(c)}
  if(!inside)for(const p of peds){p.g.position.x+=p.vx*dt;p.g.position.z+=p.vz*dt;p.g.position.y=.25+Math.abs(Math.sin(now*6+p.g.id))*.05;if(Math.hypot(p.g.position.x-px,p.g.position.z-pz)>150)placePed(p,false)}
- pl.position.set(px,py,pz);pl.rotation.y=face;pl.visible=inv<=0||Math.floor(now*20)%2==0;
+ const runtimeApi=window.CityRushAPI;if(runtimeApi?.shiftLockEnabled){face=Math.atan2(-Math.sin(yaw),-Math.cos(yaw))}pl.position.set(px,py,pz);pl.rotation.y=face;pl.visible=inv<=0||Math.floor(now*20)%2==0;
  const air=py>.05,sw=Math.sin(ph)*.9;legs[0].rotation.x=air?.6:sw;legs[1].rotation.x=air?-.3:-sw;arms[0].rotation.x=air?-2.4:-sw;arms[1].rotation.x=air?-2.4:sw;
  mt+=dt;if(mt>.5){mt=0;if(!inside)updateCells()}
  // camera with simple wall check
@@ -286,6 +292,7 @@ function loop(t){requestAnimationFrame(loop);const dt=Math.min((t-last)/1000,.05
  for(let d=1;d<=7.5;d+=.75){if(inBox(px+dxn*d,pz+dzn*d)&&Math.sin(pitch)*d<20){dist=Math.max(1.5,d-.9);break}}
  const shoulder=window.CityRushAPI?.shiftLockEnabled?1.05:0;cam.position.set(px+dxn*dist+Math.cos(yaw)*shoulder+(Math.random()-.5)*shake*.4,Math.max(.6,py+1.6+Math.sin(pitch)*dist),pz+dzn*dist-Math.sin(yaw)*shoulder);cam.lookAt(px,py+1.5,pz);
  if(inside){cam.position.x=Math.max(INX-6.2,Math.min(INX+6.2,cam.position.x));cam.position.z=Math.max(INZ-6.2,Math.min(INZ+6.2,cam.position.z));cam.position.y=Math.min(cam.position.y,3.6);cam.lookAt(px,py+1.5,pz)}
+ if(t-lastVisibilityCheck>180){updateCellVisibility();lastVisibilityCheck=t}
  if(st==='won')rocketTick(dt);else if(!play){cam.position.set(px+Math.sin(yaw)*12,6,pz+Math.cos(yaw)*12);cam.lookAt(px,2,pz)}
  sun.position.set(px-110,38,pz+70);sun.target.position.set(px,0,pz);ground.position.set(px,0,pz);asT.offset.set(px/AT,-pz/AT);skyM.position.copy(cam.position);sunS.position.copy(cam.position).addScaledVector(sunD,250);sunC.position.copy(sunS.position);clouds.forEach(c=>{c.a+=dt*.003;c.s.position.set(cam.position.x+Math.cos(c.a)*c.r,c.y,cam.position.z+Math.sin(c.a)*c.r)});
  drawMap();R.render(S,cam)}
