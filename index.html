@@ -16,11 +16,12 @@
     #app{max-width:1180px;margin:0 auto;padding:24px 26px 52px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:10px 0 24px;border-bottom:1px solid var(--line)}.topbar .logo{margin:0}.user-box{display:flex;align-items:center;gap:10px}.avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;background:#28334a}.user-meta{line-height:1.25}.user-meta strong{display:block;font-size:13px}.user-meta small{color:var(--muted)}.top-actions{display:flex;gap:8px;align-items:center}
     .hero{padding:42px 0 24px;display:flex;justify-content:space-between;align-items:end;gap:18px}.eyebrow{color:var(--gold);font-size:11px;font-weight:900;letter-spacing:.2em;text-transform:uppercase}.hero h2{font-size:clamp(30px,5vw,46px);margin:7px 0}.hero p{margin:0;max-width:560px;color:var(--muted)}.build-tag{padding:8px 11px;border:1px solid #4b3b20;color:#f5ce75;background:#3a2b152e;border-radius:999px;font-size:12px;font-weight:800;white-space:nowrap}
     .section-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:30px 0 14px}.section-heading h3{margin:0;font-size:17px}.section-heading span{color:var(--muted);font-size:12px}
-    .instances{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.instance{position:relative;text-align:left;border:1px solid var(--line);border-radius:18px;padding:20px;background:linear-gradient(145deg,#182235,#111722);color:var(--text);min-height:164px}.instance.selected{border-color:#e9b64e;box-shadow:0 0 0 1px #e9b64e55,0 12px 32px #0004}.instance .instance-icon{font-size:25px;margin-bottom:13px}.instance h4{margin:0 0 5px;font-size:18px}.instance p{margin:0;color:var(--muted);font-size:13px}.choice{position:absolute;right:16px;top:16px;color:var(--gold);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.12em}
+    .instance-toolbar{display:flex;align-items:center;gap:12px}.instance-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.instance-card{border:1px solid var(--line);border-radius:18px;padding:17px;background:linear-gradient(145deg,#182235,#111722);min-width:0}.instance-card.selected{border-color:#e9b64e;box-shadow:0 0 0 1px #e9b64e55,0 12px 32px #0004}.instance-card-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}.instance-icon{font-size:23px}.instance-kind{padding:4px 8px;border:1px solid #3a4963;border-radius:999px;color:#c5d0e1;font-size:10px;font-weight:900;letter-spacing:.1em}.instance-card h4{font-size:17px;margin:0 0 5px;overflow-wrap:anywhere}.instance-card p{color:var(--muted);font-size:12px;margin:0 0 15px}.instance-actions{display:flex;gap:8px}.instance-actions button{padding:8px 10px;font-size:12px}.instance-actions .select-instance{flex:1}.instance-selected-tag{color:var(--gold);font-size:10px;font-weight:900;letter-spacing:.1em}.empty-instances{grid-column:1/-1;padding:24px;border:1px dashed #3a4963;border-radius:16px;color:var(--muted);text-align:center}.instance-dialog{width:min(480px,calc(100% - 28px));border:1px solid var(--line);border-radius:20px;padding:24px;background:#141d2b;color:var(--text);box-shadow:0 24px 80px #000a}.instance-dialog::backdrop{background:#02050bcc;backdrop-filter:blur(4px)}.instance-dialog h3{margin:0 0 6px}.dialog-field{display:grid;gap:7px;margin:16px 0}.dialog-field label{font-size:12px;font-weight:800;color:#cbd5e4}.dialog-field input,.dialog-field select{width:100%;border:1px solid #35445e;border-radius:10px;background:#0d1420;color:var(--text);padding:11px;font:inherit}.dialog-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:22px}
     .mods-panel{padding:20px;border:1px solid var(--line);border-radius:18px;background:#121927}.mods-top{display:flex;justify-content:space-between;align-items:start;gap:14px;margin-bottom:14px}.mods-top h3{margin:0 0 3px}.mod-row{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:15px 0;border-top:1px solid #253149}.mod-row h4{margin:0 0 3px;font-size:14px}.mod-row p{margin:0;color:var(--muted);font-size:12px}.switch{width:48px;height:28px;border-radius:99px;background:#39465c;padding:3px;border:0;flex:none;transition:background .16s}.switch:after{content:"";display:block;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .16s}.switch[aria-checked="true"]{background:#d99c29}.switch[aria-checked="true"]:after{transform:translateX(20px)}.disabled-note{color:var(--muted);font-size:13px;padding:9px 0}
     .launch-row{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:20px}.launch-row .muted{font-size:12px}.launch-button{min-width:220px;padding:15px 22px;font-size:15px}.footer-note{margin-top:24px;color:#77859c;font-size:11px}
     #game-shell{position:fixed;inset:0;background:#05070b;z-index:10;display:flex;flex-direction:column}#gamebar{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#111827;border-bottom:1px solid #30394b;flex:none}#gamebar strong{font-size:12px;letter-spacing:.13em}#gamebar span{font-size:11px;color:var(--muted)}#game-frame{width:100%;height:calc(100% - 48px);border:0;background:#151923;flex:1}
-    @media(max-width:700px){#app{padding:18px 16px 36px}.topbar{align-items:flex-start}.user-meta{display:none}.hero{padding:32px 0 10px;display:block}.build-tag{display:inline-block;margin-top:14px}.instances{grid-template-columns:1fr}.instance{min-height:140px}.launch-row{align-items:stretch;flex-direction:column}.launch-button{width:100%;min-width:0}.top-actions .ghost{padding:9px 10px}.logo h1{font-size:17px}}
+    @media(max-width:900px){.instance-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:700px){#app{padding:18px 16px 36px}.topbar{align-items:flex-start}.user-meta{display:none}.hero{padding:32px 0 10px;display:block}.build-tag{display:inline-block;margin-top:14px}.instance-grid{grid-template-columns:1fr}.launch-row{align-items:stretch;flex-direction:column}.launch-button{width:100%;min-width:0}.top-actions .ghost{padding:9px 10px}.logo h1{font-size:17px}.section-heading{align-items:flex-start;flex-direction:column}.instance-toolbar{width:100%;justify-content:space-between}}
   </style>
 </head>
 <body>
@@ -49,23 +50,31 @@
       <div class="build-tag">CITYRUSH v0.1 · CLIENT v0.1</div>
     </section>
 
-    <div class="section-heading"><h3>1. Choose an instance</h3><span>Your choice syncs to your account</span></div>
-    <section class="instances" aria-label="Game instances">
-      <button class="instance" id="vanilla-card" data-instance="vanilla" aria-pressed="false">
-        <span class="choice" id="vanilla-choice"></span><div class="instance-icon">🏙️</div><h4>Vanilla CityRush</h4><p>Original game files, no mod loader and no mod changes.</p>
-      </button>
-      <button class="instance" id="mango-card" data-instance="mangomod" aria-pressed="false">
-        <span class="choice" id="mango-choice"></span><div class="instance-icon">🥭</div><h4>MangoMod</h4><p>Launch with MangoMod support and enable only the mods you want.</p>
-      </button>
-    </section>
+    <div class="section-heading">
+      <div><h3>1. Your instances</h3><span>Each instance is saved to your Firestore account. Maximum 3.</span></div>
+      <div class="instance-toolbar"><span id="instances-count" class="muted">0 / 3 instances</span><button id="create-instance-button" class="primary">＋ New instance</button></div>
+    </div>
+    <section id="instances-list" class="instance-grid" aria-label="Saved game instances"></section>
 
     <div class="section-heading"><h3>2. MangoMod mods</h3><span id="mods-count">0 enabled</span></div>
-    <section class="mods-panel" id="mods-panel">
-      <div class="mods-top"><div><h3>Mod manager</h3><div class="muted" style="font-size:12px">These toggles apply only to the MangoMod instance.</div></div><span class="build-tag">MANGOMOD</span></div>
+    <section class="mods-panel hidden" id="mods-panel">
+      <div class="mods-top"><div><h3>Mod manager</h3><div class="muted" style="font-size:12px">These toggles are saved separately for this MangoMod instance.</div></div><span class="build-tag">MANGOMOD</span></div>
       <div class="mod-row"><div><h4>BetterTranslations</h4><p>Changes the game's Dutch UI and mission text to English.</p></div><button class="switch" id="mod-translations" role="switch" aria-label="Enable BetterTranslations" aria-checked="true"></button></div>
-      <div class="mod-row"><div><h4>CtrlShitLock</h4><p>Toggle a Roblox-style over-the-shoulder shift lock with Ctrl. Shift remains sprint.</p></div><button class="switch" id="mod-ctrl-lock" role="switch" aria-label="Enable CtrlShitLock" aria-checked="true"></button></div>
+      <div class="mod-row"><div><h4>CtrlShitLock</h4><p>Ctrl toggles a shoulder camera lock. Your character keeps its normal movement-based facing.</p></div><button class="switch" id="mod-ctrl-lock" role="switch" aria-label="Enable CtrlShitLock" aria-checked="true"></button></div>
+      <div class="mod-row"><div><h4>BetterCursorCapture</h4><p>Hold the right mouse button to look around. Suppresses the game's browser context menu while playing.</p></div><button class="switch" id="mod-cursor-capture" role="switch" aria-label="Enable BetterCursorCapture" aria-checked="true"></button></div>
     </section>
-    <div id="vanilla-note" class="disabled-note hidden">MangoMod is not active in the Vanilla instance. Your mod selections are saved and will be used next time you choose MangoMod.</div>
+    <div id="vanilla-note" class="disabled-note hidden">This is a Vanilla instance. MangoMod mods are not loaded in it.</div>
+
+    <dialog id="create-instance-dialog" class="instance-dialog">
+      <form id="create-instance-form">
+        <h3>Create a new instance</h3>
+        <p class="muted" style="font-size:13px;margin:0">Choose a name, instance type, and game version.</p>
+        <div class="dialog-field"><label for="new-instance-name">Instance name</label><input id="new-instance-name" name="name" maxlength="32" placeholder="My CityRush Instance" required></div>
+        <div class="dialog-field"><label for="new-instance-type">Instance type</label><select id="new-instance-type" name="type"><option value="vanilla">Vanilla</option><option value="mangomod">MangoMod</option></select></div>
+        <div class="dialog-field"><label for="new-instance-version">Game version</label><select id="new-instance-version" name="version"><option value="0.1">CityRush v0.1</option></select></div>
+        <div class="dialog-actions"><button type="button" id="cancel-create-instance" class="ghost">Cancel</button><button type="submit" id="confirm-create-instance" class="primary">Create instance</button></div>
+      </form>
+    </dialog>
     <div class="launch-row"><div class="muted" id="launch-description">Vanilla CityRush will launch without mods.</div><button id="launch" class="primary launch-button">Launch CityRush</button></div>
     <div id="app-status" class="status" role="status"></div>
     <div class="footer-note">Client settings and game saves are stored in Cloud Firestore under your signed-in user account. Authentication uses browser IndexedDB persistence.</div>
@@ -77,16 +86,22 @@
   </section>
 
   <script type="module">
-    import { auth, db, googleProvider, signInWithPopup, signOut, onAuthStateChanged, doc, getDoc, setDoc, serverTimestamp } from "./firebase.js";
+    import {
+      auth, db, googleProvider, signInWithPopup, signOut, onAuthStateChanged,
+      doc, getDoc, setDoc, serverTimestamp, collection, getDocs, runTransaction
+    } from "./firebase.js";
 
     const $ = (id) => document.getElementById(id);
     const authView = $("auth-view");
     const appView = $("app");
     const gameShell = $("game-shell");
-    const defaults = { selectedInstance: "vanilla", mods: { betterTranslations: true, ctrlShitLock: true } };
+    const MAX_INSTANCES = 3;
+    const GAME_VERSION = "0.1";
+    const MOD_DEFAULTS = { betterTranslations: true, ctrlShitLock: true, betterCursorCapture: true };
     let currentUser = null;
-    let settings = structuredClone(defaults);
     let profileRef = null;
+    let instances = [];
+    let selectedInstanceId = null;
     let busy = false;
 
     function setStatus(id, message, isError = false) {
@@ -108,6 +123,56 @@
       appView.classList.remove("hidden");
     }
 
+    function instanceCollection() {
+      return collection(db, "users", currentUser.uid, "instances");
+    }
+
+    function instanceRef(id) {
+      return doc(db, "users", currentUser.uid, "instances", id);
+    }
+
+    function selectedInstance() {
+      return instances.find((instance) => instance.id === selectedInstanceId) || null;
+    }
+
+    function safeText(value) {
+      return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;"
+      })[char]);
+    }
+
+    function timeValue(value) {
+      if (value && typeof value.toMillis === "function") return value.toMillis();
+      if (typeof value === "number") return value;
+      return 0;
+    }
+
+    function renderInstances() {
+      const container = $("instances-list");
+      const activeId = selectedInstanceId;
+      const sorted = [...instances].sort((a, b) => timeValue(a.createdAt) - timeValue(b.createdAt));
+      if (!sorted.length) {
+        container.innerHTML = '<div class="empty-instances">No instances yet. Create your first Vanilla or MangoMod instance.</div>';
+      } else {
+        container.innerHTML = sorted.map((instance) => {
+          const isSelected = instance.id === activeId;
+          const isMango = instance.type === "mangomod";
+          return `<article class="instance-card${isSelected ? " selected" : ""}">
+            <div class="instance-card-top"><span class="instance-icon">${isMango ? "🥭" : "🏙️"}</span><span class="instance-kind">${isMango ? "MANGOMOD" : "VANILLA"}</span></div>
+            <h4>${safeText(instance.name)}</h4>
+            <p>CityRush v${safeText(instance.version || GAME_VERSION)} · ${isMango ? "Modded instance" : "Unmodified game"}</p>
+            <div class="instance-actions">
+              <button class="${isSelected ? "secondary" : "primary"} select-instance" data-action="select" data-id="${safeText(instance.id)}">${isSelected ? "Selected" : "Select instance"}</button>
+              <button class="ghost" data-action="delete" data-id="${safeText(instance.id)}" aria-label="Delete ${safeText(instance.name)}">Delete</button>
+            </div>
+          </article>`;
+        }).join("");
+      }
+      $("instances-count").textContent = `${instances.length} / ${MAX_INSTANCES} instances`;
+      $("create-instance-button").disabled = instances.length >= MAX_INSTANCES;
+      $("create-instance-button").title = instances.length >= MAX_INSTANCES ? "Delete an instance to make room" : "Create a new instance";
+    }
+
     function render() {
       $("user-name").textContent = currentUser?.displayName || "CityRush Player";
       $("user-email").textContent = currentUser?.email || "";
@@ -115,69 +180,143 @@
       if (currentUser?.photoURL) { avatar.src = currentUser.photoURL; avatar.classList.remove("hidden"); }
       else { avatar.src = ""; avatar.classList.add("hidden"); }
 
-      const vanilla = settings.selectedInstance === "vanilla";
-      $("vanilla-card").classList.toggle("selected", vanilla);
-      $("mango-card").classList.toggle("selected", !vanilla);
-      $("vanilla-card").setAttribute("aria-pressed", String(vanilla));
-      $("mango-card").setAttribute("aria-pressed", String(!vanilla));
-      $("vanilla-choice").textContent = vanilla ? "SELECTED" : "";
-      $("mango-choice").textContent = vanilla ? "" : "SELECTED";
-      $("mods-panel").classList.toggle("hidden", vanilla);
-      $("vanilla-note").classList.toggle("hidden", !vanilla);
-      $("mod-translations").setAttribute("aria-checked", String(Boolean(settings.mods.betterTranslations)));
-      $("mod-ctrl-lock").setAttribute("aria-checked", String(Boolean(settings.mods.ctrlShitLock)));
-      const count = Number(Boolean(settings.mods.betterTranslations)) + Number(Boolean(settings.mods.ctrlShitLock));
+      const active = selectedInstance();
+      renderInstances();
+      const isMango = active?.type === "mangomod";
+      $("mods-panel").classList.toggle("hidden", !isMango);
+      $("vanilla-note").classList.toggle("hidden", !active || isMango);
+      const mods = active?.mods || MOD_DEFAULTS;
+      $("mod-translations").setAttribute("aria-checked", String(Boolean(mods.betterTranslations)));
+      $("mod-ctrl-lock").setAttribute("aria-checked", String(Boolean(mods.ctrlShitLock)));
+      $("mod-cursor-capture").setAttribute("aria-checked", String(Boolean(mods.betterCursorCapture)));
+      const count = Object.values(mods).filter(Boolean).length;
       $("mods-count").textContent = `${count} enabled`;
-      $("launch-description").textContent = vanilla
-        ? "Vanilla CityRush will launch without mods."
-        : `MangoMod will launch with ${count} mod${count === 1 ? "" : "s"} enabled.`;
+      $("launch").disabled = !active || busy;
+      $("launch-description").textContent = !active
+        ? "Create an instance to start playing."
+        : `${active.name} · CityRush v${active.version || GAME_VERSION} · ${isMango ? `${count} MangoMod mod(s) enabled` : "Vanilla instance"}.`;
     }
 
-    async function saveSettings() {
-      if (!currentUser || !profileRef) return;
-      try {
-        await setDoc(profileRef, {
-          displayName: currentUser.displayName || "CityRush Player",
-          email: currentUser.email || "",
-          photoURL: currentUser.photoURL || "",
-          selectedInstance: settings.selectedInstance,
-          mods: settings.mods,
+    async function addInstanceRecord(name, type, version = GAME_VERSION, mods = MOD_DEFAULTS) {
+      if (!currentUser || !profileRef) throw new Error("You must be signed in to create an instance.");
+      if (instances.length >= MAX_INSTANCES) throw new Error("You can have a maximum of 3 instances. Delete one first.");
+      if (!["vanilla", "mangomod"].includes(type)) throw new Error("Unknown instance type.");
+      if (version !== GAME_VERSION) throw new Error("That game version is not available yet.");
+
+      const ref = doc(instanceCollection());
+      const cleanName = String(name || "").trim().slice(0, 32);
+      if (!cleanName) throw new Error("Enter an instance name.");
+      const safeMods = { ...MOD_DEFAULTS, ...(mods || {}) };
+
+      await runTransaction(db, async (transaction) => {
+        const profileSnap = await transaction.get(profileRef);
+        const profile = profileSnap.exists() ? profileSnap.data() : {};
+        const ids = Array.isArray(profile.instanceIds) ? profile.instanceIds : [];
+        if (ids.length >= MAX_INSTANCES) throw new Error("You can have a maximum of 3 instances. Delete one first.");
+        transaction.set(ref, {
+          name: cleanName,
+          type,
+          version: GAME_VERSION,
+          mods: safeMods,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
+        transaction.set(profileRef, {
+          instanceIds: [...ids, ref.id],
+          selectedInstanceId: ref.id,
           updatedAt: serverTimestamp()
         }, { merge: true });
-        setStatus("app-status", "Settings synced to Firebase.");
+      });
+
+      instances.push({ id: ref.id, name: cleanName, type, version: GAME_VERSION, mods: safeMods, createdAt: Date.now() });
+      selectedInstanceId = ref.id;
+      render();
+      setStatus("app-status", `Created ${cleanName} and saved it to Firestore.`);
+    }
+
+    async function selectInstance(id) {
+      const match = instances.find((instance) => instance.id === id);
+      if (!match || id === selectedInstanceId) return;
+      selectedInstanceId = id;
+      render();
+      try {
+        await setDoc(profileRef, { selectedInstanceId: id, updatedAt: serverTimestamp() }, { merge: true });
+        setStatus("app-status", `${match.name} selected and synced to Firestore.`);
       } catch (error) {
         console.error(error);
-        setStatus("app-status", `Could not sync settings: ${error.message}`, true);
+        setStatus("app-status", `Could not save selected instance: ${error.message}`, true);
       }
     }
 
-    async function chooseInstance(instance) {
-      settings.selectedInstance = instance;
+    async function toggleMod(key) {
+      const active = selectedInstance();
+      if (!active || active.type !== "mangomod") return;
+      const nextMods = { ...MOD_DEFAULTS, ...(active.mods || {}) };
+      nextMods[key] = !nextMods[key];
+      active.mods = nextMods;
       render();
-      await saveSettings();
+      try {
+        await setDoc(instanceRef(active.id), { mods: nextMods, updatedAt: serverTimestamp() }, { merge: true });
+        setStatus("app-status", `${active.name} mod settings saved to Firestore.`);
+      } catch (error) {
+        console.error(error);
+        nextMods[key] = !nextMods[key];
+        active.mods = nextMods;
+        render();
+        setStatus("app-status", `Could not save mod settings: ${error.message}`, true);
+      }
     }
 
-    async function toggleMod(key) {
-      settings.mods[key] = !settings.mods[key];
-      render();
-      await saveSettings();
+    async function deleteInstance(id) {
+      const target = instances.find((instance) => instance.id === id);
+      if (!target || !window.confirm(`Delete the instance “${target.name}”? This removes its instance settings from Firestore.`)) return;
+      try {
+        const nextLocal = instances.filter((instance) => instance.id !== id);
+        const nextSelected = selectedInstanceId === id ? (nextLocal[0]?.id || null) : selectedInstanceId;
+        await runTransaction(db, async (transaction) => {
+          const profileSnap = await transaction.get(profileRef);
+          const profile = profileSnap.exists() ? profileSnap.data() : {};
+          const ids = Array.isArray(profile.instanceIds) ? profile.instanceIds : [];
+          if (!ids.includes(id)) throw new Error("This instance is no longer in your Firestore instance list.");
+          transaction.delete(instanceRef(id));
+          transaction.set(profileRef, {
+            instanceIds: ids.filter((instanceId) => instanceId !== id),
+            selectedInstanceId: nextSelected,
+            updatedAt: serverTimestamp()
+          }, { merge: true });
+        });
+        instances = nextLocal;
+        selectedInstanceId = nextSelected;
+        render();
+        setStatus("app-status", `${target.name} deleted from Firestore.`);
+      } catch (error) {
+        console.error(error);
+        setStatus("app-status", `Could not delete instance: ${error.message}`, true);
+      }
     }
 
     async function launchGame() {
-      if (!currentUser || busy) return;
+      const active = selectedInstance();
+      if (!currentUser || !active || busy) return;
       busy = true;
       $("launch").disabled = true;
-      setStatus("app-status", "Saving settings and preparing your instance…");
+      setStatus("app-status", "Preparing your saved instance…");
       try {
-        await saveSettings();
-        const isMango = settings.selectedInstance === "mangomod";
+        await setDoc(profileRef, { selectedInstanceId: active.id, updatedAt: serverTimestamp() }, { merge: true });
         const enabledMods = [];
-        if (isMango && settings.mods.betterTranslations) enabledMods.push("better-translations");
-        if (isMango && settings.mods.ctrlShitLock) enabledMods.push("ctrl-shit-lock");
-        const params = new URLSearchParams({ instance: isMango ? "mangomod" : "vanilla" });
+        if (active.type === "mangomod") {
+          if (active.mods?.betterTranslations) enabledMods.push("better-translations");
+          if (active.mods?.ctrlShitLock) enabledMods.push("ctrl-shit-lock");
+          if (active.mods?.betterCursorCapture) enabledMods.push("better-cursor-capture");
+        }
+        const params = new URLSearchParams({
+          instance: active.type,
+          instanceId: active.id,
+          version: active.version || GAME_VERSION
+        });
         if (enabledMods.length) params.set("mods", enabledMods.join(","));
         const gamePath = `game-versions/CityRush-v0.1/CityRush-v0.01.html?${params.toString()}`;
-        $("game-instance-label").textContent = isMango ? `MANGOMOD · ${enabledMods.length} MOD(S)` : "VANILLA INSTANCE";
+        $("game-instance-label").textContent = `${active.name} · ${active.type === "mangomod" ? "MANGOMOD" : "VANILLA"} · v${active.version || GAME_VERSION}`;
         $("game-frame").src = gamePath;
         appView.classList.add("hidden");
         gameShell.classList.remove("hidden");
@@ -186,7 +325,7 @@
         setStatus("app-status", `Could not launch: ${error.message}`, true);
       } finally {
         busy = false;
-        $("launch").disabled = false;
+        $("launch").disabled = !selectedInstance();
       }
     }
 
@@ -194,34 +333,55 @@
       currentUser = user;
       profileRef = doc(db, "users", user.uid);
       try {
-        const snap = await getDoc(profileRef);
-        if (snap.exists()) {
-          const data = snap.data();
-          settings = {
-            selectedInstance: data.selectedInstance === "mangomod" ? "mangomod" : "vanilla",
-            mods: {
-              betterTranslations: data.mods?.betterTranslations !== false,
-              ctrlShitLock: data.mods?.ctrlShitLock !== false
-            }
-          };
-        } else {
-          settings = structuredClone(defaults);
+        let profileSnap = await getDoc(profileRef);
+        if (!profileSnap.exists()) {
           await setDoc(profileRef, {
             displayName: user.displayName || "CityRush Player",
             email: user.email || "",
             photoURL: user.photoURL || "",
-            selectedInstance: settings.selectedInstance,
-            mods: settings.mods,
+            instanceIds: [],
+            selectedInstanceId: null,
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp()
           });
+          profileSnap = await getDoc(profileRef);
+        }
+        const profileData = profileSnap.exists() ? profileSnap.data() : {};
+        const instanceSnap = await getDocs(instanceCollection());
+        instances = instanceSnap.docs.map((item) => ({ id: item.id, ...item.data() }));
+        if (instances.length > MAX_INSTANCES) throw new Error("Your account has more than 3 instances. Delete extras before continuing.");
+
+        if (!instances.length) {
+          // Migrate the previous single-instance preference to one Firestore instance.
+          const legacyType = profileData.selectedInstance === "mangomod" ? "mangomod" : "vanilla";
+          const legacyMods = { ...MOD_DEFAULTS, ...(profileData.mods || {}) };
+          await setDoc(profileRef, {
+            displayName: user.displayName || "CityRush Player",
+            email: user.email || "",
+            photoURL: user.photoURL || "",
+            instanceIds: [],
+            selectedInstanceId: null,
+            updatedAt: serverTimestamp()
+          }, { merge: true });
+          await addInstanceRecord(legacyType === "mangomod" ? "My MangoMod" : "My Vanilla", legacyType, GAME_VERSION, legacyMods);
+        } else {
+          const actualIds = instances.map((instance) => instance.id);
+          selectedInstanceId = actualIds.includes(profileData.selectedInstanceId) ? profileData.selectedInstanceId : actualIds[0];
+          await setDoc(profileRef, {
+            displayName: user.displayName || "CityRush Player",
+            email: user.email || "",
+            photoURL: user.photoURL || "",
+            instanceIds: actualIds,
+            selectedInstanceId,
+            updatedAt: serverTimestamp()
+          }, { merge: true });
         }
         showApp();
         render();
-        setStatus("app-status", "Connected. Your profile is synced with Firestore.");
+        setStatus("app-status", "Connected. Your instances and settings are synced with Firestore.");
       } catch (error) {
         console.error(error);
-        showAuth(`Firebase could not load your profile: ${error.message}. Check Firestore setup and rules.`);
+        showAuth(`Firebase could not load your instances: ${error.message}. Check Firestore setup and rules.`);
       }
     }
 
@@ -235,21 +395,51 @@
         const friendly = error.code === "auth/unauthorized-domain"
           ? "This website domain is not authorized in Firebase Authentication. Add it under Authentication → Settings → Authorized domains."
           : error.code === "auth/api-key-not-valid" || error.code === "auth/invalid-api-key"
-            ? "Firebase is rejecting the exact Web API key configured in this client. This is not a paid-plan issue, and changing the game code cannot override it. In Firebase Console → Project settings → General → Your apps, select your CityRush Web app and check its current apiKey. If it is different, replace apiKey in firebase.js with that current value. If it is the same, check Google Cloud → APIs & Services → Credentials: the key must still exist, belong to project cityrushclient, and allow the Firebase Authentication API. Firebase's official troubleshooting guide is linked in README.md."
+            ? "Google rejected the Firebase Web API key. Check that firebase.js contains the current Browser key from the cityrushclient project and that Identity Toolkit API and Token Service API are allowed."
             : error.code === "auth/popup-closed-by-user" ? "The sign-in window was closed before finishing." : `${error.code || "Firebase error"}: ${error.message}`;
         setStatus("auth-status", friendly, true);
       }
     });
 
+    $("instances-list").addEventListener("click", async (event) => {
+      const button = event.target.closest("button[data-action]");
+      if (!button) return;
+      const { action, id } = button.dataset;
+      if (action === "select") await selectInstance(id);
+      if (action === "delete") await deleteInstance(id);
+    });
+
+    $("create-instance-button").addEventListener("click", () => {
+      if (instances.length >= MAX_INSTANCES) return;
+      $("new-instance-name").value = instances.length === 0 ? "My CityRush" : `CityRush ${instances.length + 1}`;
+      $("create-instance-dialog").showModal();
+      $("new-instance-name").focus();
+    });
+    $("cancel-create-instance").addEventListener("click", () => $("create-instance-dialog").close());
+    $("create-instance-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const submit = $("confirm-create-instance");
+      submit.disabled = true;
+      try {
+        await addInstanceRecord($("new-instance-name").value, $("new-instance-type").value, $("new-instance-version").value, MOD_DEFAULTS);
+        $("create-instance-dialog").close();
+        $("create-instance-form").reset();
+      } catch (error) {
+        console.error(error);
+        setStatus("app-status", error.message, true);
+      } finally {
+        submit.disabled = false;
+      }
+    });
+
+    $("mod-translations").addEventListener("click", () => toggleMod("betterTranslations"));
+    $("mod-ctrl-lock").addEventListener("click", () => toggleMod("ctrlShitLock"));
+    $("mod-cursor-capture").addEventListener("click", () => toggleMod("betterCursorCapture"));
+    $("launch").addEventListener("click", launchGame);
     $("signout").addEventListener("click", async () => {
       try { $("game-frame").src = "about:blank"; await signOut(auth); showAuth(); }
       catch (error) { setStatus("app-status", error.message, true); }
     });
-    $("vanilla-card").addEventListener("click", () => chooseInstance("vanilla"));
-    $("mango-card").addEventListener("click", () => chooseInstance("mangomod"));
-    $("mod-translations").addEventListener("click", () => toggleMod("betterTranslations"));
-    $("mod-ctrl-lock").addEventListener("click", () => toggleMod("ctrlShitLock"));
-    $("launch").addEventListener("click", launchGame);
     $("back-to-launcher").addEventListener("click", () => {
       $("game-frame").src = "about:blank";
       gameShell.classList.add("hidden");
@@ -258,7 +448,13 @@
 
     onAuthStateChanged(auth, async (user) => {
       if (user) await loadProfile(user);
-      else { currentUser = null; profileRef = null; showAuth("Sign in with Google to load your cloud profile."); }
+      else {
+        currentUser = null;
+        profileRef = null;
+        instances = [];
+        selectedInstanceId = null;
+        showAuth("Sign in with Google to load your cloud instances.");
+      }
     });
   </script>
 </body>

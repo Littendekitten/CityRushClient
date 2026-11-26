@@ -202,8 +202,14 @@ function hurt(c){if(inv>0)return;lives--;inv=2.2;shake=1;if(am&&am.d.t==='s')fai
 const keys={};addEventListener('keydown',e=>{keys[e.code]=1;if(e.code==='Space'){e.preventDefault();jump()}if(e.code==='KeyE')talk()});addEventListener('keyup',e=>keys[e.code]=0);
 let stick=null,look=null,sx=0,sy=0,ix=0,iy=0;
 const cv=$('c');
-cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);if(e.pointerType==='touch'&&e.clientX<innerWidth/2&&!stick)stick={id:e.pointerId,x:e.clientX,y:e.clientY};else if(!look)look={id:e.pointerId,x:e.clientX,y:e.clientY}});
-cv.addEventListener('pointermove',e=>{if(stick&&e.pointerId===stick.id){ix=Math.max(-1,Math.min(1,(e.clientX-stick.x)/50));iy=Math.max(-1,Math.min(1,(stick.y-e.clientY)/50))}
+cv.addEventListener('pointerdown',e=>{
+ if(e.pointerType==='mouse'&&e.button!==0&&!(e.button===2&&window.CityRushAPI?.rightMouseLookEnabled))return;
+ if(e.pointerType==='mouse'&&e.button===2)e.preventDefault();
+ try{cv.setPointerCapture(e.pointerId)}catch{}
+ if(e.pointerType==='touch'&&e.clientX<innerWidth/2&&!stick)stick={id:e.pointerId,x:e.clientX,y:e.clientY};
+ else if(!look)look={id:e.pointerId,x:e.clientX,y:e.clientY,button:e.button};
+});
+cv.addEventListener('pointermove',e=>{if(document.pointerLockElement===cv)return;if(stick&&e.pointerId===stick.id){ix=Math.max(-1,Math.min(1,(e.clientX-stick.x)/50));iy=Math.max(-1,Math.min(1,(stick.y-e.clientY)/50))}
  else if(look&&e.pointerId===look.id){yaw-=(e.clientX-look.x)*.006;pitch=Math.max(.1,Math.min(1.2,pitch+(e.clientY-look.y)*.004));look.x=e.clientX;look.y=e.clientY}});
 const up=e=>{if(stick&&e.pointerId===stick.id){stick=null;ix=iy=0}if(look&&e.pointerId===look.id)look=null};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
 $('jump').addEventListener('pointerdown',e=>{e.stopPropagation();jump()});$('talk').addEventListener('pointerdown',e=>{e.stopPropagation();talk()});
@@ -217,12 +223,13 @@ function drawMap(){const s=.55,W=260,cs=Math.cos(yaw),sn=Math.sin(yaw);const P=(
 updateCells();cars.forEach(c=>placeCar(c,true));
 window.CityRushAPI={
  instance:'vanilla',loadedMods:[],modErrors:[],shiftLockEnabled:false,translationsEnabled:false,ctrlShiftLockEnabled:false,
+ rightMouseLookEnabled:false,rightMouseLookActive:false,
  unloaders:[],
  onModUnload(fn){if(typeof fn==='function')this.unloaders.push(fn)},
  unloadMods(){for(const fn of this.unloaders.splice(0)){try{fn()}catch(e){console.warn(e)}}},
- setShiftLock(enabled){this.shiftLockEnabled=Boolean(enabled);if(this.shiftLockEnabled){try{cv.requestPointerLock?.()}catch(e){console.warn('[CtrlShitLock] Pointer lock unavailable',e)}}else if(document.pointerLockElement){document.exitPointerLock?.()}}
+ setShiftLock(enabled){this.shiftLockEnabled=Boolean(enabled)}
 };
-document.addEventListener('mousemove',e=>{if(window.CityRushAPI?.shiftLockEnabled&&document.pointerLockElement===cv){yaw-=e.movementX*.0022;pitch=Math.max(.15,Math.min(1.05,pitch+e.movementY*.0018))}});
+document.addEventListener('mousemove',e=>{if(window.CityRushAPI?.rightMouseLookActive&&document.pointerLockElement===cv){yaw-=e.movementX*.006;pitch=Math.max(.1,Math.min(1.2,pitch+e.movementY*.004))}});
 let last=performance.now(),mt=0;
 function loop(t){requestAnimationFrame(loop);const dt=Math.min((t-last)/1000,.05);last=t;now=t/1000;const play=st==='play';
  if(st==='idle')yaw+=dt*.12;
@@ -232,7 +239,7 @@ function loop(t){requestAnimationFrame(loop);const dt=Math.min((t-last)/1000,.05
   if(keys.KeyQ)yaw+=dt*1.8;
   const mag=Math.min(1,Math.hypot(mx,my));
   if(mag>.05){const dx=(-Math.sin(yaw))*my+Math.cos(yaw)*mx,dz=(-Math.cos(yaw))*my+(-Math.sin(yaw))*mx,l=Math.hypot(dx,dz),spd=(keys.ShiftLeft||keys.ShiftRight||mag>.9&&stick?9:5.5)*mag;
-   px+=dx/l*spd*dt;pz+=dz/l*spd*dt;const ta=Math.atan2(dx,dz);if(!window.CityRushAPI?.shiftLockEnabled){let da=ta-face;da=Math.atan2(Math.sin(da),Math.cos(da));face+=da*Math.min(1,dt*12)}ph+=dt*spd*1.6;sc+=spd*dt*.1;collide()}
+   px+=dx/l*spd*dt;pz+=dz/l*spd*dt;const ta=Math.atan2(dx,dz);let da=ta-face;da=Math.atan2(Math.sin(da),Math.cos(da));face+=da*Math.min(1,dt*12);ph+=dt*spd*1.6;sc+=spd*dt*.1;collide()}
   else ph=0;
   vy-=26*dt;py+=vy*dt;if(py<=0){py=0;vy=0}
   inv=Math.max(0,inv-dt);shake=Math.max(0,shake-dt*2);
@@ -243,7 +250,7 @@ function loop(t){requestAnimationFrame(loop);const dt=Math.min((t-last)/1000,.05
   if(Math.hypot(c.g.position.x-px,c.g.position.z-pz)>190)placeCar(c,false);
   else if(play&&Math.abs(c.g.position.x-px)<c.hx+.4&&Math.abs(c.g.position.z-pz)<c.hz+.4&&py<1.6)hurt(c)}
  if(!inside)for(const p of peds){p.g.position.x+=p.vx*dt;p.g.position.z+=p.vz*dt;p.g.position.y=.25+Math.abs(Math.sin(now*6+p.g.id))*.05;if(Math.hypot(p.g.position.x-px,p.g.position.z-pz)>150)placePed(p,false)}
- if(window.CityRushAPI?.shiftLockEnabled)face=Math.atan2(-Math.sin(yaw),-Math.cos(yaw));pl.position.set(px,py,pz);pl.rotation.y=face;pl.visible=inv<=0||Math.floor(now*20)%2==0;
+ pl.position.set(px,py,pz);pl.rotation.y=face;pl.visible=inv<=0||Math.floor(now*20)%2==0;
  const air=py>.05,sw=Math.sin(ph)*.9;legs[0].rotation.x=air?.6:sw;legs[1].rotation.x=air?-.3:-sw;arms[0].rotation.x=air?-2.4:-sw;arms[1].rotation.x=air?-2.4:sw;
  mt+=dt;if(mt>.5){mt=0;if(!inside)updateCells()}
  // camera with simple wall check
@@ -259,7 +266,8 @@ requestAnimationFrame(loop);
 
 <script type="module">
   import { auth, db, onAuthStateChanged, doc, getDoc, setDoc, serverTimestamp } from "../../firebase.js";
-  const SAVE_ID = "cityrush-v0.1";
+  const GAME_PARAMS = new URLSearchParams(window.location.search);
+  const SAVE_ID = `cityrush-v0.1-${GAME_PARAMS.get("instanceId") || "default"}`;
   let signedInUser = null;
   let saveRef = null;
   let pendingSave = null;

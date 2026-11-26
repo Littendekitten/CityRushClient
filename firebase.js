@@ -14,7 +14,10 @@ import {
   doc,
   getDoc,
   setDoc,
-  serverTimestamp
+  serverTimestamp,
+  collection,
+  getDocs,
+  runTransaction
 } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
 
 // Firebase web config is intended to be present in client-side web apps.
@@ -36,4 +39,4 @@ export const auth = initializeAuth(app, {
 });
 export const db = getFirestore(app);
 export const googleProvider = new GoogleAuthProvider();
-export { signInWithPopup, signOut, onAuthStateChanged, doc, getDoc, setDoc, serverTimestamp };
+export { signInWithPopup, signOut, onAuthStateChanged, doc, getDoc, setDoc, serverTimestamp, collection, getDocs, runTransaction };

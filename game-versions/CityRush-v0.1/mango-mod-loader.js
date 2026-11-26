@@ -7,7 +7,8 @@ if (instance === "mangomod" && window.CityRushAPI) {
   for (const id of requestedMods) {
     const known = {
       "better-translations": "./mods/better-translations.js",
-      "ctrl-shit-lock": "./mods/ctrl-shit-lock.js"
+      "ctrl-shit-lock": "./mods/ctrl-shit-lock.js",
+      "better-cursor-capture": "./mods/better-cursor-capture.js"
     };
     const modulePath = known[id];
     if (!modulePath) continue;
