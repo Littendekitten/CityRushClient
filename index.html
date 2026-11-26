@@ -30,6 +30,16 @@
     .volume-controls{display:grid;grid-template-columns:minmax(0,1fr) 76px;align-items:center;gap:10px}.volume-controls input[type=number]{width:100%;min-width:0;border:1px solid #35445e;border-radius:9px;padding:7px 8px;background:#0d1420;color:var(--text);font:inherit;font-size:12px}.mod-options{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:9px;padding-top:8px;border-top:1px solid #28354b;font-size:11px;color:#c5d0e1}
     .mod-options[hidden]{display:none}.mod-options input[type=range]{width:min(150px,45%);accent-color:#e9b64e}.mod-options select{background:#0d1420;border:1px solid #35445e;color:#eef3fb;border-radius:8px;padding:5px 8px;font:inherit}.mod-options button{padding:5px 9px;border-radius:8px;background:#26334a;border:1px solid #3a4963;color:#fff;font-size:11px}
     .switch:disabled{opacity:.35;cursor:not-allowed}.mod-dependency{font-size:10px;color:#f0c46c}
+    .character-panel{margin-top:16px;padding:18px;border:1px solid #29364d;border-radius:16px;background:linear-gradient(145deg,#172235,#101722)}
+    .character-panel h3{margin:0 0 5px}.character-panel p{margin:0 0 14px;color:var(--muted);font-size:12px}.character-panel.character-disabled{opacity:.72}.character-panel select:disabled{opacity:.48;cursor:not-allowed}
+    .character-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .character-fields label{display:grid;gap:6px;color:#cbd5e4;font-size:11px;font-weight:800}
+    .character-fields select{width:100%;min-width:0;background:#0d1420;border:1px solid #35445e;color:#eef3fb;border-radius:9px;padding:9px;font:inherit}
+    .character-summary{display:flex;align-items:center;gap:12px;margin:12px 0 0;color:var(--muted);font-size:12px}
+    .character-swatch{width:34px;height:34px;border-radius:50%;border:2px solid #ffffff44;box-shadow:0 4px 12px #0006;flex:none}
+    .map-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}.map-options label{display:flex;align-items:center;gap:7px}
+    .map-options input[type=range]{width:100%;accent-color:#e9b64e}
+    @media(max-width:700px){.character-fields{grid-template-columns:repeat(2,minmax(0,1fr))}}
     #gamebar{gap:12px}#gamebar .bar-actions{display:flex;align-items:center;gap:8px}#gamebar .bar-actions button{white-space:nowrap;padding:7px 10px;font-size:11px}
     #game-shell.bar-hidden #gamebar{display:none!important}#game-shell.bar-hidden #game-frame{height:100%;max-height:100%}
     @media(max-width:760px){.mod-grid{grid-template-columns:1fr}.mod-icon{width:62px;height:62px}.submod-card{margin-left:12px}.submod-card .mod-icon{width:54px;height:54px}}
@@ -59,7 +69,7 @@
 
     <section class="hero">
       <div><div class="eyebrow">YOUR CITY. YOUR INSTANCE.</div><h2>Ready to rush?</h2><p>Choose the clean vanilla game, or boot MangoMod and pick the mods you want in your session.</p></div>
-      <div class="build-tag">CITYRUSH v0.1 · CLIENT v0.7.4</div>
+      <div class="build-tag">CITYRUSH v0.1 · CLIENT v0.7.5</div>
     </section>
 
     <div class="section-heading">
@@ -80,16 +90,32 @@
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-esc.png" alt="BetterESC icon"><div class="mod-content"><div class="mod-head"><h4>BetterESC</h4><button class="switch" id="mod-better-esc" role="switch" aria-label="Enable BetterESC" aria-checked="true"></button></div><p>Lets ESC release the cursor, but only when CursorCapture is enabled.<br><span id="better-esc-dependency" class="mod-dependency">Requires CursorCapture.</span></p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/unquieted.png" alt="Unquieted icon"><div class="mod-content"><div class="mod-head"><h4>Unquieted</h4><button class="switch" id="mod-unquieted" role="switch" aria-label="Enable Unquieted" aria-checked="true"></button></div><p>Original ambient background music with your own volume and toggle key.</p><div class="mod-options" id="unquieted-options"><label for="unquieted-volume">Volume <strong id="unquieted-volume-label">25%</strong></label><div class="volume-controls"><input id="unquieted-volume" type="range" autocomplete="off" min="0" max="100" step="1" value="25"><input id="unquieted-volume-number" type="number" autocomplete="off" min="0" max="100" step="1" value="25" aria-label="Music volume percentage"></div><span>Music key</span><button id="unquieted-keybind" type="button">M</button></div></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-graphics.png" alt="BetterGraphics icon"><div class="mod-content"><div class="mod-head"><h4>BetterGraphics</h4><button class="switch" id="mod-better-graphics" role="switch" aria-label="Enable BetterGraphics" aria-checked="true"></button></div><p>Adds a unified character model pass, architectural detailing, improved shadows, tone mapping and texture filtering. No separate character-detail addon is needed.</p></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/character-mod.svg" alt="CharacterMod icon"><div class="mod-content"><div class="mod-head"><h4>CharacterMod</h4><button class="switch" id="mod-character-mod" role="switch" aria-label="Enable CharacterMod" aria-checked="true"></button></div><p>Customize your own character per instance. Requires BetterGraphics.</p><span id="character-mod-dependency" class="mod-dependency">Requires BetterGraphics.</span></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-animations.png" alt="BetterAnimations icon"><div class="mod-content"><div class="mod-head"><h4>BetterAnimations</h4><button class="switch" id="mod-better-animations" role="switch" aria-label="Enable BetterAnimations" aria-checked="true"></button></div><p>Improves player movement, idle breathing, jumps, pedestrians and interaction motion.</p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-hud.png" alt="BetterHUD icon"><div class="mod-content"><div class="mod-head"><h4>BetterHUD</h4><button class="switch" id="mod-better-hud" role="switch" aria-label="Enable BetterHUD" aria-checked="true"></button></div><p>Rebuilds the in-game HUD with glass panels, clearer status hierarchy and stronger contrast.</p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/more-cut-scenes.png" alt="MoreCutScenes icon"><div class="mod-content"><div class="mod-head"><h4>MoreCutScenes</h4><button class="switch" id="mod-more-cut-scenes" role="switch" aria-label="Enable MoreCutScenes" aria-checked="true"></button></div><p>Plays an unskippable door-opening and walk-through cinematic when entering each building.</p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/more-sfx.png" alt="MoreSFX icon"><div class="mod-content"><div class="mod-head"><h4>MoreSFX</h4><button class="switch" id="mod-more-sfx" role="switch" aria-label="Enable MoreSFX" aria-checked="true"></button></div><p>Adds layered sound effects for footsteps, jumps, pickups, interactions, collisions, missions and building entries.</p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/world-slicer.png" alt="WorldSlicer icon"><div class="mod-content"><div class="mod-head"><h4>WorldSlicer</h4><button class="switch" id="mod-world-slicer" role="switch" aria-label="Enable WorldSlicer" aria-checked="true"></button></div><p>Controls how many procedural world cells are kept around your player.</p><div class="mod-options" id="world-slicer-options"><label for="world-slicer-radius">Loaded radius</label><select id="world-slicer-radius"><option value="1">1 cell · Fast</option><option value="2">2 cells · Balanced</option><option value="3">3 cells · Far</option></select></div></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-maps.svg" alt="BetterMaps icon"><div class="mod-content"><div class="mod-head"><h4>BetterMaps</h4><button class="switch" id="mod-better-maps" role="switch" aria-label="Enable BetterMaps" aria-checked="true"></button></div><p>Resize the minimap, open a larger map, and toggle a blue ground arrow towards your active quest. Requires WorldSlicer.</p><span id="better-maps-dependency" class="mod-dependency">Requires WorldSlicer.</span><div class="mod-options" id="better-maps-options"><div class="map-options"><label for="better-maps-scale">Minimap scale <strong id="better-maps-scale-label">100%</strong></label><input id="better-maps-scale" type="range" min="70" max="160" step="5" value="100"><span>Open map key</span><button id="better-maps-map-key" type="button">N</button><span>Quest arrow</span><label><input id="better-maps-arrow-enabled" type="checkbox" checked> Enabled</label><span>Arrow toggle key</span><button id="better-maps-arrow-key" type="button">G</button></div></div></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-slices.png" alt="BetterSlices icon"><div class="mod-content"><div class="mod-head"><h4>BetterSlices</h4><button class="switch" id="mod-better-slices" role="switch" aria-label="Enable BetterSlices" aria-checked="true"></button></div><p>Uses camera-frustum culling to skip drawing streamed cells outside your view.<br><span id="better-slices-dependency" class="mod-dependency">Requires WorldSlicer.</span></p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/frames-unlocker.png" alt="FramesUnlocker icon"><div class="mod-content"><div class="mod-head"><h4>FramesUnlocker</h4><button class="switch" id="mod-frames-unlocker" role="switch" aria-label="Enable FramesUnlocker" aria-checked="true"></button></div><p>Choose a frame-update cap. Unlimited uses the browser's native display refresh rate.</p><div class="mod-options" id="frames-options"><label for="frames-cap">Frame cap</label><select id="frames-cap"><option value="30">30 FPS</option><option value="45">45 FPS</option><option value="60">60 FPS</option><option value="75">75 FPS</option><option value="90">90 FPS</option><option value="120">120 FPS</option><option value="144">144 FPS</option><option value="165">165 FPS</option><option value="240">240 FPS</option><option value="0">Unlimited</option></select></div></div></article>
       </div>
     </section>
     <div id="vanilla-note" class="disabled-note hidden">This is a Vanilla instance. MangoMod mods and mod settings are not loaded in it.</div>
+    <section id="character-creator" class="character-panel hidden" aria-label="Character creator">
+      <h3>Character Creator</h3>
+      <p>Your appearance is saved separately to this instance in Firestore. CharacterMod requires BetterGraphics; Vanilla instances keep the original player unchanged.</p>
+      <div class="character-fields">
+        <label for="character-style">Body type<select id="character-style"><option value="masculine">Masculine</option><option value="androgynous">Androgynous</option><option value="feminine">Feminine</option><option value="classic">Classic neutral</option></select></label>
+        <label for="character-skin">Skin tone<select id="character-skin"><option value="light">Light</option><option value="warm">Warm</option><option value="medium">Medium</option><option value="tan">Tan</option><option value="deep">Deep</option></select></label>
+        <label for="character-hair-style">Hair style<select id="character-hair-style"><option value="short">Short</option><option value="curly">Curly</option><option value="long">Long</option><option value="slick">Slick back</option><option value="buzz">Buzz cut</option><option value="none">No hair</option></select></label>
+        <label for="character-hair-color">Hair color<select id="character-hair-color"><option value="black">Black</option><option value="brown">Brown</option><option value="blonde">Blonde</option><option value="auburn">Auburn</option><option value="blue">Blue</option><option value="silver">Silver</option></select></label>
+        <label for="character-shirt">Top color<select id="character-shirt"><option value="city-blue">City blue</option><option value="orange">Orange</option><option value="black">Black</option><option value="red">Red</option><option value="forest">Forest green</option><option value="violet">Violet</option><option value="white">White</option></select></label>
+        <label for="character-pants">Pants color<select id="character-pants"><option value="navy">Navy</option><option value="charcoal">Charcoal</option><option value="black">Black</option><option value="khaki">Khaki</option><option value="denim">Denim</option></select></label>
+        <label for="character-shoes">Shoe color<select id="character-shoes"><option value="black">Black</option><option value="white">White</option><option value="brown">Brown</option><option value="red">Red</option></select></label>
+      </div>
+      <div class="character-summary"><span id="character-swatch" class="character-swatch"></span><span id="character-save-status">Character appearance is stored per instance.</span></div>
+    </section>
 
     <dialog id="create-instance-dialog" class="instance-dialog">
       <form id="create-instance-form" autocomplete="off">
@@ -136,6 +162,12 @@
       unquietedVolume: 25,
       unquietedKeybind: "KeyM",
       betterGraphics: true,
+      characterMod: true,
+      betterMaps: true,
+      betterMapsScale: 100,
+      betterMapsKeybind: "KeyN",
+      betterMapsQuestArrow: true,
+      betterMapsArrowKeybind: "KeyG",
       betterAnimations: true,
       betterHUD: true,
       moreCutScenes: true,
@@ -146,7 +178,7 @@
       framesUnlocker: true,
       frameCap: 0
     };
-    const MOD_TOGGLE_KEYS = ["betterTranslations", "betterView", "ctrlShiftLock", "betterCursorCapture", "cursorCapture", "betterESC", "unquieted", "betterGraphics", "betterAnimations", "betterHUD", "moreCutScenes", "moreSFX", "worldSlicer", "betterSlices", "framesUnlocker"];
+    const MOD_TOGGLE_KEYS = ["betterTranslations", "betterView", "ctrlShiftLock", "betterCursorCapture", "cursorCapture", "betterESC", "unquieted", "betterGraphics", "characterMod", "betterMaps", "betterAnimations", "betterHUD", "moreCutScenes", "moreSFX", "worldSlicer", "betterSlices", "framesUnlocker"];
     const FRAME_CAPS = [0, 30, 45, 60, 75, 90, 120, 144, 165, 240];
     const RESERVED_GAME_KEYS = new Set([
       "Escape", "Tab", "Backspace", "F5", "F11", "F12", "ContextMenu",
@@ -175,6 +207,33 @@
       if (labels[code]) return labels[code];
       return String(code || "KeyM").replace(/^Key/, "").replace(/^Digit/, "").replace(/^Numpad/, "Num ");
     }
+    function chooseUniqueKey(requested, blocked, fallback) {
+      if (isBindableKeyboardCode(requested) && !blocked.has(requested)) return requested;
+      for (const candidate of fallback) if (isBindableKeyboardCode(candidate) && !blocked.has(candidate)) return candidate;
+      return "KeyN";
+    }
+    const DEFAULT_CHARACTER = { style: "masculine", skin: "medium", hairStyle: "short", hairColor: "brown", shirt: "city-blue", pants: "navy", shoes: "black" };
+    const LEGACY_DEFAULT_CHARACTER = { style: "classic", skin: "medium", hairStyle: "short", hairColor: "brown", shirt: "city-blue", pants: "navy", shoes: "black" };
+    const CHARACTER_OPTIONS = {
+      style: ["classic", "masculine", "feminine", "androgynous"],
+      skin: ["light", "warm", "medium", "tan", "deep"],
+      hairStyle: ["short", "curly", "long", "slick", "buzz", "none"],
+      hairColor: ["black", "brown", "blonde", "auburn", "blue", "silver"],
+      shirt: ["city-blue", "orange", "black", "red", "forest", "violet", "white"],
+      pants: ["navy", "charcoal", "black", "khaki", "denim"],
+      shoes: ["black", "white", "brown", "red"]
+    };
+    function normalizeCharacter(value = {}) {
+      const source = value && typeof value === "object" ? { ...value } : {};
+      // Instances created before v0.7.5 received this exact implicit Classic preset.
+      // Migrate only that untouched preset to the new masculine default; preserve
+      // any player who explicitly customized another appearance.
+      const isUntouchedLegacyPreset = Object.entries(LEGACY_DEFAULT_CHARACTER).every(([key, legacyValue]) => source[key] === legacyValue);
+      if (isUntouchedLegacyPreset) source.style = DEFAULT_CHARACTER.style;
+      const result = {};
+      for (const [key, options] of Object.entries(CHARACTER_OPTIONS)) result[key] = options.includes(source[key]) ? source[key] : DEFAULT_CHARACTER[key];
+      return result;
+    }
     function normalizeMods(value = {}) {
       const source = value && typeof value === "object" ? value : {};
       const oldCtrl = typeof source.ctrlShiftLock === "boolean" ? source.ctrlShiftLock : source.ctrlShitLock;
@@ -191,7 +250,15 @@
       let zoomOutKey = isBindableKeyboardCode(source.betterViewZoomOutKey) ? source.betterViewZoomOutKey : MOD_DEFAULTS.betterViewZoomOutKey;
       if (zoomOutKey === zoomInKey) zoomOutKey = fallbackKey([zoomInKey]);
       const rawMusicKey = isBindableKeyboardCode(source.unquietedKeybind) ? source.unquietedKeybind : MOD_DEFAULTS.unquietedKeybind;
-      const musicKey = betterView && [zoomInKey, zoomOutKey].includes(rawMusicKey) ? fallbackKey([zoomInKey, zoomOutKey]) : rawMusicKey;
+      const mapScale = Number(source.betterMapsScale);
+      const baseBlocked = new Set([zoomInKey, zoomOutKey]);
+      let musicKey = chooseUniqueKey(rawMusicKey, baseBlocked, ["KeyM", "KeyP", "KeyT", "ScrollLock", "End"]);
+      baseBlocked.add(musicKey);
+      const betterMapsKeybind = chooseUniqueKey(source.betterMapsKeybind || "KeyN", baseBlocked, ["KeyN", "KeyB", "KeyV", "PageDown"]);
+      baseBlocked.add(betterMapsKeybind);
+      const betterMapsArrowKeybind = chooseUniqueKey(source.betterMapsArrowKeybind || "KeyG", baseBlocked, ["KeyG", "KeyH", "KeyJ", "Insert"]);
+      const characterMod = (typeof source.characterMod === "boolean" ? source.characterMod : MOD_DEFAULTS.characterMod) && betterGraphics;
+      const betterMaps = (typeof source.betterMaps === "boolean" ? source.betterMaps : MOD_DEFAULTS.betterMaps) && worldSlicer;
       return {
         betterTranslations: typeof source.betterTranslations === "boolean" ? source.betterTranslations : MOD_DEFAULTS.betterTranslations,
         betterView,
@@ -205,6 +272,12 @@
         unquietedVolume: Number.isFinite(volume) ? Math.max(0, Math.min(100, Math.round(volume))) : MOD_DEFAULTS.unquietedVolume,
         unquietedKeybind: musicKey,
         betterGraphics,
+        characterMod,
+        betterMaps,
+        betterMapsScale: Number.isFinite(mapScale) ? Math.max(70, Math.min(160, Math.round(mapScale / 5) * 5)) : MOD_DEFAULTS.betterMapsScale,
+        betterMapsKeybind,
+        betterMapsQuestArrow: typeof source.betterMapsQuestArrow === "boolean" ? source.betterMapsQuestArrow : MOD_DEFAULTS.betterMapsQuestArrow,
+        betterMapsArrowKeybind,
         betterAnimations: typeof source.betterAnimations === "boolean" ? source.betterAnimations : MOD_DEFAULTS.betterAnimations,
         betterHUD: typeof source.betterHUD === "boolean" ? source.betterHUD : MOD_DEFAULTS.betterHUD,
         moreCutScenes: defaultsVersion < 1 ? true : (typeof source.moreCutScenes === "boolean" ? source.moreCutScenes : MOD_DEFAULTS.moreCutScenes),
@@ -311,7 +384,7 @@
         "mod-translations": "betterTranslations", "mod-better-view": "betterView", "mod-ctrl-lock": "ctrlShiftLock",
         "mod-better-cursor": "betterCursorCapture", "mod-cursor-capture": "cursorCapture",
         "mod-better-esc": "betterESC", "mod-unquieted": "unquieted",
-        "mod-better-graphics": "betterGraphics",
+        "mod-better-graphics": "betterGraphics", "mod-character-mod": "characterMod", "mod-better-maps": "betterMaps",
         "mod-better-animations": "betterAnimations", "mod-better-hud": "betterHUD", "mod-more-cut-scenes": "moreCutScenes", "mod-more-sfx": "moreSFX",
         "mod-world-slicer": "worldSlicer", "mod-better-slices": "betterSlices", "mod-frames-unlocker": "framesUnlocker"
       };
@@ -323,6 +396,25 @@
       $("better-esc-dependency").textContent = mods.cursorCapture ? "Requires CursorCapture." : "Enable CursorCapture first.";
       $("mod-better-slices").disabled = !mods.worldSlicer;
       $("better-slices-dependency").textContent = mods.worldSlicer ? "Requires WorldSlicer." : "Enable WorldSlicer first.";
+      $("mod-character-mod").disabled = !mods.betterGraphics;
+      $("character-mod-dependency").textContent = mods.betterGraphics ? "Requires BetterGraphics." : "Enable BetterGraphics first.";
+      $("mod-better-maps").disabled = !mods.worldSlicer;
+      $("better-maps-dependency").textContent = mods.worldSlicer ? "Requires WorldSlicer." : "Enable WorldSlicer first.";
+      $("better-maps-options").hidden = !mods.betterMaps;
+      $("better-maps-scale").value = String(mods.betterMapsScale);
+      $("better-maps-scale-label").textContent = `${mods.betterMapsScale}%`;
+      $("better-maps-map-key").textContent = keyLabel(mods.betterMapsKeybind);
+      $("better-maps-arrow-enabled").checked = mods.betterMapsQuestArrow;
+      $("better-maps-arrow-key").textContent = keyLabel(mods.betterMapsArrowKeybind);
+      const canCustomize = Boolean(isMango && mods.betterGraphics && mods.characterMod);
+      $("character-creator").classList.toggle("hidden", !isMango);
+      $("character-creator").classList.toggle("character-disabled", !canCustomize);
+      $("character-creator").querySelectorAll("select").forEach(control => { control.disabled = !canCustomize; });
+      const character = normalizeCharacter(active?.character);
+      for (const [id, key] of Object.entries({"character-style":"style","character-skin":"skin","character-hair-style":"hairStyle","character-hair-color":"hairColor","character-shirt":"shirt","character-pants":"pants","character-shoes":"shoes"})) $(id).value = character[key];
+      const skinPreview = {light:"#f5d6bd",warm:"#eab991",medium:"#c98e68",tan:"#a96f4d",deep:"#6a402e"};
+      $("character-swatch").style.background = skinPreview[character.skin] || skinPreview.medium;
+      $("character-save-status").textContent = canCustomize ? "Appearance is saved separately to this instance." : "Enable BetterGraphics and CharacterMod to customize this MangoMod instance.";
       $("unquieted-volume").value = String(mods.unquietedVolume);
       $("unquieted-volume-number").value = String(mods.unquietedVolume);
       $("unquieted-volume-label").textContent = `${mods.unquietedVolume}%`;
@@ -364,6 +456,7 @@
           type,
           version: GAME_VERSION,
           mods: safeMods,
+          character: { ...DEFAULT_CHARACTER },
           createdAt: serverTimestamp(),
           updatedAt: serverTimestamp()
         });
@@ -374,7 +467,7 @@
         }, { merge: true });
       });
 
-      instances.push({ id: ref.id, name: cleanName, type, version: GAME_VERSION, mods: safeMods, createdAt: Date.now() });
+      instances.push({ id: ref.id, name: cleanName, type, version: GAME_VERSION, mods: safeMods, character: { ...DEFAULT_CHARACTER }, createdAt: Date.now() });
       selectedInstanceId = ref.id;
       render();
       setStatus("app-status", `Created ${cleanName} and saved it to Firestore.`);
@@ -403,7 +496,8 @@
       const previous = normalizeMods(active.mods);
       const nextMods = normalizeMods({ ...previous, ...patch });
       if (!nextMods.cursorCapture) nextMods.betterESC = false;
-      if (!nextMods.worldSlicer) nextMods.betterSlices = false;
+      if (!nextMods.worldSlicer) { nextMods.betterSlices = false; nextMods.betterMaps = false; }
+      if (!nextMods.betterGraphics) nextMods.characterMod = false;
       active.mods = nextMods;
       render();
       const instanceId = active.id;
@@ -433,7 +527,9 @@
       const current = normalizeMods(active.mods);
       const dependency = {
         betterESC: ["cursorCapture", "BetterESC requires CursorCapture."],
-        betterSlices: ["worldSlicer", "BetterSlices requires WorldSlicer."]
+        betterSlices: ["worldSlicer", "BetterSlices requires WorldSlicer."],
+        betterMaps: ["worldSlicer", "BetterMaps requires WorldSlicer."],
+        characterMod: ["betterGraphics", "CharacterMod requires BetterGraphics."]
       }[key];
       if (dependency && !current[dependency[0]]) {
         setStatus("app-status", dependency[1] + " Enable its parent mod first.", true);
@@ -441,7 +537,8 @@
       }
       const patch = { [key]: !current[key] };
       if (key === "cursorCapture" && current.cursorCapture) patch.betterESC = false;
-      if (key === "worldSlicer" && current.worldSlicer) patch.betterSlices = false;
+      if (key === "worldSlicer" && current.worldSlicer) { patch.betterSlices = false; patch.betterMaps = false; }
+      if (key === "betterGraphics" && current.betterGraphics) patch.characterMod = false;
       await saveModSettings(patch);
     }
 
@@ -506,6 +603,13 @@
             unquietedKeybind: modSettings.unquietedKeybind,
             betterViewZoomInKey: modSettings.betterViewZoomInKey,
             betterViewZoomOutKey: modSettings.betterViewZoomOutKey,
+            characterModEnabled: modSettings.characterMod,
+            character: normalizeCharacter(active.character),
+            betterMapsEnabled: modSettings.betterMaps,
+            betterMapsScale: modSettings.betterMapsScale,
+            betterMapsKeybind: modSettings.betterMapsKeybind,
+            betterMapsQuestArrow: modSettings.betterMapsQuestArrow,
+            betterMapsArrowKeybind: modSettings.betterMapsArrowKeybind,
             worldSlicerRadius: modSettings.worldSlicerRadius,
             frameCap: modSettings.frameCap
           }));
@@ -559,13 +663,14 @@
         }
         instances = instanceSnap.docs.map((item) => {
           const data = item.data();
-          return { id: item.id, ...data, mods: normalizeMods(data.mods) };
+          return { id: item.id, ...data, mods: normalizeMods(data.mods), character: normalizeCharacter(data.character) };
         });
         // Persist new defaults and migrate the old ctrlShitLock typo without recreating instances.
         for (const item of instanceSnap.docs) {
           const normalized = normalizeMods(item.data().mods);
-          if (JSON.stringify(item.data().mods || {}) !== JSON.stringify(normalized)) {
-            await setDoc(instanceRef(item.id), { mods: normalized, updatedAt: serverTimestamp() }, { merge: true });
+          const character = normalizeCharacter(item.data().character);
+          if (JSON.stringify(item.data().mods || {}) !== JSON.stringify(normalized) || JSON.stringify(item.data().character || {}) !== JSON.stringify(character)) {
+            await setDoc(instanceRef(item.id), { mods: normalized, character, updatedAt: serverTimestamp() }, { merge: true });
           }
         }
 
@@ -654,7 +759,7 @@
       "mod-translations": "betterTranslations", "mod-better-view": "betterView", "mod-ctrl-lock": "ctrlShiftLock",
       "mod-better-cursor": "betterCursorCapture", "mod-cursor-capture": "cursorCapture",
       "mod-better-esc": "betterESC", "mod-unquieted": "unquieted",
-      "mod-better-graphics": "betterGraphics",
+      "mod-better-graphics": "betterGraphics", "mod-character-mod": "characterMod", "mod-better-maps": "betterMaps",
       "mod-better-animations": "betterAnimations", "mod-better-hud": "betterHUD", "mod-more-cut-scenes": "moreCutScenes", "mod-more-sfx": "moreSFX",
       "mod-world-slicer": "worldSlicer", "mod-better-slices": "betterSlices", "mod-frames-unlocker": "framesUnlocker"
     };
@@ -684,12 +789,55 @@
     });
     $("unquieted-volume-number").addEventListener("change", event => persistVolume(event.target.value === "" ? 0 : event.target.value));
     $("world-slicer-radius").addEventListener("change", event => saveModSettings({ worldSlicerRadius: Number(event.target.value) }));
+    $("better-maps-scale").addEventListener("input", event => { $("better-maps-scale-label").textContent = `${event.target.value}%`; });
+    $("better-maps-scale").addEventListener("change", event => saveModSettings({ betterMapsScale: Number(event.target.value) }));
+    $("better-maps-arrow-enabled").addEventListener("change", event => saveModSettings({ betterMapsQuestArrow: event.target.checked }));
     $("frames-cap").addEventListener("change", event => saveModSettings({ frameCap: Number(event.target.value) }));
+    async function saveCharacterSettings() {
+      const active = selectedInstance();
+      if (!active || active.type !== "mangomod") return;
+      const mods = normalizeMods(active.mods);
+      if (!mods.characterMod || !mods.betterGraphics) {
+        setStatus("app-status", "Enable BetterGraphics and CharacterMod before customizing this character.", true);
+        return;
+      }
+      const next = normalizeCharacter({
+        style: $("character-style").value,
+        skin: $("character-skin").value,
+        hairStyle: $("character-hair-style").value,
+        hairColor: $("character-hair-color").value,
+        shirt: $("character-shirt").value,
+        pants: $("character-pants").value,
+        shoes: $("character-shoes").value
+      });
+      const previous = active.character || { ...DEFAULT_CHARACTER };
+      active.character = next;
+      const instanceId = active.id;
+      const write = (instanceWriteQueues.get(instanceId) || Promise.resolve()).catch(() => {})
+        .then(() => setDoc(instanceRef(instanceId), { character: next, updatedAt: serverTimestamp() }, { merge: true }));
+      instanceWriteQueues.set(instanceId, write);
+      $("character-save-status").textContent = "Saving character to Firestore…";
+      try {
+        await write;
+        if (selectedInstanceId === instanceId) $("character-save-status").textContent = "Character saved to this instance.";
+      } catch (error) {
+        active.character = previous;
+        render();
+        setStatus("app-status", `Could not save character: ${error.message}`, true);
+      } finally {
+        if (instanceWriteQueues.get(instanceId) === write) instanceWriteQueues.delete(instanceId);
+      }
+    }
+    for (const id of ["character-style", "character-skin", "character-hair-style", "character-hair-color", "character-shirt", "character-pants", "character-shoes"]) {
+      $(id).addEventListener("change", () => saveCharacterSettings());
+    }
     let waitingForKeySetting = null;
     const keySettingButtons = {
       unquietedKeybind: "unquieted-keybind",
       betterViewZoomInKey: "better-view-zoom-in-key",
-      betterViewZoomOutKey: "better-view-zoom-out-key"
+      betterViewZoomOutKey: "better-view-zoom-out-key",
+      betterMapsKeybind: "better-maps-map-key",
+      betterMapsArrowKeybind: "better-maps-arrow-key"
     };
     function beginKeyCapture(setting) {
       waitingForKeySetting = setting;
@@ -699,26 +847,20 @@
     $("unquieted-keybind").addEventListener("click", () => beginKeyCapture("unquietedKeybind"));
     $("better-view-zoom-in-key").addEventListener("click", () => beginKeyCapture("betterViewZoomInKey"));
     $("better-view-zoom-out-key").addEventListener("click", () => beginKeyCapture("betterViewZoomOutKey"));
+    $("better-maps-map-key").addEventListener("click", () => beginKeyCapture("betterMapsKeybind"));
+    $("better-maps-arrow-key").addEventListener("click", () => beginKeyCapture("betterMapsArrowKeybind"));
     window.addEventListener("keydown", async event => {
       if (!waitingForKeySetting) return;
       const active = selectedInstance();
       const mods = normalizeMods(active?.mods);
       if (event.ctrlKey || event.altKey || event.metaKey || !isBindableKeyboardCode(event.code)) return;
-      let patch;
-      if (waitingForKeySetting === "unquietedKeybind") {
-        if (!isMusicBindableCode(event.code, mods)) {
-          setStatus("app-status", "That key is already assigned to BetterView or reserved for gameplay. Choose another key.", true);
-          return;
-        }
-        patch = { unquietedKeybind: event.code };
-      } else {
-        const other = waitingForKeySetting === "betterViewZoomInKey" ? mods.betterViewZoomOutKey : mods.betterViewZoomInKey;
-        if (!isBetterViewBindableCode(event.code, other, mods)) {
-          setStatus("app-status", "That key is already assigned or reserved for gameplay/another mod. Choose another key.", true);
-          return;
-        }
-        patch = { [waitingForKeySetting]: event.code };
+      const assigned = ["unquietedKeybind", "betterViewZoomInKey", "betterViewZoomOutKey", "betterMapsKeybind", "betterMapsArrowKeybind"]
+        .filter(key => key !== waitingForKeySetting).map(key => mods[key]);
+      if (assigned.includes(event.code)) {
+        setStatus("app-status", "That key is already assigned to another mod. Choose a different key.", true);
+        return;
       }
+      const patch = { [waitingForKeySetting]: event.code };
       event.preventDefault();
       event.stopImmediatePropagation();
       waitingForKeySetting = null;

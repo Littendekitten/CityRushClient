@@ -459,6 +459,11 @@ window.CityRushAPI={
  betterEscEnabled:false,escapeUnlockPending:false,betterSlicesEnabled:false,worldCellRadius:2,frameCap:0, cameraDistance:7.5,
  betterGraphicsEnabled:false,betterAnimationsEnabled:false,betterHUDEnabled:false,moreCutScenesEnabled:false,moreSFXEnabled:false,worldSlicerEnabled:false,betterViewEnabled:false,
  modConfig:parsedModConfig,unloaders:[],
+ // Read-only mod integration handles. Mods are only loaded for MangoMod instances;
+ // these references do not alter vanilla gameplay when the instance is vanilla.
+ THREE,scene:S,player:pl,camera:cam,renderer:R,minimapCanvas:$('mm'),
+ getPlayerPosition(){return {x:px,y:py,z:pz}},
+ getQuestTarget(){return tgt.visible?{x:tgx,z:tgz}:null},
  onModUnload(fn){if(typeof fn==='function')this.unloaders.push(fn)},
  unloadMods(){for(const fn of this.unloaders.splice(0)){try{fn()}catch(e){console.warn(e)}}},
  isPlaying(){return st==='play'},

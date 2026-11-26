@@ -23,7 +23,7 @@ export default {
       api.setViewDistance(Math.max(minDistance, Math.min(maxDistance, current + Math.sign(event.deltaY) * 0.9)));
     };
     const onKeyDown = event => {
-      if (!api.isPlaying() || event.ctrlKey || event.altKey || event.metaKey || event.target?.matches?.("input,textarea,select,[contenteditable="true"]")) return;
+      if (!api.isPlaying() || event.ctrlKey || event.altKey || event.metaKey || event.target?.closest?.('input,textarea,select,[contenteditable="true"]')) return;
       if (event.code !== zoomInKey && event.code !== zoomOutKey) return;
       event.preventDefault();
       held.add(event.code);
