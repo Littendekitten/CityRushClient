@@ -27,7 +27,7 @@
     .mod-card{display:flex;gap:12px;align-items:flex-start;min-width:0;padding:13px;border:1px solid #29364d;border-radius:15px;background:linear-gradient(145deg,#172235,#101722)}
     .submod-card{margin-left:24px;border-style:dashed;background:linear-gradient(145deg,#17202d,#0e1520)}.submod-card .mod-icon{width:60px;height:60px}.mod-icon{width:72px;height:72px;object-fit:contain;flex:none;border-radius:12px;background:#0b111c}
     .mod-content{min-width:0;flex:1}.mod-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.mod-head h4{margin:0;font-size:13px}.mod-content p{margin:3px 0 0;color:var(--muted);font-size:11px;line-height:1.4}
-    .mod-options{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:9px;padding-top:8px;border-top:1px solid #28354b;font-size:11px;color:#c5d0e1}
+    .volume-controls{display:grid;grid-template-columns:minmax(0,1fr) 76px;align-items:center;gap:10px}.volume-controls input[type=number]{width:100%;min-width:0;border:1px solid #35445e;border-radius:9px;padding:7px 8px;background:#0d1420;color:var(--text);font:inherit;font-size:12px}.mod-options{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:9px;padding-top:8px;border-top:1px solid #28354b;font-size:11px;color:#c5d0e1}
     .mod-options[hidden]{display:none}.mod-options input[type=range]{width:min(150px,45%);accent-color:#e9b64e}.mod-options select{background:#0d1420;border:1px solid #35445e;color:#eef3fb;border-radius:8px;padding:5px 8px;font:inherit}.mod-options button{padding:5px 9px;border-radius:8px;background:#26334a;border:1px solid #3a4963;color:#fff;font-size:11px}
     .switch:disabled{opacity:.35;cursor:not-allowed}.mod-dependency{font-size:10px;color:#f0c46c}
     #gamebar{gap:12px}#gamebar .bar-actions{display:flex;align-items:center;gap:8px}#gamebar .bar-actions button{white-space:nowrap;padding:7px 10px;font-size:11px}
@@ -59,7 +59,7 @@
 
     <section class="hero">
       <div><div class="eyebrow">YOUR CITY. YOUR INSTANCE.</div><h2>Ready to rush?</h2><p>Choose the clean vanilla game, or boot MangoMod and pick the mods you want in your session.</p></div>
-      <div class="build-tag">CITYRUSH v0.1 · CLIENT v0.7.2</div>
+      <div class="build-tag">CITYRUSH v0.1 · CLIENT v0.7.4</div>
     </section>
 
     <div class="section-heading">
@@ -74,13 +74,12 @@
       <div class="mod-grid">
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-translations.png" alt="BetterTranslations icon"><div class="mod-content"><div class="mod-head"><h4>BetterTranslations</h4><button class="switch" id="mod-translations" role="switch" aria-label="Enable BetterTranslations" aria-checked="true"></button></div><p>Keeps the game in English from its very first frame; the base game text is English too.</p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/ctrl-shift-lock.png" alt="CtrlShiftLock icon"><div class="mod-content"><div class="mod-head"><h4>CtrlShiftLock</h4><button class="switch" id="mod-ctrl-lock" role="switch" aria-label="Enable CtrlShiftLock" aria-checked="true"></button></div><p>Press Ctrl for a Roblox-style shoulder lock. Your avatar faces the camera direction; Shift still sprints.</p></div></article>
-        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-view.png" alt="BetterView icon"><div class="mod-content"><div class="mod-head"><h4>BetterView</h4><button class="switch" id="mod-better-view" role="switch" aria-label="Enable BetterView" aria-checked="true"></button></div><p>Scroll to zoom out up to 18 units or zoom all the way into first-person. Look vertically up and down like Minecraft.</p></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-view.png" alt="BetterView icon"><div class="mod-content"><div class="mod-head"><h4>BetterView</h4><button class="switch" id="mod-better-view" role="switch" aria-label="Enable BetterView" aria-checked="true"></button></div><p>Use the scroll wheel or hold your zoom keys to move between first-person and a capped third-person distance. Look vertically up and down like Minecraft.</p><div class="mod-options" id="better-view-options"><span>Zoom in</span><button id="better-view-zoom-in-key" type="button">I</button><span>Zoom out</span><button id="better-view-zoom-out-key" type="button">O</button></div></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-cursor-capture.png" alt="BetterCursorCapture icon"><div class="mod-content"><div class="mod-head"><h4>BetterCursorCapture</h4><button class="switch" id="mod-better-cursor" role="switch" aria-label="Enable BetterCursorCapture" aria-checked="true"></button></div><p>Hold the right mouse button to look around without browser context menus.</p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/cursor-capture.png" alt="CursorCapture icon"><div class="mod-content"><div class="mod-head"><h4>CursorCapture</h4><button class="switch" id="mod-cursor-capture" role="switch" aria-label="Enable CursorCapture" aria-checked="true"></button></div><p>Captures the cursor when you click the game. Click again to recapture after ESC.</p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-esc.png" alt="BetterESC icon"><div class="mod-content"><div class="mod-head"><h4>BetterESC</h4><button class="switch" id="mod-better-esc" role="switch" aria-label="Enable BetterESC" aria-checked="true"></button></div><p>Lets ESC release the cursor, but only when CursorCapture is enabled.<br><span id="better-esc-dependency" class="mod-dependency">Requires CursorCapture.</span></p></div></article>
-        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/unquieted.png" alt="Unquieted icon"><div class="mod-content"><div class="mod-head"><h4>Unquieted</h4><button class="switch" id="mod-unquieted" role="switch" aria-label="Enable Unquieted" aria-checked="true"></button></div><p>Original ambient background music with your own volume and toggle key.</p><div class="mod-options" id="unquieted-options"><label for="unquieted-volume">Volume <strong id="unquieted-volume-label">25%</strong></label><input id="unquieted-volume" type="range" autocomplete="off" min="0" max="100" step="1" value="25"><span>Music key</span><button id="unquieted-keybind" type="button">M</button></div></div></article>
-        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-graphics.png" alt="BetterGraphics icon"><div class="mod-content"><div class="mod-head"><h4>BetterGraphics</h4><button class="switch" id="mod-better-graphics" role="switch" aria-label="Enable BetterGraphics" aria-checked="true"></button></div><p>Raises shadow-map detail and renderer quality for a sharper image.</p></div></article>
-        <article class="mod-card submod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/detailed-graphics-addon.png" alt="Detailed Graphics Addon icon"><div class="mod-content"><div class="mod-head"><h4>↳ Detailed Graphics Addon</h4><button class="switch" id="mod-detailed-graphics-addon" role="switch" aria-label="Enable Detailed Graphics Addon" aria-checked="true"></button></div><p>Adds visible facial details to the player, pedestrians, mission givers and boss. Requires BetterGraphics.<br><span id="detailed-graphics-dependency" class="mod-dependency">Requires BetterGraphics.</span></p></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/unquieted.png" alt="Unquieted icon"><div class="mod-content"><div class="mod-head"><h4>Unquieted</h4><button class="switch" id="mod-unquieted" role="switch" aria-label="Enable Unquieted" aria-checked="true"></button></div><p>Original ambient background music with your own volume and toggle key.</p><div class="mod-options" id="unquieted-options"><label for="unquieted-volume">Volume <strong id="unquieted-volume-label">25%</strong></label><div class="volume-controls"><input id="unquieted-volume" type="range" autocomplete="off" min="0" max="100" step="1" value="25"><input id="unquieted-volume-number" type="number" autocomplete="off" min="0" max="100" step="1" value="25" aria-label="Music volume percentage"></div><span>Music key</span><button id="unquieted-keybind" type="button">M</button></div></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-graphics.png" alt="BetterGraphics icon"><div class="mod-content"><div class="mod-head"><h4>BetterGraphics</h4><button class="switch" id="mod-better-graphics" role="switch" aria-label="Enable BetterGraphics" aria-checked="true"></button></div><p>Adds a unified character model pass, architectural detailing, improved shadows, tone mapping and texture filtering. No separate character-detail addon is needed.</p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-animations.png" alt="BetterAnimations icon"><div class="mod-content"><div class="mod-head"><h4>BetterAnimations</h4><button class="switch" id="mod-better-animations" role="switch" aria-label="Enable BetterAnimations" aria-checked="true"></button></div><p>Improves player movement, idle breathing, jumps, pedestrians and interaction motion.</p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-hud.png" alt="BetterHUD icon"><div class="mod-content"><div class="mod-head"><h4>BetterHUD</h4><button class="switch" id="mod-better-hud" role="switch" aria-label="Enable BetterHUD" aria-checked="true"></button></div><p>Rebuilds the in-game HUD with glass panels, clearer status hierarchy and stronger contrast.</p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/more-cut-scenes.png" alt="MoreCutScenes icon"><div class="mod-content"><div class="mod-head"><h4>MoreCutScenes</h4><button class="switch" id="mod-more-cut-scenes" role="switch" aria-label="Enable MoreCutScenes" aria-checked="true"></button></div><p>Plays an unskippable door-opening and walk-through cinematic when entering each building.</p></div></article>
@@ -127,6 +126,8 @@
     const MOD_DEFAULTS = {
       betterTranslations: true,
       betterView: true,
+      betterViewZoomInKey: "KeyI",
+      betterViewZoomOutKey: "KeyO",
       ctrlShiftLock: true,
       betterCursorCapture: true,
       cursorCapture: true,
@@ -135,7 +136,6 @@
       unquietedVolume: 25,
       unquietedKeybind: "KeyM",
       betterGraphics: true,
-      detailedGraphicsAddon: true,
       betterAnimations: true,
       betterHUD: true,
       moreCutScenes: true,
@@ -146,8 +146,35 @@
       framesUnlocker: true,
       frameCap: 0
     };
-    const MOD_TOGGLE_KEYS = ["betterTranslations", "betterView", "ctrlShiftLock", "betterCursorCapture", "cursorCapture", "betterESC", "unquieted", "betterGraphics", "detailedGraphicsAddon", "betterAnimations", "betterHUD", "moreCutScenes", "moreSFX", "worldSlicer", "betterSlices", "framesUnlocker"];
+    const MOD_TOGGLE_KEYS = ["betterTranslations", "betterView", "ctrlShiftLock", "betterCursorCapture", "cursorCapture", "betterESC", "unquieted", "betterGraphics", "betterAnimations", "betterHUD", "moreCutScenes", "moreSFX", "worldSlicer", "betterSlices", "framesUnlocker"];
     const FRAME_CAPS = [0, 30, 45, 60, 75, 90, 120, 144, 165, 240];
+    const RESERVED_GAME_KEYS = new Set([
+      "Escape", "Tab", "Backspace", "F5", "F11", "F12", "ContextMenu",
+      "ControlLeft", "ControlRight", "AltLeft", "AltRight", "ShiftLeft", "ShiftRight", "MetaLeft", "MetaRight",
+      "KeyW", "KeyA", "KeyS", "KeyD", "KeyQ", "KeyE",
+      "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"
+    ]);
+    const BINDABLE_CODE_PATTERN = /^(?:Key[A-Z]|Digit[0-9]|Numpad(?:[0-9]|Add|Subtract|Multiply|Divide|Decimal|Enter|Equal|Comma|ParenLeft|ParenRight)|F(?:[1-9]|1[0-2])|Backquote|Minus|Equal|BracketLeft|BracketRight|Backslash|Semicolon|Quote|Comma|Period|Slash|IntlBackslash|IntlRo|IntlYen|CapsLock|NumLock|ScrollLock|Pause|Insert|Home|PageUp|Delete|End|PageDown|Enter)$/;
+    function isBindableKeyboardCode(code) { return typeof code === "string" && BINDABLE_CODE_PATTERN.test(code) && !RESERVED_GAME_KEYS.has(code); }
+    function fallbackKey(excluded = []) {
+      return ["KeyM", "KeyN", "KeyP", "Digit0", "ScrollLock", "End", "PageDown", "F2", "F3", "Insert"]
+        .find(code => isBindableKeyboardCode(code) && !excluded.includes(code)) || "KeyM";
+    }
+    function isMusicBindableCode(code, mods = null) {
+      if (!isBindableKeyboardCode(code)) return false;
+      if (mods?.betterView && [mods.betterViewZoomInKey, mods.betterViewZoomOutKey].includes(code)) return false;
+      return true;
+    }
+    function isBetterViewBindableCode(code, otherCode, mods = null) {
+      if (!isBindableKeyboardCode(code) || code === otherCode) return false;
+      if (mods?.unquieted && code === mods.unquietedKeybind) return false;
+      return true;
+    }
+    function keyLabel(code) {
+      const labels = { ScrollLock: "Scroll Lock", PageDown: "Page Down", PageUp: "Page Up", CapsLock: "Caps Lock", NumLock: "Num Lock", Backquote: "`", BracketLeft: "[", BracketRight: "]", Semicolon: ";", Quote: "'", Comma: ",", Period: ".", Slash: "/", Backslash: "\\", NumpadAdd: "Numpad +", NumpadSubtract: "Numpad −", NumpadMultiply: "Numpad ×", NumpadDivide: "Numpad ÷", NumpadDecimal: "Numpad .", NumpadEnter: "Numpad Enter" };
+      if (labels[code]) return labels[code];
+      return String(code || "KeyM").replace(/^Key/, "").replace(/^Digit/, "").replace(/^Numpad/, "Num ");
+    }
     function normalizeMods(value = {}) {
       const source = value && typeof value === "object" ? value : {};
       const oldCtrl = typeof source.ctrlShiftLock === "boolean" ? source.ctrlShiftLock : source.ctrlShitLock;
@@ -155,21 +182,29 @@
       const radius = Number(source.worldSlicerRadius);
       const cap = Number(source.frameCap);
       const betterGraphics = typeof source.betterGraphics === "boolean" ? source.betterGraphics : MOD_DEFAULTS.betterGraphics;
+      const betterView = typeof source.betterView === "boolean" ? source.betterView : MOD_DEFAULTS.betterView;
       const worldSlicer = typeof source.worldSlicer === "boolean" ? source.worldSlicer : MOD_DEFAULTS.worldSlicer;
       const cursorCapture = typeof source.cursorCapture === "boolean" ? source.cursorCapture : MOD_DEFAULTS.cursorCapture;
+      const unquieted = typeof source.unquieted === "boolean" ? source.unquieted : MOD_DEFAULTS.unquieted;
       const defaultsVersion = Number(source.modDefaultsVersion) || 0;
+      let zoomInKey = isBindableKeyboardCode(source.betterViewZoomInKey) ? source.betterViewZoomInKey : MOD_DEFAULTS.betterViewZoomInKey;
+      let zoomOutKey = isBindableKeyboardCode(source.betterViewZoomOutKey) ? source.betterViewZoomOutKey : MOD_DEFAULTS.betterViewZoomOutKey;
+      if (zoomOutKey === zoomInKey) zoomOutKey = fallbackKey([zoomInKey]);
+      const rawMusicKey = isBindableKeyboardCode(source.unquietedKeybind) ? source.unquietedKeybind : MOD_DEFAULTS.unquietedKeybind;
+      const musicKey = betterView && [zoomInKey, zoomOutKey].includes(rawMusicKey) ? fallbackKey([zoomInKey, zoomOutKey]) : rawMusicKey;
       return {
         betterTranslations: typeof source.betterTranslations === "boolean" ? source.betterTranslations : MOD_DEFAULTS.betterTranslations,
-        betterView: typeof source.betterView === "boolean" ? source.betterView : MOD_DEFAULTS.betterView,
+        betterView,
+        betterViewZoomInKey: zoomInKey,
+        betterViewZoomOutKey: zoomOutKey,
         ctrlShiftLock: typeof oldCtrl === "boolean" ? oldCtrl : MOD_DEFAULTS.ctrlShiftLock,
         betterCursorCapture: typeof source.betterCursorCapture === "boolean" ? source.betterCursorCapture : MOD_DEFAULTS.betterCursorCapture,
         cursorCapture,
         betterESC: typeof source.betterESC === "boolean" ? (source.betterESC && cursorCapture) : (cursorCapture ? MOD_DEFAULTS.betterESC : false),
-        unquieted: typeof source.unquieted === "boolean" ? source.unquieted : MOD_DEFAULTS.unquieted,
+        unquieted,
         unquietedVolume: Number.isFinite(volume) ? Math.max(0, Math.min(100, Math.round(volume))) : MOD_DEFAULTS.unquietedVolume,
-        unquietedKeybind: typeof source.unquietedKeybind === "string" && /^(Key[A-Z]|Digit[0-9]|F([1-9]|1[0-2]))$/.test(source.unquietedKeybind) ? source.unquietedKeybind : MOD_DEFAULTS.unquietedKeybind,
+        unquietedKeybind: musicKey,
         betterGraphics,
-        detailedGraphicsAddon: (typeof source.detailedGraphicsAddon === "boolean" ? source.detailedGraphicsAddon : MOD_DEFAULTS.detailedGraphicsAddon) && betterGraphics,
         betterAnimations: typeof source.betterAnimations === "boolean" ? source.betterAnimations : MOD_DEFAULTS.betterAnimations,
         betterHUD: typeof source.betterHUD === "boolean" ? source.betterHUD : MOD_DEFAULTS.betterHUD,
         moreCutScenes: defaultsVersion < 1 ? true : (typeof source.moreCutScenes === "boolean" ? source.moreCutScenes : MOD_DEFAULTS.moreCutScenes),
@@ -181,9 +216,6 @@
         framesUnlocker: typeof source.framesUnlocker === "boolean" ? source.framesUnlocker : MOD_DEFAULTS.framesUnlocker,
         frameCap: FRAME_CAPS.includes(cap) ? cap : MOD_DEFAULTS.frameCap
       };
-    }
-    function keyLabel(code) {
-      return ({ KeyM: "M", KeyN: "N", KeyF: "F", KeyG: "G", KeyP: "P", KeyT: "T", Space: "Space" })[code] || String(code || "KeyM").replace(/^Key/, "").replace(/^Digit/, "");
     }
     let currentUser = null;
     let profileRef = null;
@@ -279,7 +311,7 @@
         "mod-translations": "betterTranslations", "mod-better-view": "betterView", "mod-ctrl-lock": "ctrlShiftLock",
         "mod-better-cursor": "betterCursorCapture", "mod-cursor-capture": "cursorCapture",
         "mod-better-esc": "betterESC", "mod-unquieted": "unquieted",
-        "mod-better-graphics": "betterGraphics", "mod-detailed-graphics-addon": "detailedGraphicsAddon",
+        "mod-better-graphics": "betterGraphics",
         "mod-better-animations": "betterAnimations", "mod-better-hud": "betterHUD", "mod-more-cut-scenes": "moreCutScenes", "mod-more-sfx": "moreSFX",
         "mod-world-slicer": "worldSlicer", "mod-better-slices": "betterSlices", "mod-frames-unlocker": "framesUnlocker"
       };
@@ -291,11 +323,13 @@
       $("better-esc-dependency").textContent = mods.cursorCapture ? "Requires CursorCapture." : "Enable CursorCapture first.";
       $("mod-better-slices").disabled = !mods.worldSlicer;
       $("better-slices-dependency").textContent = mods.worldSlicer ? "Requires WorldSlicer." : "Enable WorldSlicer first.";
-      $("mod-detailed-graphics-addon").disabled = !mods.betterGraphics;
-      $("detailed-graphics-dependency").textContent = mods.betterGraphics ? "Submod of BetterGraphics." : "Enable BetterGraphics first.";
       $("unquieted-volume").value = String(mods.unquietedVolume);
+      $("unquieted-volume-number").value = String(mods.unquietedVolume);
       $("unquieted-volume-label").textContent = `${mods.unquietedVolume}%`;
       $("unquieted-keybind").textContent = keyLabel(mods.unquietedKeybind);
+      $("better-view-zoom-in-key").textContent = keyLabel(mods.betterViewZoomInKey);
+      $("better-view-zoom-out-key").textContent = keyLabel(mods.betterViewZoomOutKey);
+      $("better-view-options").hidden = !mods.betterView;
       $("unquieted-options").hidden = !mods.unquieted;
       $("world-slicer-radius").value = String(mods.worldSlicerRadius);
       $("world-slicer-options").hidden = !mods.worldSlicer;
@@ -370,7 +404,6 @@
       const nextMods = normalizeMods({ ...previous, ...patch });
       if (!nextMods.cursorCapture) nextMods.betterESC = false;
       if (!nextMods.worldSlicer) nextMods.betterSlices = false;
-      if (!nextMods.betterGraphics) nextMods.detailedGraphicsAddon = false;
       active.mods = nextMods;
       render();
       const instanceId = active.id;
@@ -400,8 +433,7 @@
       const current = normalizeMods(active.mods);
       const dependency = {
         betterESC: ["cursorCapture", "BetterESC requires CursorCapture."],
-        betterSlices: ["worldSlicer", "BetterSlices requires WorldSlicer."],
-        detailedGraphicsAddon: ["betterGraphics", "Detailed Graphics Addon requires BetterGraphics."]
+        betterSlices: ["worldSlicer", "BetterSlices requires WorldSlicer."]
       }[key];
       if (dependency && !current[dependency[0]]) {
         setStatus("app-status", dependency[1] + " Enable its parent mod first.", true);
@@ -410,7 +442,6 @@
       const patch = { [key]: !current[key] };
       if (key === "cursorCapture" && current.cursorCapture) patch.betterESC = false;
       if (key === "worldSlicer" && current.worldSlicer) patch.betterSlices = false;
-      if (key === "betterGraphics" && current.betterGraphics) patch.detailedGraphicsAddon = false;
       await saveModSettings(patch);
     }
 
@@ -457,7 +488,7 @@
             ["betterTranslations", "better-translations"], ["betterView", "better-view"], ["ctrlShiftLock", "ctrl-shift-lock"],
             ["betterCursorCapture", "better-cursor-capture"], ["cursorCapture", "cursor-capture"],
             ["betterESC", "better-esc"], ["unquieted", "unquieted"],
-            ["betterGraphics", "better-graphics"], ["detailedGraphicsAddon", "detailed-graphics-addon"],
+            ["betterGraphics", "better-graphics"],
             ["betterAnimations", "better-animations"], ["betterHUD", "better-hud"], ["moreCutScenes", "more-cut-scenes"], ["moreSFX", "more-sfx"],
             ["worldSlicer", "world-slicer"], ["betterSlices", "better-slices"], ["framesUnlocker", "frames-unlocker"]
           ];
@@ -473,6 +504,8 @@
           params.set("modConfig", JSON.stringify({
             unquietedVolume: modSettings.unquietedVolume,
             unquietedKeybind: modSettings.unquietedKeybind,
+            betterViewZoomInKey: modSettings.betterViewZoomInKey,
+            betterViewZoomOutKey: modSettings.betterViewZoomOutKey,
             worldSlicerRadius: modSettings.worldSlicerRadius,
             frameCap: modSettings.frameCap
           }));
@@ -621,29 +654,75 @@
       "mod-translations": "betterTranslations", "mod-better-view": "betterView", "mod-ctrl-lock": "ctrlShiftLock",
       "mod-better-cursor": "betterCursorCapture", "mod-cursor-capture": "cursorCapture",
       "mod-better-esc": "betterESC", "mod-unquieted": "unquieted",
-      "mod-better-graphics": "betterGraphics", "mod-detailed-graphics-addon": "detailedGraphicsAddon",
+      "mod-better-graphics": "betterGraphics",
       "mod-better-animations": "betterAnimations", "mod-better-hud": "betterHUD", "mod-more-cut-scenes": "moreCutScenes", "mod-more-sfx": "moreSFX",
       "mod-world-slicer": "worldSlicer", "mod-better-slices": "betterSlices", "mod-frames-unlocker": "framesUnlocker"
     };
     for (const [elementId, key] of Object.entries(modSwitchEvents)) {
       $(elementId).addEventListener("click", () => toggleMod(key));
     }
-    $("unquieted-volume").addEventListener("change", event => saveModSettings({ unquietedVolume: Number(event.target.value) }));
+    function clampVolumeInput(value) { const number = Number(value); return Number.isFinite(number) ? Math.max(0, Math.min(100, Math.round(number))) : 0; }
+    function previewVolume(value) {
+      const volume = clampVolumeInput(value);
+      $("unquieted-volume-label").textContent = `${volume}%`;
+      if (document.activeElement !== $("unquieted-volume-number")) $("unquieted-volume-number").value = String(volume);
+      if (document.activeElement !== $("unquieted-volume")) $("unquieted-volume").value = String(volume);
+      return volume;
+    }
+    function persistVolume(value) {
+      const volume = previewVolume(value);
+      return saveModSettings({ unquietedVolume: volume });
+    }
+    $("unquieted-volume").addEventListener("input", event => previewVolume(event.target.value));
+    $("unquieted-volume").addEventListener("change", event => persistVolume(event.target.value));
+    $("unquieted-volume-number").addEventListener("input", event => {
+      const raw = event.target.value;
+      if (raw === "") { $("unquieted-volume-label").textContent = "—%"; return; }
+      const volume = previewVolume(raw);
+      $("unquieted-volume").value = String(volume);
+      event.target.value = String(volume);
+    });
+    $("unquieted-volume-number").addEventListener("change", event => persistVolume(event.target.value === "" ? 0 : event.target.value));
     $("world-slicer-radius").addEventListener("change", event => saveModSettings({ worldSlicerRadius: Number(event.target.value) }));
     $("frames-cap").addEventListener("change", event => saveModSettings({ frameCap: Number(event.target.value) }));
-    let waitingForMusicKey = false;
-    $("unquieted-keybind").addEventListener("click", () => {
-      waitingForMusicKey = true;
-      $("unquieted-keybind").textContent = "Press a key…";
-      setStatus("app-status", "Press a key to use for toggling Unquieted music. Escape, Ctrl, Alt and Shift are reserved.");
-    });
+    let waitingForKeySetting = null;
+    const keySettingButtons = {
+      unquietedKeybind: "unquieted-keybind",
+      betterViewZoomInKey: "better-view-zoom-in-key",
+      betterViewZoomOutKey: "better-view-zoom-out-key"
+    };
+    function beginKeyCapture(setting) {
+      waitingForKeySetting = setting;
+      $(keySettingButtons[setting]).textContent = "Press a key…";
+      setStatus("app-status", "Press a keyboard key not already used by movement, actions, cursor controls, or another mod. Scroll Lock, End and Page Down are supported.");
+    }
+    $("unquieted-keybind").addEventListener("click", () => beginKeyCapture("unquietedKeybind"));
+    $("better-view-zoom-in-key").addEventListener("click", () => beginKeyCapture("betterViewZoomInKey"));
+    $("better-view-zoom-out-key").addEventListener("click", () => beginKeyCapture("betterViewZoomOutKey"));
     window.addEventListener("keydown", async event => {
-      if (!waitingForMusicKey) return;
-      if (["Escape", "ControlLeft", "ControlRight", "AltLeft", "AltRight", "ShiftLeft", "ShiftRight", "MetaLeft", "MetaRight", "Tab"].includes(event.code)) return;
-      if (!/^(Key[A-Z]|Digit[0-9]|F([1-9]|1[0-2]))$/.test(event.code)) return;
+      if (!waitingForKeySetting) return;
+      const active = selectedInstance();
+      const mods = normalizeMods(active?.mods);
+      if (event.ctrlKey || event.altKey || event.metaKey || !isBindableKeyboardCode(event.code)) return;
+      let patch;
+      if (waitingForKeySetting === "unquietedKeybind") {
+        if (!isMusicBindableCode(event.code, mods)) {
+          setStatus("app-status", "That key is already assigned to BetterView or reserved for gameplay. Choose another key.", true);
+          return;
+        }
+        patch = { unquietedKeybind: event.code };
+      } else {
+        const other = waitingForKeySetting === "betterViewZoomInKey" ? mods.betterViewZoomOutKey : mods.betterViewZoomInKey;
+        if (!isBetterViewBindableCode(event.code, other, mods)) {
+          setStatus("app-status", "That key is already assigned or reserved for gameplay/another mod. Choose another key.", true);
+          return;
+        }
+        patch = { [waitingForKeySetting]: event.code };
+      }
       event.preventDefault();
-      waitingForMusicKey = false;
-      await saveModSettings({ unquietedKeybind: event.code });
+      event.stopImmediatePropagation();
+      waitingForKeySetting = null;
+      await saveModSettings(patch);
     }, true);
     function hideGamebar() {
       $("gamebar").classList.add("hidden");

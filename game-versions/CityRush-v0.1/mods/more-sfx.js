@@ -8,6 +8,17 @@ export default {
       if (!ctx) return;
       if (ctx.state === "suspended") ctx.resume().catch(() => {});
       const now = ctx.currentTime;
+      if (type === "jump") {
+        // Reproduce the original CityRush jump tone: square wave, 300→650 Hz, 0.2 s, gain 0.07.
+        const osc = ctx.createOscillator(), gain = ctx.createGain();
+        osc.type = "square";
+        osc.frequency.setValueAtTime(300, now);
+        osc.frequency.exponentialRampToValueAtTime(650, now + 0.2);
+        gain.gain.setValueAtTime(0.07, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+        osc.connect(gain).connect(ctx.destination); osc.start(now); osc.stop(now + 0.2);
+        return;
+      }
       const master = ctx.createGain();
       master.gain.value = 0.17;
       master.connect(ctx.destination);

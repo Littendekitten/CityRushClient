@@ -7,7 +7,6 @@ const knownMods = {
   "better-esc": "./mods/better-esc.js",
   "unquieted": "./mods/unquieted.js",
   "better-graphics": "./mods/better-graphics.js",
-  "detailed-graphics-addon": "./mods/detailed-graphics-addon.js",
   "better-animations": "./mods/better-animations.js",
   "better-hud": "./mods/better-hud.js",
   "more-cut-scenes": "./mods/more-cut-scenes.js",
@@ -19,8 +18,7 @@ const knownMods = {
 
 const dependencies = {
   "better-esc": ["cursor-capture"],
-  "better-slices": ["world-slicer"],
-  "detailed-graphics-addon": ["better-graphics"]
+  "better-slices": ["world-slicer"]
 };
 
 export async function loadMangoMods(api, requestedMods = []) {
@@ -43,7 +41,7 @@ export async function loadMangoMods(api, requestedMods = []) {
   const order = [
     "better-graphics", "world-slicer", "cursor-capture",
     "better-translations", "better-view", "ctrl-shift-lock", "better-cursor-capture", "better-esc",
-    "unquieted", "detailed-graphics-addon", "better-animations", "better-hud", "more-cut-scenes", "more-sfx",
+    "unquieted", "better-animations", "better-hud", "more-cut-scenes", "more-sfx",
     "better-slices", "frames-unlocker"
   ];
   const loaded = [];

@@ -11,7 +11,7 @@ export default {
       if (event.repeat || event.target?.matches?.('input,textarea,select,[contenteditable="true"]')) return;
       event.preventDefault();
       const result = api.setShiftLock(!api.shiftLockEnabled);
-      if (result?.catch) result.catch(error => console.warn("[CtrlShiftLock] Could not activate shift lock", error));
+      if (result?.catch) result.catch(error => { if (error?.name !== "SecurityError") console.warn("[CtrlShiftLock] Could not activate shift lock", error); });
     };
     const onPointerLockChange = () => {
       if (document.pointerLockElement !== canvas && api.shiftLockEnabled) {
