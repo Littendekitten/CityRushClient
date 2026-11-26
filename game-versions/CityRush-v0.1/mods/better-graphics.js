@@ -1,7 +1,7 @@
 export default {
   id: "better-graphics",
   name: "BetterGraphics",
-  description: "Increases renderer pixel density and shadow-map resolution for a more detailed image.",
+  description: "Improves lighting, output sharpness, shadow quality and texture filtering.",
   init(api) {
     api.setBetterGraphics(true);
     api.onModUnload(() => api.setBetterGraphics(false));

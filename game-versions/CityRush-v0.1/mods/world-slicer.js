@@ -6,6 +6,6 @@ export default {
     const radius = Number(api.modConfig?.worldSlicerRadius ?? 2);
     api.setWorldCellRadius(Number.isFinite(radius) ? radius : 2);
     api.worldSlicerEnabled = true;
-    api.onModUnload(() => { api.worldSlicerEnabled = false; api.setWorldCellRadius(2); });
+    api.onModUnload(() => { api.worldSlicerEnabled = false; api.setWorldCellRadius(2); api.setBetterSlices(false); });
   }
 };

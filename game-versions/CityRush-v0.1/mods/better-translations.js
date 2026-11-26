@@ -1,5 +1,7 @@
 const dictionary = new Map([
   ["RAKET", "ROCKET"],
+  ["SPRING", "JUMP"],
+  ["PRAAT", "TALK"],
   ["WASD = lopen · sleep = kijken · Shift = rennen · Spatie = springen · E = praten", "WASD = move · drag = look · Shift = sprint · Space = jump · E = talk"],
   ["🚀 NAAR DE MAAN!", "🚀 TO THE MOON!"],
   ["AANGEREDEN!", "HIT BY A CAR!"],

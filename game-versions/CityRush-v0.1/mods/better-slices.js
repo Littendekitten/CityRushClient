@@ -1,8 +1,9 @@
 export default {
   id: "better-slices",
   name: "BetterSlices",
-  description: "Uses camera-frustum culling to avoid drawing world cells outside the active view.",
+  description: "Camera-frustum culling for streamed world cells. Requires WorldSlicer.",
   init(api) {
+    if (!api.worldSlicerEnabled) throw new Error("BetterSlices requires WorldSlicer.");
     api.setBetterSlices(true);
     api.onModUnload(() => api.setBetterSlices(false));
   }

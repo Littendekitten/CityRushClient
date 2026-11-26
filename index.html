@@ -25,14 +25,14 @@
 
     .mod-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
     .mod-card{display:flex;gap:12px;align-items:flex-start;min-width:0;padding:13px;border:1px solid #29364d;border-radius:15px;background:linear-gradient(145deg,#172235,#101722)}
-    .mod-icon{width:72px;height:72px;object-fit:contain;flex:none;border-radius:12px;background:#0b111c}
+    .submod-card{margin-left:24px;border-style:dashed;background:linear-gradient(145deg,#17202d,#0e1520)}.submod-card .mod-icon{width:60px;height:60px}.mod-icon{width:72px;height:72px;object-fit:contain;flex:none;border-radius:12px;background:#0b111c}
     .mod-content{min-width:0;flex:1}.mod-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.mod-head h4{margin:0;font-size:13px}.mod-content p{margin:3px 0 0;color:var(--muted);font-size:11px;line-height:1.4}
     .mod-options{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:9px;padding-top:8px;border-top:1px solid #28354b;font-size:11px;color:#c5d0e1}
     .mod-options[hidden]{display:none}.mod-options input[type=range]{width:min(150px,45%);accent-color:#e9b64e}.mod-options select{background:#0d1420;border:1px solid #35445e;color:#eef3fb;border-radius:8px;padding:5px 8px;font:inherit}.mod-options button{padding:5px 9px;border-radius:8px;background:#26334a;border:1px solid #3a4963;color:#fff;font-size:11px}
     .switch:disabled{opacity:.35;cursor:not-allowed}.mod-dependency{font-size:10px;color:#f0c46c}
     #gamebar{gap:12px}#gamebar .bar-actions{display:flex;align-items:center;gap:8px}#gamebar .bar-actions button{white-space:nowrap;padding:7px 10px;font-size:11px}
-    #show-gamebar{position:fixed;z-index:25;top:10px;right:10px;padding:8px 11px;background:#111827eF;border:1px solid #44536d;color:#eef3fb;border-radius:10px;font-size:11px;font-weight:800;box-shadow:0 6px 22px #0008}
-    @media(max-width:760px){.mod-grid{grid-template-columns:1fr}.mod-icon{width:62px;height:62px}}
+    #game-shell.bar-hidden #gamebar{display:none!important}#game-shell.bar-hidden #game-frame{height:100%;max-height:100%}
+    @media(max-width:760px){.mod-grid{grid-template-columns:1fr}.mod-icon{width:62px;height:62px}.submod-card{margin-left:12px}.submod-card .mod-icon{width:54px;height:54px}}
 
   </style>
 </head>
@@ -59,7 +59,7 @@
 
     <section class="hero">
       <div><div class="eyebrow">YOUR CITY. YOUR INSTANCE.</div><h2>Ready to rush?</h2><p>Choose the clean vanilla game, or boot MangoMod and pick the mods you want in your session.</p></div>
-      <div class="build-tag">CITYRUSH v0.1 · CLIENT v0.4</div>
+      <div class="build-tag">CITYRUSH v0.1 · CLIENT v0.5</div>
     </section>
 
     <div class="section-heading">
@@ -79,8 +79,12 @@
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-esc.png" alt="BetterESC icon"><div class="mod-content"><div class="mod-head"><h4>BetterESC</h4><button class="switch" id="mod-better-esc" role="switch" aria-label="Enable BetterESC" aria-checked="true"></button></div><p>Lets ESC release the cursor, but only when CursorCapture is enabled.<br><span id="better-esc-dependency" class="mod-dependency">Requires CursorCapture.</span></p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/unquieted.png" alt="Unquieted icon"><div class="mod-content"><div class="mod-head"><h4>Unquieted</h4><button class="switch" id="mod-unquieted" role="switch" aria-label="Enable Unquieted" aria-checked="true"></button></div><p>Original ambient background music with your own volume and toggle key.</p><div class="mod-options" id="unquieted-options"><label for="unquieted-volume">Volume <strong id="unquieted-volume-label">25%</strong></label><input id="unquieted-volume" type="range" min="0" max="100" step="1" value="25"><span>Music key</span><button id="unquieted-keybind" type="button">M</button></div></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-graphics.png" alt="BetterGraphics icon"><div class="mod-content"><div class="mod-head"><h4>BetterGraphics</h4><button class="switch" id="mod-better-graphics" role="switch" aria-label="Enable BetterGraphics" aria-checked="true"></button></div><p>Raises shadow-map detail and renderer quality for a sharper image.</p></div></article>
+        <article class="mod-card submod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/detailed-graphics-addon.png" alt="Detailed Graphics Addon icon"><div class="mod-content"><div class="mod-head"><h4>↳ Detailed Graphics Addon</h4><button class="switch" id="mod-detailed-graphics-addon" role="switch" aria-label="Enable Detailed Graphics Addon" aria-checked="true"></button></div><p>Adds visible facial details to the player, pedestrians, mission givers and boss. Requires BetterGraphics.<br><span id="detailed-graphics-dependency" class="mod-dependency">Requires BetterGraphics.</span></p></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-animations.png" alt="BetterAnimations icon"><div class="mod-content"><div class="mod-head"><h4>BetterAnimations</h4><button class="switch" id="mod-better-animations" role="switch" aria-label="Enable BetterAnimations" aria-checked="true"></button></div><p>Improves player movement, idle breathing, jumps, pedestrians and interaction motion.</p></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/more-cut-scenes.png" alt="MoreCutScenes icon"><div class="mod-content"><div class="mod-head"><h4>MoreCutScenes</h4><button class="switch" id="mod-more-cut-scenes" role="switch" aria-label="Enable MoreCutScenes" aria-checked="false"></button></div><p>Plays an unskippable, coordinate-personalized cinematic sequence when entering each building.</p></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/more-sfx.png" alt="MoreSFX icon"><div class="mod-content"><div class="mod-head"><h4>MoreSFX</h4><button class="switch" id="mod-more-sfx" role="switch" aria-label="Enable MoreSFX" aria-checked="true"></button></div><p>Adds layered sound effects for footsteps, jumps, pickups, interactions, collisions, missions and building entries.</p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/world-slicer.png" alt="WorldSlicer icon"><div class="mod-content"><div class="mod-head"><h4>WorldSlicer</h4><button class="switch" id="mod-world-slicer" role="switch" aria-label="Enable WorldSlicer" aria-checked="true"></button></div><p>Controls how many procedural world cells are kept around your player.</p><div class="mod-options" id="world-slicer-options"><label for="world-slicer-radius">Loaded radius</label><select id="world-slicer-radius"><option value="1">1 cell · Fast</option><option value="2">2 cells · Balanced</option><option value="3">3 cells · Far</option></select></div></div></article>
-        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-slices.png" alt="BetterSlices icon"><div class="mod-content"><div class="mod-head"><h4>BetterSlices</h4><button class="switch" id="mod-better-slices" role="switch" aria-label="Enable BetterSlices" aria-checked="true"></button></div><p>Uses camera-frustum culling to skip drawing distant world cells outside your view.</p></div></article>
+        <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/better-slices.png" alt="BetterSlices icon"><div class="mod-content"><div class="mod-head"><h4>BetterSlices</h4><button class="switch" id="mod-better-slices" role="switch" aria-label="Enable BetterSlices" aria-checked="true"></button></div><p>Uses camera-frustum culling to skip drawing streamed cells outside your view.<br><span id="better-slices-dependency" class="mod-dependency">Requires WorldSlicer.</span></p></div></article>
         <article class="mod-card"><img class="mod-icon" src="./game-versions/CityRush-v0.1/mod-assets/frames-unlocker.png" alt="FramesUnlocker icon"><div class="mod-content"><div class="mod-head"><h4>FramesUnlocker</h4><button class="switch" id="mod-frames-unlocker" role="switch" aria-label="Enable FramesUnlocker" aria-checked="true"></button></div><p>Choose a frame-update cap. Unlimited uses the browser's native display refresh rate.</p><div class="mod-options" id="frames-options"><label for="frames-cap">Frame cap</label><select id="frames-cap"><option value="30">30 FPS</option><option value="45">45 FPS</option><option value="60">60 FPS</option><option value="75">75 FPS</option><option value="90">90 FPS</option><option value="120">120 FPS</option><option value="144">144 FPS</option><option value="165">165 FPS</option><option value="240">240 FPS</option><option value="0">Unlimited</option></select></div></div></article>
       </div>
     </section>
@@ -103,7 +107,6 @@
 
   <section id="game-shell" class="hidden" aria-label="CityRush game">
     <header id="gamebar"><strong>CITYRUSH CLIENT</strong><span id="game-instance-label">VANILLA INSTANCE</span><div class="bar-actions"><button class="ghost" id="hide-gamebar" type="button">Hide this bar</button><button class="ghost" id="back-to-launcher">← Back to launcher</button></div></header>
-    <button id="show-gamebar" class="hidden" type="button">Show client bar</button>
     <iframe id="game-frame" title="CityRush game" allow="fullscreen; gamepad" referrerpolicy="strict-origin-when-cross-origin"></iframe>
   </section>
 
@@ -129,13 +132,17 @@
       unquietedVolume: 25,
       unquietedKeybind: "KeyM",
       betterGraphics: true,
+      detailedGraphicsAddon: true,
+      betterAnimations: true,
+      moreCutScenes: false,
+      moreSFX: true,
       worldSlicer: true,
       worldSlicerRadius: 2,
       betterSlices: true,
       framesUnlocker: true,
       frameCap: 0
     };
-    const MOD_TOGGLE_KEYS = ["betterTranslations", "ctrlShiftLock", "betterCursorCapture", "cursorCapture", "betterESC", "unquieted", "betterGraphics", "worldSlicer", "betterSlices", "framesUnlocker"];
+    const MOD_TOGGLE_KEYS = ["betterTranslations", "ctrlShiftLock", "betterCursorCapture", "cursorCapture", "betterESC", "unquieted", "betterGraphics", "detailedGraphicsAddon", "betterAnimations", "moreCutScenes", "moreSFX", "worldSlicer", "betterSlices", "framesUnlocker"];
     const FRAME_CAPS = [0, 30, 45, 60, 75, 90, 120, 144, 165, 240];
     function normalizeMods(value = {}) {
       const source = value && typeof value === "object" ? value : {};
@@ -143,19 +150,26 @@
       const volume = Number(source.unquietedVolume);
       const radius = Number(source.worldSlicerRadius);
       const cap = Number(source.frameCap);
+      const betterGraphics = typeof source.betterGraphics === "boolean" ? source.betterGraphics : MOD_DEFAULTS.betterGraphics;
+      const worldSlicer = typeof source.worldSlicer === "boolean" ? source.worldSlicer : MOD_DEFAULTS.worldSlicer;
+      const cursorCapture = typeof source.cursorCapture === "boolean" ? source.cursorCapture : MOD_DEFAULTS.cursorCapture;
       return {
         betterTranslations: typeof source.betterTranslations === "boolean" ? source.betterTranslations : MOD_DEFAULTS.betterTranslations,
         ctrlShiftLock: typeof oldCtrl === "boolean" ? oldCtrl : MOD_DEFAULTS.ctrlShiftLock,
         betterCursorCapture: typeof source.betterCursorCapture === "boolean" ? source.betterCursorCapture : MOD_DEFAULTS.betterCursorCapture,
-        cursorCapture: typeof source.cursorCapture === "boolean" ? source.cursorCapture : MOD_DEFAULTS.cursorCapture,
-        betterESC: typeof source.betterESC === "boolean" ? (source.betterESC && source.cursorCapture !== false) : (source.cursorCapture === false ? false : MOD_DEFAULTS.betterESC),
+        cursorCapture,
+        betterESC: typeof source.betterESC === "boolean" ? (source.betterESC && cursorCapture) : (cursorCapture ? MOD_DEFAULTS.betterESC : false),
         unquieted: typeof source.unquieted === "boolean" ? source.unquieted : MOD_DEFAULTS.unquieted,
         unquietedVolume: Number.isFinite(volume) ? Math.max(0, Math.min(100, Math.round(volume))) : MOD_DEFAULTS.unquietedVolume,
         unquietedKeybind: typeof source.unquietedKeybind === "string" && /^(Key[A-Z]|Digit[0-9]|F([1-9]|1[0-2]))$/.test(source.unquietedKeybind) ? source.unquietedKeybind : MOD_DEFAULTS.unquietedKeybind,
-        betterGraphics: typeof source.betterGraphics === "boolean" ? source.betterGraphics : MOD_DEFAULTS.betterGraphics,
-        worldSlicer: typeof source.worldSlicer === "boolean" ? source.worldSlicer : MOD_DEFAULTS.worldSlicer,
+        betterGraphics,
+        detailedGraphicsAddon: (typeof source.detailedGraphicsAddon === "boolean" ? source.detailedGraphicsAddon : MOD_DEFAULTS.detailedGraphicsAddon) && betterGraphics,
+        betterAnimations: typeof source.betterAnimations === "boolean" ? source.betterAnimations : MOD_DEFAULTS.betterAnimations,
+        moreCutScenes: typeof source.moreCutScenes === "boolean" ? source.moreCutScenes : MOD_DEFAULTS.moreCutScenes,
+        moreSFX: typeof source.moreSFX === "boolean" ? source.moreSFX : MOD_DEFAULTS.moreSFX,
+        worldSlicer,
         worldSlicerRadius: Number.isFinite(radius) ? Math.max(1, Math.min(3, Math.round(radius))) : MOD_DEFAULTS.worldSlicerRadius,
-        betterSlices: typeof source.betterSlices === "boolean" ? source.betterSlices : MOD_DEFAULTS.betterSlices,
+        betterSlices: (typeof source.betterSlices === "boolean" ? source.betterSlices : MOD_DEFAULTS.betterSlices) && worldSlicer,
         framesUnlocker: typeof source.framesUnlocker === "boolean" ? source.framesUnlocker : MOD_DEFAULTS.framesUnlocker,
         frameCap: FRAME_CAPS.includes(cap) ? cap : MOD_DEFAULTS.frameCap
       };
@@ -257,8 +271,9 @@
         "mod-translations": "betterTranslations", "mod-ctrl-lock": "ctrlShiftLock",
         "mod-better-cursor": "betterCursorCapture", "mod-cursor-capture": "cursorCapture",
         "mod-better-esc": "betterESC", "mod-unquieted": "unquieted",
-        "mod-better-graphics": "betterGraphics", "mod-world-slicer": "worldSlicer",
-        "mod-better-slices": "betterSlices", "mod-frames-unlocker": "framesUnlocker"
+        "mod-better-graphics": "betterGraphics", "mod-detailed-graphics-addon": "detailedGraphicsAddon",
+        "mod-better-animations": "betterAnimations", "mod-more-cut-scenes": "moreCutScenes", "mod-more-sfx": "moreSFX",
+        "mod-world-slicer": "worldSlicer", "mod-better-slices": "betterSlices", "mod-frames-unlocker": "framesUnlocker"
       };
       for (const [elementId, key] of Object.entries(switches)) {
         const control = $(elementId);
@@ -266,6 +281,10 @@
       }
       $("mod-better-esc").disabled = !mods.cursorCapture;
       $("better-esc-dependency").textContent = mods.cursorCapture ? "Requires CursorCapture." : "Enable CursorCapture first.";
+      $("mod-better-slices").disabled = !mods.worldSlicer;
+      $("better-slices-dependency").textContent = mods.worldSlicer ? "Requires WorldSlicer." : "Enable WorldSlicer first.";
+      $("mod-detailed-graphics-addon").disabled = !mods.betterGraphics;
+      $("detailed-graphics-dependency").textContent = mods.betterGraphics ? "Submod of BetterGraphics." : "Enable BetterGraphics first.";
       $("unquieted-volume").value = String(mods.unquietedVolume);
       $("unquieted-volume-label").textContent = `${mods.unquietedVolume}%`;
       $("unquieted-keybind").textContent = keyLabel(mods.unquietedKeybind);
@@ -342,6 +361,8 @@
       const previous = normalizeMods(active.mods);
       const nextMods = normalizeMods({ ...previous, ...patch });
       if (!nextMods.cursorCapture) nextMods.betterESC = false;
+      if (!nextMods.worldSlicer) nextMods.betterSlices = false;
+      if (!nextMods.betterGraphics) nextMods.detailedGraphicsAddon = false;
       active.mods = nextMods;
       render();
       const instanceId = active.id;
@@ -369,12 +390,19 @@
       const active = selectedInstance();
       if (!active || active.type !== "mangomod") return;
       const current = normalizeMods(active.mods);
-      if (key === "betterESC" && !current.cursorCapture) {
-        setStatus("app-status", "BetterESC requires CursorCapture to be enabled.", true);
+      const dependency = {
+        betterESC: ["cursorCapture", "BetterESC requires CursorCapture."],
+        betterSlices: ["worldSlicer", "BetterSlices requires WorldSlicer."],
+        detailedGraphicsAddon: ["betterGraphics", "Detailed Graphics Addon requires BetterGraphics."]
+      }[key];
+      if (dependency && !current[dependency[0]]) {
+        setStatus("app-status", dependency[1] + " Enable its parent mod first.", true);
         return;
       }
       const patch = { [key]: !current[key] };
       if (key === "cursorCapture" && current.cursorCapture) patch.betterESC = false;
+      if (key === "worldSlicer" && current.worldSlicer) patch.betterSlices = false;
+      if (key === "betterGraphics" && current.betterGraphics) patch.detailedGraphicsAddon = false;
       await saveModSettings(patch);
     }
 
@@ -421,8 +449,9 @@
             ["betterTranslations", "better-translations"], ["ctrlShiftLock", "ctrl-shift-lock"],
             ["betterCursorCapture", "better-cursor-capture"], ["cursorCapture", "cursor-capture"],
             ["betterESC", "better-esc"], ["unquieted", "unquieted"],
-            ["betterGraphics", "better-graphics"], ["worldSlicer", "world-slicer"],
-            ["betterSlices", "better-slices"], ["framesUnlocker", "frames-unlocker"]
+            ["betterGraphics", "better-graphics"], ["detailedGraphicsAddon", "detailed-graphics-addon"],
+            ["betterAnimations", "better-animations"], ["moreCutScenes", "more-cut-scenes"], ["moreSFX", "more-sfx"],
+            ["worldSlicer", "world-slicer"], ["betterSlices", "better-slices"], ["framesUnlocker", "frames-unlocker"]
           ];
           for (const [setting, modId] of mapping) if (modSettings[setting]) enabledMods.push(modId);
         }
@@ -443,7 +472,7 @@
         const gamePath = `game-versions/CityRush-v0.1/CityRush-v0.01.html?${params.toString()}`;
         $("game-instance-label").textContent = `${active.name} · ${active.type === "mangomod" ? "MANGOMOD" : "VANILLA"} · v${active.version || GAME_VERSION}`;
         $("gamebar").classList.remove("hidden");
-        $("show-gamebar").classList.add("hidden");
+        gameShell.classList.remove("bar-hidden");
         $("game-frame").src = gamePath;
         appView.classList.add("hidden");
         gameShell.classList.remove("hidden");
@@ -584,8 +613,9 @@
       "mod-translations": "betterTranslations", "mod-ctrl-lock": "ctrlShiftLock",
       "mod-better-cursor": "betterCursorCapture", "mod-cursor-capture": "cursorCapture",
       "mod-better-esc": "betterESC", "mod-unquieted": "unquieted",
-      "mod-better-graphics": "betterGraphics", "mod-world-slicer": "worldSlicer",
-      "mod-better-slices": "betterSlices", "mod-frames-unlocker": "framesUnlocker"
+      "mod-better-graphics": "betterGraphics", "mod-detailed-graphics-addon": "detailedGraphicsAddon",
+      "mod-better-animations": "betterAnimations", "mod-more-cut-scenes": "moreCutScenes", "mod-more-sfx": "moreSFX",
+      "mod-world-slicer": "worldSlicer", "mod-better-slices": "betterSlices", "mod-frames-unlocker": "framesUnlocker"
     };
     for (const [elementId, key] of Object.entries(modSwitchEvents)) {
       $(elementId).addEventListener("click", () => toggleMod(key));
@@ -607,14 +637,45 @@
       waitingForMusicKey = false;
       await saveModSettings({ unquietedKeybind: event.code });
     }, true);
-    $("hide-gamebar").addEventListener("click", () => {
+    function hideGamebar() {
       $("gamebar").classList.add("hidden");
-      $("show-gamebar").classList.remove("hidden");
-    });
-    $("show-gamebar").addEventListener("click", () => {
+      gameShell.classList.add("bar-hidden");
+    }
+    function restoreGamebar() {
       $("gamebar").classList.remove("hidden");
-      $("show-gamebar").classList.add("hidden");
+      gameShell.classList.remove("bar-hidden");
+    }
+    let escRestoreTimer = null;
+    let escRestoreFired = false;
+    function beginEscRestoreHold() {
+      if (!gameShell.classList.contains("bar-hidden")) return;
+      if (escRestoreTimer) clearTimeout(escRestoreTimer);
+      escRestoreFired = false;
+      escRestoreTimer = setTimeout(() => {
+        escRestoreFired = true;
+        restoreGamebar();
+        setStatus("app-status", "Client bar restored. Hold ESC for 2.2 seconds to bring it back whenever it is hidden.");
+      }, 2200);
+    }
+    function endEscRestoreHold() {
+      if (escRestoreTimer && !escRestoreFired) clearTimeout(escRestoreTimer);
+      escRestoreTimer = null;
+    }
+    // Also listen in the parent document: after clicking Hide this bar, focus may still be here.
+    document.addEventListener("keydown", event => {
+      if (event.code === "Escape" && !event.repeat) beginEscRestoreHold();
+    }, true);
+    document.addEventListener("keyup", event => {
+      if (event.code === "Escape") endEscRestoreHold();
+    }, true);
+    window.addEventListener("message", (event) => {
+      const frame = $("game-frame");
+      if (event.source !== frame.contentWindow || event.origin !== window.location.origin) return;
+      if (event.data?.type !== "cityrush:clientbar-escape") return;
+      if (event.data.action === "down") beginEscRestoreHold();
+      else if (event.data.action === "up") endEscRestoreHold();
     });
+    $("hide-gamebar").addEventListener("click", hideGamebar);
     $("launch").addEventListener("click", launchGame);
     $("signout").addEventListener("click", async () => {
       try { $("game-frame").src = "about:blank"; await signOut(auth); showAuth(); }
@@ -623,7 +684,7 @@
     $("back-to-launcher").addEventListener("click", () => {
       $("game-frame").src = "about:blank";
       $("gamebar").classList.remove("hidden");
-      $("show-gamebar").classList.add("hidden");
+      gameShell.classList.remove("bar-hidden");
       gameShell.classList.add("hidden");
       appView.classList.remove("hidden");
     });
