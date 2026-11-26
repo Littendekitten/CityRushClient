@@ -9,6 +9,7 @@ const knownMods = {
   "better-graphics": "./mods/better-graphics.js",
   "detailed-graphics-addon": "./mods/detailed-graphics-addon.js",
   "better-animations": "./mods/better-animations.js",
+  "better-hud": "./mods/better-hud.js",
   "more-cut-scenes": "./mods/more-cut-scenes.js",
   "more-sfx": "./mods/more-sfx.js",
   "world-slicer": "./mods/world-slicer.js",
@@ -42,7 +43,7 @@ export async function loadMangoMods(api, requestedMods = []) {
   const order = [
     "better-graphics", "world-slicer", "cursor-capture",
     "better-translations", "better-view", "ctrl-shift-lock", "better-cursor-capture", "better-esc",
-    "unquieted", "detailed-graphics-addon", "better-animations", "more-cut-scenes", "more-sfx",
+    "unquieted", "detailed-graphics-addon", "better-animations", "better-hud", "more-cut-scenes", "more-sfx",
     "better-slices", "frames-unlocker"
   ];
   const loaded = [];

@@ -11,6 +11,15 @@ export default {
       if (event.button !== 0 || !canvas.contains(event.target) || !api.isPlaying()) return;
       // A click is the required fresh user gesture after ESC or a browser lock loss.
       if (api.cursorCaptureSuspended) api.cursorCaptureSuspended = false;
+      // In Chromium fullscreen, request Escape Keyboard Lock from the initial trusted click,
+      // not after Escape has already been pressed. Unsupported browsers simply use native ESC.
+      try {
+        const topWindow = window.parent;
+        const keyboard = topWindow.navigator?.keyboard;
+        if (topWindow.document?.fullscreenElement && typeof keyboard?.lock === "function" && !api.keyboardEscapeLocked) {
+          keyboard.lock(["Escape"]).then(() => { api.keyboardEscapeLocked = true; }).catch(() => {});
+        }
+      } catch { /* Cross-document keyboard lock is optional. */ }
       if (document.pointerLockElement !== canvas) api.requestCursorLock().catch(error => console.warn("[CursorCapture] Browser blocked pointer lock", error));
     };
     const onLockChange = () => {
